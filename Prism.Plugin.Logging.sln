@@ -1,0 +1,32 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{C6512747-4699-485B-A017-33C1E97C42B7}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{CAA9DF4E-075D-460A-A0C3-60C568F2CE5F}"
+	ProjectSection(SolutionItems) = preProject
+		global.json = global.json
+	EndProjectSection
+EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Prism.Plugin.Logging", "src\Prism.Plugin.Logging\Prism.Plugin.Logging.xproj", "{794FE8D1-2E9F-48D7-8801-9B2E0C030397}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{794FE8D1-2E9F-48D7-8801-9B2E0C030397}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{794FE8D1-2E9F-48D7-8801-9B2E0C030397}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{794FE8D1-2E9F-48D7-8801-9B2E0C030397}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{794FE8D1-2E9F-48D7-8801-9B2E0C030397}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{794FE8D1-2E9F-48D7-8801-9B2E0C030397} = {C6512747-4699-485B-A017-33C1E97C42B7}
+	EndGlobalSection
+EndGlobal
