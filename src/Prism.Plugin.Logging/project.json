@@ -1,13 +1,33 @@
 ﻿{
   "version": "1.0.0-*",
+  "authors": [ "Dan Siegel" ],
+  "copyright": "AvantiPoint, LLC",
+  "packOptions": {
+    "owners": [ "Dan Siegel" ],
+    "summary": "An easy to use plugin for logging with Prism",
+    "tags": [ "Prism", "Logging" ]
+  },
 
   "dependencies": {
-    "NETStandard.Library": "1.6.0"
+    "Prism.Core": "6.2.0"
   },
 
   "frameworks": {
-    "netstandard1.6": {
-      "imports": "dnxcore50"
-    }
+    ".NETPortable,Version=v4.5,Profile=Profile259": {
+      "buildOptions": {
+        "define": [ "PORTABLE", "PROFILE259" ]
+      }
+    },
+    //".NETPortable,Version=v4.5,Profile=Profile111": {
+    //  "buildOptions": {
+    //    "define": [ "PORTABLE", "PROFILE111" ]
+    //  },
+    //  "frameworkAssemblies": {
+    //    "System": "4.0.0",
+    //    "System.Net": "",
+    //    "System.Net.Http": "",
+    //    "System.Net.Primitives": ""
+    //  }
+    //}
   }
 }
