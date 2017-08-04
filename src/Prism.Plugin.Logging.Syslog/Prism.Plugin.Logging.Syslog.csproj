@@ -3,6 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netstandard1.3</TargetFramework>
     <RootNamespace>Prism.Logging.Syslog</RootNamespace>
+    <Description>Provides implementations and abstractions for writing ILoggerFacade logs to conventional Syslog Servers.</Description>
   </PropertyGroup>
 
   <ItemGroup>

@@ -3,6 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netstandard1.3</TargetFramework>
     <RootNamespace>Prism.Logging.Loggly</RootNamespace>
+    <Description>Provides logging implementations and abstractions for writing ILoggerFacade logs with Loggly's services. This includes implementations using either Loggly Syslog or Loggly's REST based API</Description>
   </PropertyGroup>
 
   <ItemGroup>
