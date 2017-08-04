@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
@@ -7,7 +8,7 @@ using Prism.Logging.Http;
 
 namespace Prism.Logging.Loggly
 {
-    public class LogglyHttpLogger : ILoggerFacade
+    public class LogglyHttpLogger : HttpLogger, ILoggerFacade
     {
         protected const string LogglyUriTemplate = "{0}/{1}/tag/{2}/";
 
@@ -20,20 +21,20 @@ namespace Prism.Logging.Loggly
 
         public void Log(string message, Category category, Priority priority)
         {
-            SendMessage(new
+            PostMessageAsync(new
             {
                 HostName = Dns.GetHostName(),
                 Priority = priority,
                 Category = category,
                 Message = message
-            }).ContinueWith(t => { });
+            }, LogglyUri()).ContinueWith(t => { });
         }
 
         protected virtual string LogglyBaseUri =>
             "https://logs-01.loggly.com";
 
-        protected virtual string LogglyUri() =>
-            string.Format(LogglyUriTemplate, LogglyBaseUri, _options.Token, Tags());
+        protected virtual Uri LogglyUri() =>
+            new Uri(string.Format(LogglyUriTemplate, LogglyBaseUri, _options.Token, Tags()));
 
         protected virtual string Tags()
         {
@@ -46,14 +47,6 @@ namespace Prism.Logging.Loggly
                 tags.Add(encoder.Encode(tag));
             }
             return string.Join(",", tags);
-        }
-
-        protected Task SendMessage(object payload)
-        {
-            using(var client = new HttpClient())
-            {
-                return client.PostAsync(LogglyUri(), new JsonContent(payload));
-            }
         }
     }
 }

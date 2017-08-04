@@ -6,6 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="../Prism.Plugin.Logging.Common/Prism.Plugin.Logging.Common.csproj" />
     <ProjectReference Include="../Prism.Plugin.Logging.Syslog/Prism.Plugin.Logging.Syslog.csproj" />
   </ItemGroup>
 
