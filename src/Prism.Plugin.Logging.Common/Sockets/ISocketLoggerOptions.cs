@@ -9,4 +9,5 @@ namespace Prism.Logging.Sockets
         int Port { get; }
 
         ProtocolType ProtocolType { get; }
+    }
 }
