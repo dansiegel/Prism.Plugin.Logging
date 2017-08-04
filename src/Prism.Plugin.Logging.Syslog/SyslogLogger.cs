@@ -11,7 +11,6 @@ namespace Prism.Logging.Syslog
 {
     public class SyslogLogger : SocketMessenger, ILoggerFacade, ISyslogLogger
     {
-
         public SyslogLogger(ISyslogOptions options)
         {
             HostNameOrIp = ValueOrDefault(options?.HostNameOrIp, "localhost");
@@ -79,6 +78,6 @@ namespace Prism.Logging.Syslog
             Chunkify(baseMessage.ToString(), text);
 
         protected bool SendMessage(SyslogMessage message) => 
-            SendMessage(message.ToString(), HostNameOrIp, Port);
+            SendMessage(message, HostNameOrIp, Port);
     }
 }

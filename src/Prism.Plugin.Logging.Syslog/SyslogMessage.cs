@@ -33,11 +33,8 @@ namespace Prism.Logging.Syslog
 
         protected int Priority => (((int) Facility)*8) + ((int) Level);
 
-        public byte[] GetBytes()
-        {
-            byte[] bytes = Encoding.ASCII.GetBytes(ToString());
-            return bytes;
-        }
+        public byte[] GetBytes() =>
+            Encoding.ASCII.GetBytes(ToString());
 
         public override string ToString() =>
             $"<{Priority}>{DateTimeOffset.Now.ToString("MMM dd HH:mm:ss")} {Dns.GetHostName()} {GetTags()}: {Text}";
