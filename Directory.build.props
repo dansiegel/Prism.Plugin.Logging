@@ -1,18 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
 <Project>
-    <PropertyGroup>
-        <Product>$(AssemblyName) ($(TargetFramework))</Product>
-        <MinClientVersion>2.12</MinClientVersion>
-        <GenerateDocumentationFile Condition=" '$(Configuration)' == 'Release' ">true</GenerateDocumentationFile>
-        <Authors>Dan Siegel</Authors>
-        <Owners>Dan Siegel</Owners>
-        <PackageProjectUrl>https://github.com/dansiegel/Prism.Plugin.Logging</PackageProjectUrl>
-        <PackageLicenseUrl>https://github.com/dansiegel/Prism.Plugin.Logging/blob/master/LICENSE</PackageLicenseUrl>
-        <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
-        <RepositoryType>git</RepositoryType>
-        <RepositoryUrl>https://github.com/dansiegel/Prism.Plugin.Logging</RepositoryUrl>
-        <PackageTags>prism;logging</PackageTags>
-        <NoWarn>$(NoWarn);1701;1702;CS1591</NoWarn>
-        <DefaultLanguage>en-US</DefaultLanguage>
-        <IncludeSymbols>false</IncludeSymbols>
-    </PropertyGroup>
+  <PropertyGroup>
+    <Product>$(AssemblyName) ($(TargetFramework))</Product>
+    <MinClientVersion>2.12</MinClientVersion>
+    <Authors>Dan Siegel</Authors>
+    <Owners>Dan Siegel</Owners>
+    <PackageProjectUrl>https://github.com/dansiegel/Prism.Plugin.Logging</PackageProjectUrl>
+    <PackageLicenseUrl>https://github.com/dansiegel/Prism.Plugin.Logging/blob/master/LICENSE</PackageLicenseUrl>
+    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+    <RepositoryType>git</RepositoryType>
+    <RepositoryUrl>https://github.com/dansiegel/Prism.Plugin.Logging</RepositoryUrl>
+    <PackageTags>prism;logging</PackageTags>
+    <NoWarn>$(NoWarn);1701;1702;CS1591</NoWarn>
+    <DefaultLanguage>en-US</DefaultLanguage>
+    <IncludeSymbols>false</IncludeSymbols>
+    <PackageOutputPath>$(MSBuildThisFileDirectory)Artifacts</PackageOutputPath>
+    <PackageOutputPath Condition=" '$(BUILD_ARTIFACTSTAGINGDIRECTORY)' != '' ">$(BUILD_ARTIFACTSTAGINGDIRECTORY)</PackageOutputPath>
+    <VersionPrefix>1.0.0</VersionPrefix>
+    <VersionPrefix Condition=" '$(BUILD_BUILDNUMBER)' != '' And '$(RELEASEBUILD)' != 'True' ">$(VersionPrefix).$(BUILD_BUILDNUMBER)</VersionPrefix>
+    <VersionSuffix Condition=" '$(BUILD_BUILDNUMBER)' != '' And '$(RELEASEBUILD)' != 'True' ">ci</VersionSuffix>
+    <VersionSuffix Condition=" '$(PREVIEW_NUMBER)' != '' ">pre$(PREVIEW_NUMBER)</VersionSuffix>
+  </PropertyGroup>
+
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <GenerateDocumentationFile>True</GenerateDocumentationFile>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+  </PropertyGroup>
+
 </Project>
