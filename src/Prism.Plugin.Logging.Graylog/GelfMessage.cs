@@ -1,46 +1,112 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
+using System.Globalization;
 using System.Text;
-using System.Threading.Tasks;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Serialization;
+using Prism.Logging.Extensions;
+using Prism.Logging.Sockets;
 
 namespace Prism.Logging.Graylog
 {
-    public class GelfMessage
+    public class GelfMessage : Dictionary<string, object>, ILogMessage
     {
-        [JsonProperty("version")]
-        public string Version { get; } = "1.1";
 
-        [JsonProperty("host")]
-        public string Host { get; set; }
+        private const string FacilityKey = "facility";
+        private const string FileKey = "file";
+        private const string FullMessageKey = "full_message";
+        private const string HostKey = "host";
+        private const string LevelKey = "level";
+        private const string LineKey = "line";
+        private const string ShortMessageKey = "short_message";
+        private const string VersionKey = "version";
+        private const string TimeStampKey = "timestamp";
 
-        [JsonProperty("short_message")]
-        public string ShortMessage { get; set; }
 
-        [JsonProperty("full_message")]
-        public string FullMessage { get; set; }
+        public string Facility
+        {
+            get { return PullStringValue(FacilityKey); }
+            set { StoreValue(FacilityKey, value); }
+        }
 
-        [JsonProperty("timestamp")]
-        public DateTime Timestamp { get; set; }
+        public string File
+        {
+            get { return PullStringValue(FileKey); }
+            set { StoreValue(FileKey, value); }
+        }
 
-        [JsonProperty("level")]
-        public Level Level { get; set; }
+        public string FullMessage
+        {
+            get { return PullStringValue(FullMessageKey); }
+            set { StoreValue(FullMessageKey, value); }
+        }
+        
+        public string Host
+        {
+            get { return PullStringValue(HostKey); }
+            set { StoreValue(HostKey, value); }
+        }
+        
+        public long Level
+        {
+            get
+            {
+                if (!this.ContainsKey(LevelKey))
+                    return int.MinValue;
 
-        [JsonProperty("_facility")]
-        public string Facility { get; set; }
+                return (long)this[LevelKey];
+            }
+            set { StoreValue(LevelKey, value); }
+        }
 
-        [JsonProperty("_line")]
-        public int Line { get; set; }
+        public string Line
+        {
+            get { return PullStringValue(LineKey); }
+            set { StoreValue(LineKey, value); }
+        }
 
-        [JsonProperty("_file")]
-        public string File { get; set; }
+        public string ShortMessage
+        {
+            get { return PullStringValue(ShortMessageKey); }
+            set { StoreValue(ShortMessageKey, value); }
+        }
 
-        [JsonProperty("_application")]
-        public string Application { get; set; }
+        public DateTimeOffset TimeStamp
+        {
+            get
+            {
+                if (!this.ContainsKey(TimeStampKey))
+                    return DateTime.MinValue;
 
-        public override string ToString() =>
-            JsonConvert.SerializeObject(this);
+                var val = this[TimeStampKey];
+                double value;
+                var parsed = double.TryParse(val as string, NumberStyles.Any, CultureInfo.InvariantCulture, out value);
+                return parsed ? value.FromUnixTimestamp() : DateTime.MinValue;
+            }
+            set
+            {
+                StoreValue(TimeStampKey, value.ToUnixTimestamp().ToString(CultureInfo.InvariantCulture));
+            }
+        }
+
+        public string Version
+        {
+            get { return PullStringValue(VersionKey); }
+            set { StoreValue(VersionKey, value); }
+        }
+
+        public byte[] GetBytes() => 
+            Encoding.ASCII.GetBytes(ToString());
+
+        private string PullStringValue(String key)
+        {
+            return ContainsKey(key) ? this[key].ToString() : string.Empty;
+        }
+
+        private void StoreValue(string key, object value)
+        {
+            if (!ContainsKey(key))
+                Add(key, value);
+            else
+                this[key] = value;
+        }
     }
 }

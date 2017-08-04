@@ -12,5 +12,19 @@ namespace Prism.Logging.Extensions
 
         public static string ToSyslog(this DateTimeOffset date) =>
             date.ToString(@"yyyy-MM-ddTHH\:mm\:ss.ffffffzzz");
+
+        public static double ToUnixTimestamp(this DateTimeOffset d)
+        {
+            var duration = d.ToUniversalTime() - new DateTime(1970, 1, 1, 0, 0, 0);
+
+            return duration.TotalSeconds;
+        }
+
+        public static DateTimeOffset FromUnixTimestamp(this double d)
+        {
+            var datetime = new DateTime(1970, 1, 1, 0, 0, 0).AddMilliseconds(d * 1000).ToLocalTime();
+
+            return datetime;
+        }
     }
 }
