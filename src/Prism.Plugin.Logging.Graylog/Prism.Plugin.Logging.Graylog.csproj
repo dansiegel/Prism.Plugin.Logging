@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard1.3</TargetFramework>
+    <RootNamespace>Prism.Logging.Graylog</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="../Prism.Plugin.Logging.Common/Prism.Plugin.Logging.Common.csproj" />
+  </ItemGroup>
+
+</Project>
