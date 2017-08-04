@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp1.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="../../src/Prism.Plugin.Logging.Common/Prism.Plugin.Logging.Common.csproj" />
+    <ProjectReference Include="../../src/Prism.Plugin.Logging.Loggly/Prism.Plugin.Logging.Loggly.csproj" />
+    <ProjectReference Include="../../src/Prism.Plugin.Logging.Syslog/Prism.Plugin.Logging.Syslog.csproj" />
+  </ItemGroup>
+
+</Project>
