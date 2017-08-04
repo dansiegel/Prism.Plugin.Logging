@@ -1,0 +1,18 @@
+<Project>
+    <PropertyGroup>
+        <Product>$(AssemblyName) ($(TargetFramework))</Product>
+        <MinClientVersion>2.12</MinClientVersion>
+        <GenerateDocumentationFile Condition=" '$(Configuration)' == 'Release' ">true</GenerateDocumentationFile>
+        <Authors>Dan Siegel</Authors>
+        <Owners>Dan Siegel</Owners>
+        <PackageProjectUrl>https://github.com/dansiegel/Prism.Plugin.Logging</PackageProjectUrl>
+        <PackageLicenseUrl>https://github.com/dansiegel/Prism.Plugin.Logging/blob/master/LICENSE</PackageLicenseUrl>
+        <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+        <RepositoryType>git</RepositoryType>
+        <RepositoryUrl>https://github.com/dansiegel/Prism.Plugin.Logging</RepositoryUrl>
+        <PackageTags>prism;logging</PackageTags>
+        <NoWarn>$(NoWarn);1701;1702;CS1591</NoWarn>
+        <DefaultLanguage>en-US</DefaultLanguage>
+        <IncludeSymbols>false</IncludeSymbols>
+    </PropertyGroup>
+</Project>
