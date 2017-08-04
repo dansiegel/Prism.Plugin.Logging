@@ -1,4 +1,4 @@
-﻿namespace Prism.Logging.Syslog
+namespace Prism.Logging.Syslog
 {
     public enum Level
     {

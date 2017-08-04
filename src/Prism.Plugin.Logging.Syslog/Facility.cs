@@ -1,4 +1,4 @@
-﻿namespace Prism.Logging.Syslog
+namespace Prism.Logging.Syslog
 {
     // https://en.wikipedia.org/wiki/Syslog
     public enum Facility
