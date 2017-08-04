@@ -19,12 +19,15 @@ namespace Prism.Logging.Sockets
             // Ensure message is split into manageable chunks
             foreach(string chunk in Chunkify(prefix, message))
             {
-                SendMessage($"{prefix}{message}", _options.HostOrIp, _options.Port);
+                SendMessage($"{prefix}{message}");
             }
         }
 
         public override ProtocolType GetProtocolType() =>
             _options.ProtocolType;
+
+        private void SendMessage(string message) =>
+            SendMessage(new BasicMessage { Message = message }, _options.HostOrIp, _options.Port);
 
         private class BasicMessage : ILogMessage
         {

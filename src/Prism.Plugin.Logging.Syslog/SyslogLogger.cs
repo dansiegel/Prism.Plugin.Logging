@@ -18,11 +18,11 @@ namespace Prism.Logging.Syslog
             Port = options?.Port ?? 514;
         }
 
-        protected string HostNameOrIp { get; }
+        protected string HostNameOrIp { get; set; }
 
         protected string AppNameOrTag { get; }
 
-        protected int Port { get; }
+        protected int Port { get; set; }
 
         private string LocalHostName { get; set; }
 
