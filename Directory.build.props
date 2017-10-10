@@ -10,7 +10,7 @@
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <RepositoryType>git</RepositoryType>
     <RepositoryUrl>https://github.com/dansiegel/Prism.Plugin.Logging</RepositoryUrl>
-    <PackageTags>prism;logging</PackageTags>
+    <PackageTags>prism;logging;</PackageTags>
     <NoWarn>$(NoWarn);1701;1702;CS1591</NoWarn>
     <DefaultLanguage>en-US</DefaultLanguage>
     <IncludeSymbols>True</IncludeSymbols>

@@ -4,6 +4,7 @@
     <TargetFramework>netstandard1.3</TargetFramework>
     <RootNamespace>Prism.Logging.Graylog</RootNamespace>
     <Description>Provides logging implementions and abstractions for writing ILoggerFacade logs via Graylog Server's REST API</Description>
+    <PackageTags>$(PackageTags);graylog;gelf</PackageTags>
   </PropertyGroup>
 
   <ItemGroup>
