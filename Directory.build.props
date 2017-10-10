@@ -18,9 +18,10 @@
     <PackageOutputPath>$(MSBuildThisFileDirectory)Artifacts</PackageOutputPath>
     <PackageOutputPath Condition=" '$(BUILD_ARTIFACTSTAGINGDIRECTORY)' != '' ">$(BUILD_ARTIFACTSTAGINGDIRECTORY)</PackageOutputPath>
     <VersionPrefix>1.0.0</VersionPrefix>
-    <VersionPrefix Condition=" '$(BUILD_BUILDNUMBER)' != '' And '$(RELEASEBUILD)' != 'True' ">$(VersionPrefix).$(BUILD_BUILDNUMBER)</VersionPrefix>
-    <VersionSuffix Condition=" '$(BUILD_BUILDNUMBER)' != '' And '$(RELEASEBUILD)' != 'True' ">ci</VersionSuffix>
-    <VersionSuffix Condition=" '$(PREVIEW_NUMBER)' != '' ">pre$(PREVIEW_NUMBER)</VersionSuffix>
+    <IS_PREVIEW Condition=" '$(IS_PREVIEW)' == '' ">false</IS_PREVIEW>
+    <VersionPrefix Condition=" '$(BUILD_BUILDNUMBER)' != '' ">$(VersionPrefix).$(BUILD_BUILDNUMBER)</VersionPrefix>
+    <VersionSuffix Condition=" '$(BUILD_BUILDNUMBER)' != '' And '$(IS_RELEASE)' != 'true' ">ci</VersionSuffix>
+    <VersionSuffix Condition=" '$(IS_PREVIEW)' ">pre</VersionSuffix>
   </PropertyGroup>
 
   <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
