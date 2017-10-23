@@ -27,7 +27,7 @@ namespace Prism.Logging.Loggly
                 Priority = priority,
                 Category = category,
                 Message = message
-            }, LogglyUri());
+            }, LogglyUri()).ContinueWith(t => { });
         }
 
         protected virtual string LogglyBaseUri =>

@@ -5,13 +5,18 @@ using Prism.Logging.Sockets;
 
 namespace Prism.Logging.Http
 {
-    public class HttpLogger
+    public class HttpLogger : IDisposable
     {
-        private static HttpClient _client = new HttpClient();
+        private readonly HttpClient _client = new HttpClient();
 
         protected Task<HttpResponseMessage> PostMessageAsync(object message, Uri requestUri)
         {
             return _client.PostAsync(requestUri, new JsonContent(message));
+        }
+
+        public void Dispose()
+        {
+            _client?.Dispose();
         }
     }
 }
