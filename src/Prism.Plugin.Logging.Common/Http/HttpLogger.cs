@@ -7,11 +7,11 @@ namespace Prism.Logging.Http
 {
     public class HttpLogger
     {
+        private static HttpClient _client = new HttpClient();
+
         protected Task<HttpResponseMessage> PostMessageAsync(object message, Uri requestUri)
         {
-            var client = new HttpClient();
-
-            return client.PostAsync(requestUri, new JsonContent(message));
+            return _client.PostAsync(requestUri, new JsonContent(message));
         }
     }
 }
