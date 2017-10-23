@@ -9,10 +9,9 @@ namespace Prism.Logging.Http
     {
         protected Task<HttpResponseMessage> PostMessageAsync(object message, Uri requestUri)
         {
-            using(var client = new HttpClient())
-            {
-                return client.PostAsync(requestUri, new JsonContent(message));
-            }
+            var client = new HttpClient();
+
+            return client.PostAsync(requestUri, new JsonContent(message));
         }
     }
 }
