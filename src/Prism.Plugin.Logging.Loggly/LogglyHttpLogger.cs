@@ -10,7 +10,7 @@ namespace Prism.Logging.Loggly
 {
     public class LogglyHttpLogger : HttpLogger, ILoggerFacade
     {
-        protected const string LogglyUriTemplate = "{0}/{1}/tag/{2}/";
+        protected const string LogglyUriTemplate = "{0}/inputs/{1}/tag/{2}/";
 
         protected ILogglyOptions _options { get; }
 
