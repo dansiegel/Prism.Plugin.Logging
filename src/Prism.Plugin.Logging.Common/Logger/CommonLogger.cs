@@ -10,7 +10,15 @@ namespace Prism.Logging.Logger
     {
         public async void Log(string message, Category category, Priority priority)
         {
-            var result = await LogAsync(message, category, priority).ConfigureAwait(continueOnCapturedContext: false);
+            bool result = false;
+            try
+            {
+                result = await LogAsync(message, category, priority).ConfigureAwait(continueOnCapturedContext: false);
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine(e.Message);
+            }
 
             if (!result)
             {

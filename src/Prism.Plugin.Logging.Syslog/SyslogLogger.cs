@@ -6,13 +6,19 @@ using System;
 using System.Runtime.InteropServices;
 using System.Net;
 using System.Net.Sockets;
+using System.Threading.Tasks;
+using Prism.Logging.Logger;
 
 namespace Prism.Logging.Syslog
 {
-    public class SyslogLogger : SocketMessenger, ILoggerFacade, ISyslogLogger
+    public class SyslogLogger : CommonLogger, ILoggerFacade, ISyslogLogger
     {
+        private readonly ISocketMessenger _messenger;
+
         public SyslogLogger(ISyslogOptions options)
         {
+            _messenger=new SocketMessenger();
+
             HostNameOrIp = ValueOrDefault(options?.HostNameOrIp, "localhost");
             AppNameOrTag = ValueOrDefault(options?.AppNameOrTag, "PrismApp");
             Port = options?.Port ?? 514;
@@ -26,8 +32,25 @@ namespace Prism.Logging.Syslog
 
         private string LocalHostName { get; set; }
 
-        public virtual void Log(string message, Category category, Priority priority) =>
-            Log(message, category.ToLevel());
+        protected override async Task<bool> LogAsync(string message, Category category, Priority priority)
+        {
+            var level = category.ToLevel();
+            var facility = Facility.Local0;
+
+            var syslogMessage = GetSyslogMessage(null, level, facility);
+
+            // Ensure message is split into manageable chunks
+            bool isSuccess = true;
+            foreach (string chunk in Chunkify(syslogMessage, message))
+            {
+                syslogMessage.Text = message;
+                var result = await SendMessageAsync(syslogMessage).ConfigureAwait(continueOnCapturedContext: false);
+                if (!result)
+                    isSuccess = false;
+            }
+
+            return isSuccess;
+        }
 
         public virtual void Log(string message, Level level, Facility facility = Facility.Local0)
         {
@@ -37,7 +60,7 @@ namespace Prism.Logging.Syslog
             foreach(string chunk in Chunkify(syslogMessage, message))
             {
                 syslogMessage.Text = message;
-                SendMessage(syslogMessage);
+                SendMessageAsync(syslogMessage);
             }
         }
 
@@ -75,9 +98,13 @@ namespace Prism.Logging.Syslog
         }
 
         protected IEnumerable<string> Chunkify(SyslogMessage baseMessage, string text) =>
-            Chunkify(baseMessage.ToString(), text);
+            _messenger.Chunkify(baseMessage.ToString(), text);
 
-        protected bool SendMessage(SyslogMessage message) => 
-            SendMessage(message, HostNameOrIp, Port);
+        protected async Task<bool> SendMessageAsync(SyslogMessage message)
+        {
+            var result = await _messenger.SendMessageAsync(message, HostNameOrIp, Port)
+                .ConfigureAwait(continueOnCapturedContext: false);
+            return result;
+        } 
     }
 }
