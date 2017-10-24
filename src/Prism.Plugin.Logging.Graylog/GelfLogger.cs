@@ -19,21 +19,37 @@ namespace Prism.Logging.Graylog
 
         public void Log(string message, Level level = Level.Debug)
         {
+            LogAsync(message, level);
+        }
+
+        public void Log(GelfMessage message) =>
+            LogAsync(message);
+
+        public async Task<bool> LogAsync(string message, Level level = Level.Debug)
+        {
             var gelf = new GelfMessage()
             {
                 FullMessage = message,
                 Level = (long)level
             };
 
-            Log(gelf);
+            var result= await LogAsync(gelf).ConfigureAwait(continueOnCapturedContext: false);
+
+            return result;
         }
 
-        public void Log(GelfMessage message) =>
-            PostMessageAsync(message, new Uri(_options.Host, "gelf")).ContinueWith(t => { });
-
-        public void Log(string message, Category category, Priority priority)
+        public async Task<bool> LogAsync(GelfMessage message)
         {
-            Log(message, category.ToLevel());
+            var result=await PostMessageAsync(message, new Uri(_options.Host, "gelf"))
+                .ConfigureAwait(continueOnCapturedContext: false);
+            return result.IsSuccessStatusCode;
+        }
+
+        protected override async Task<bool> LogAsync(string message, Category category, Priority priority)
+        {
+            var result=await LogAsync(message, category.ToLevel()).ConfigureAwait(continueOnCapturedContext:false);
+
+            return result;
         }
     }
 }

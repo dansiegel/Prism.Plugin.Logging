@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Net.Http;
 using System.Threading.Tasks;
+using Prism.Logging.Logger;
 using Prism.Logging.Sockets;
 
 namespace Prism.Logging.Http
 {
-    public class HttpLogger : IDisposable
+    public abstract class HttpLogger : CommonLogger, IDisposable
     {
         private readonly HttpClient _client = new HttpClient();
 

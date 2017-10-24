@@ -8,6 +8,8 @@ namespace LoggingDemo
 {
     class Program
     {
+        private const int Repetitions = 1;
+
         static bool Continue = true;
         const string Generic = "Generic Syslog";
         const string LogglySyslog = "Loggly Syslog";
@@ -24,7 +26,11 @@ namespace LoggingDemo
                 {
                     break;
                 }
-                logger.Log(message, Category.Debug, Priority.None);
+
+                for (int i = 0; i < Repetitions; i++)
+                {
+                    logger.Log(Repetitions>1?message+$":{i}":message, Category.Debug, Priority.None);
+                }
             }
 
             Console.WriteLine("Thanks for logging");

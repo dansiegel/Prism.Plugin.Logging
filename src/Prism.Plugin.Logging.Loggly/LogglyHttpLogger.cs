@@ -19,15 +19,17 @@ namespace Prism.Logging.Loggly
             _options = options;
         }
 
-        public void Log(string message, Category category, Priority priority)
+        protected override async Task<bool> LogAsync(string message, Category category, Priority priority)
         {
-            PostMessageAsync(new
+            var result = await PostMessageAsync(new
             {
                 HostName = Dns.GetHostName(),
                 Priority = priority,
                 Category = category,
                 Message = message
-            }, LogglyUri()).ContinueWith(t => { });
+            }, LogglyUri()).ConfigureAwait(continueOnCapturedContext: false);
+
+            return result.IsSuccessStatusCode;
         }
 
         protected virtual string LogglyBaseUri =>
