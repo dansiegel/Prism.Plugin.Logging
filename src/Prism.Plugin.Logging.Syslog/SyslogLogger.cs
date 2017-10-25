@@ -11,14 +11,11 @@ using Prism.Logging.Logger;
 
 namespace Prism.Logging.Syslog
 {
-    public class SyslogLogger : CommonLogger, ILoggerFacade, ISyslogLogger
+    public class SyslogLogger : SocketMessenger, ILoggerFacade, ISyslogLogger, ILogger
     {
-        private readonly ISocketMessenger _messenger;
 
         public SyslogLogger(ISyslogOptions options)
         {
-            _messenger=new SocketMessenger();
-
             HostNameOrIp = ValueOrDefault(options?.HostNameOrIp, "localhost");
             AppNameOrTag = ValueOrDefault(options?.AppNameOrTag, "PrismApp");
             Port = options?.Port ?? 514;
@@ -32,7 +29,10 @@ namespace Prism.Logging.Syslog
 
         private string LocalHostName { get; set; }
 
-        protected override async Task<bool> LogAsync(string message, Category category, Priority priority)
+        public virtual void Log(string message, Category category, Priority priority) =>
+            LogAsync(message, category, priority);
+
+        public async Task<bool> LogAsync(string message, Category category, Priority priority)
         {
             var level = category.ToLevel();
             var facility = Facility.Local0;
@@ -98,11 +98,11 @@ namespace Prism.Logging.Syslog
         }
 
         protected IEnumerable<string> Chunkify(SyslogMessage baseMessage, string text) =>
-            _messenger.Chunkify(baseMessage.ToString(), text);
+            Chunkify(baseMessage.ToString(), text);
 
         protected async Task<bool> SendMessageAsync(SyslogMessage message)
         {
-            var result = await _messenger.SendMessageAsync(message, HostNameOrIp, Port)
+            var result = await SendMessageAsync(message, HostNameOrIp, Port)
                 .ConfigureAwait(continueOnCapturedContext: false);
             return result;
         } 

@@ -6,7 +6,7 @@ using Prism.Logging.Sockets;
 
 namespace Prism.Logging.Http
 {
-    public abstract class HttpLogger : CommonLogger, IDisposable
+    public abstract class HttpLogger : IDisposable
     {
         private readonly HttpClient _client = new HttpClient();
 

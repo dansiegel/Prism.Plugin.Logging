@@ -6,14 +6,21 @@ using System.Threading.Tasks;
 
 namespace Prism.Logging.Logger
 {
-    public abstract class CommonLogger:ILoggerFacade
+    public class NetworkResilencyLogger : ILoggerFacade
     {
+        private ILogger _logger;
+
+        public NetworkResilencyLogger(ILogger logger)
+        {
+            _logger = logger;
+        }
+
         public async void Log(string message, Category category, Priority priority)
         {
             bool result = false;
             try
             {
-                result = await LogAsync(message, category, priority).ConfigureAwait(continueOnCapturedContext: false);
+                result = await _logger.LogAsync(message, category, priority).ConfigureAwait(continueOnCapturedContext: false);
             }
             catch (Exception e)
             {
@@ -30,7 +37,5 @@ namespace Prism.Logging.Logger
         {
             Debug.WriteLine(message);
         }
-
-        protected abstract Task<bool> LogAsync(string message, Category category, Priority priority);
     }
 }

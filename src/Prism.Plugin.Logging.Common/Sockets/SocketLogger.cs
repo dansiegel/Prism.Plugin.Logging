@@ -5,25 +5,24 @@ using Prism.Logging.Logger;
 
 namespace Prism.Logging.Sockets
 {
-    public class SocketLogger : CommonLogger, ILoggerFacade
+    public class SocketLogger : SocketMessenger, ILoggerFacade, ILogger
     {
-        private readonly ISocketMessenger _messenger;
-
         private ISocketLoggerOptions _options { get; }
 
         public SocketLogger(ISocketLoggerOptions options)
         {
             _options = options;
-            _messenger = new SocketLoggerMessenger(_options);
         }
 
-        protected override async Task<bool> LogAsync(string message, Category category, Priority priority)
+        public void Log(string message, Category category, Priority priority) => LogAsync(message, category, priority);
+
+        public async Task<bool> LogAsync(string message, Category category, Priority priority)
         {
             var prefix = $"{category} {priority}: ";
 
             // Ensure message is split into manageable chunks
             bool isSuccess = true;
-            foreach (string chunk in _messenger.Chunkify(prefix, message))
+            foreach (string chunk in Chunkify(prefix, message))
             {
                 var result=await SendMessageAsync($"{prefix}{message}").ConfigureAwait(continueOnCapturedContext: false);
                 if (!result)
@@ -34,11 +33,11 @@ namespace Prism.Logging.Sockets
         }
 
         private void SendMessage(string message) =>
-            _messenger.SendMessage(new BasicMessage { Message = message }, _options.HostOrIp, _options.Port);
+            SendMessage(new BasicMessage { Message = message }, _options.HostOrIp, _options.Port);
 
         private async Task<bool> SendMessageAsync(string message)
         {
-            var result = await _messenger.SendMessageAsync(new BasicMessage {Message = message}, _options.HostOrIp, _options.Port)
+            var result = await SendMessageAsync(new BasicMessage {Message = message}, _options.HostOrIp, _options.Port)
                 .ConfigureAwait(continueOnCapturedContext: false);
 
             return result;

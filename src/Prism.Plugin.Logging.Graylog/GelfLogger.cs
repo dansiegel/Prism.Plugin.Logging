@@ -4,11 +4,12 @@ using System.Net.Sockets;
 using System.Threading.Tasks;
 using Prism.Logging.Graylog.Extensions;
 using Prism.Logging.Http;
+using Prism.Logging.Logger;
 using Prism.Logging.Sockets;
 
 namespace Prism.Logging.Graylog
 {
-    public class GelfLogger : HttpLogger, IGelfLogger, ILoggerFacade
+    public class GelfLogger : HttpLogger, IGelfLogger, ILoggerFacade, ILogger
     {
         protected IGelfOptions _options { get; }
 
@@ -24,6 +25,8 @@ namespace Prism.Logging.Graylog
 
         public void Log(GelfMessage message) =>
             LogAsync(message);
+
+        public void Log(string message, Category category, Priority priority) => LogAsync(message, category, priority);
 
         public async Task<bool> LogAsync(string message, Level level = Level.Debug)
         {
@@ -45,7 +48,7 @@ namespace Prism.Logging.Graylog
             return result.IsSuccessStatusCode;
         }
 
-        protected override async Task<bool> LogAsync(string message, Category category, Priority priority)
+        public async Task<bool> LogAsync(string message, Category category, Priority priority)
         {
             var result=await LogAsync(message, category.ToLevel()).ConfigureAwait(continueOnCapturedContext:false);
 

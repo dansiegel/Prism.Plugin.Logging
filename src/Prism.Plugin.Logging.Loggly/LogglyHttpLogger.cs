@@ -5,10 +5,11 @@ using System.Net.Http;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
 using Prism.Logging.Http;
+using Prism.Logging.Logger;
 
 namespace Prism.Logging.Loggly
 {
-    public class LogglyHttpLogger : HttpLogger, ILoggerFacade
+    public class LogglyHttpLogger : HttpLogger, ILoggerFacade, ILogger
     {
         protected const string LogglyUriTemplate = "{0}/inputs/{1}/tag/{2}/";
 
@@ -19,7 +20,10 @@ namespace Prism.Logging.Loggly
             _options = options;
         }
 
-        protected override async Task<bool> LogAsync(string message, Category category, Priority priority)
+        public void Log(string message, Category category, Priority priority) =>
+            LogAsync(message, category, priority);
+
+        public async Task<bool> LogAsync(string message, Category category, Priority priority)
         {
             var result = await PostMessageAsync(new
             {
