@@ -20,7 +20,7 @@ namespace Prism.Logging.Sockets
             {
                 var endpoint = GetEndPoint(hostOrIp, port);
 
-                if(endpoint == null)
+                if (endpoint == null)
                 {
                     return false;
                 }

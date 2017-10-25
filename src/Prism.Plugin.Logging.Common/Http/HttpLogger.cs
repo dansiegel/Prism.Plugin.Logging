@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Net.Http;
 using System.Threading.Tasks;
-using Prism.Logging.Logger;
-using Prism.Logging.Sockets;
 
 namespace Prism.Logging.Http
 {

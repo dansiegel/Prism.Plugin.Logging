@@ -32,6 +32,9 @@ namespace Prism.Logging.Sockets
             return isSuccess;
         }
 
+        public override ProtocolType GetProtocolType() =>
+            _options.ProtocolType;
+
         private void SendMessage(string message) =>
             SendMessage(new BasicMessage { Message = message }, _options.HostOrIp, _options.Port);
 
