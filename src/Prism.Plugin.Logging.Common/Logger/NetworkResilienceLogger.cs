@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace Prism.Logging.Logger
 {
-    public class NetworkResilencyLogger : ILoggerFacade
+    public class NetworkResilienceLogger : ILoggerFacade
     {
         private ILogger _logger;
 
-        public NetworkResilencyLogger(ILogger logger)
+        public NetworkResilienceLogger(ILogger logger)
         {
             _logger = logger;
         }

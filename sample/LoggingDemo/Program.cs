@@ -16,8 +16,8 @@ namespace LoggingDemo
         const string Generic = "Generic Syslog";
         const string LogglySyslog = "Loggly Syslog";
         const string LogglyHttp = "Loggly Http";
-        const string NetworkResilencyGeneric = "Network Resilency Generic Syslog";
-        const string NetworkResilencyLogglyHttp = "NetworkResilency Loggly Http";
+        const string NetworkResilienceGeneric = "Network Resilience Generic Syslog";
+        const string NetworkResilienceLogglyHttp = "Network Resilience Loggly Http";
 
         static void Main(string[] args)
         {
@@ -42,7 +42,7 @@ namespace LoggingDemo
 
         private static ILoggerFacade GetLogger()
         {
-            switch(ConsoleUtility.Option("Which Logger would you like to use?", Generic, LogglySyslog, LogglyHttp, NetworkResilencyGeneric, NetworkResilencyLogglyHttp, "Quit"))
+            switch(ConsoleUtility.Option("Which Logger would you like to use?", Generic, LogglySyslog, LogglyHttp, NetworkResilienceGeneric, NetworkResilienceLogglyHttp, "Quit"))
             {
                 case Generic:
                     var genOptions = new Options
@@ -57,16 +57,16 @@ namespace LoggingDemo
                     return new LogglySyslogLogger(GetLogglyOptions());
                 case LogglyHttp:
                     return new LogglyHttpLogger(GetLogglyOptions());
-                case NetworkResilencyGeneric:
+                case NetworkResilienceGeneric:
                     genOptions = new Options
                     {
                         HostNameOrIp = ConsoleUtility.Question("What is the Host Name or IP of your Syslog Server?"),
                         Port = ConsoleUtility.Question<int>("What is the port your Syslog Server is listening on?"),
                         AppNameOrTag = "LoggingDemo"
                     };
-                    return new NetworkResilencyLogger(new SyslogLogger(genOptions));
-                case NetworkResilencyLogglyHttp:
-                    return new NetworkResilencyLogger(new LogglyHttpLogger(GetLogglyOptions()));
+                    return new NetworkResilienceLogger(new SyslogLogger(genOptions));
+                case NetworkResilienceLogglyHttp:
+                    return new NetworkResilienceLogger(new LogglyHttpLogger(GetLogglyOptions()));
                 case "Quit":
                     break;
                 default:
