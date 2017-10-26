@@ -18,13 +18,9 @@ namespace Prism.Logging.Graylog
             _options = options;
         }
 
-        public void Log(string message, Level level = Level.Debug)
-        {
-            LogAsync(message, level);
-        }
+        public void Log(string message, Level level = Level.Debug) => LogAsync(message, level);
 
-        public void Log(GelfMessage message) =>
-            LogAsync(message);
+        public void Log(GelfMessage message) => LogAsync(message);
 
         public void Log(string message, Category category, Priority priority) => LogAsync(message, category, priority);
 

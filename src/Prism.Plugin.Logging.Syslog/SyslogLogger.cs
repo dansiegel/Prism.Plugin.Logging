@@ -29,8 +29,7 @@ namespace Prism.Logging.Syslog
 
         private string LocalHostName { get; set; }
 
-        public virtual void Log(string message, Category category, Priority priority) =>
-            LogAsync(message, category, priority);
+        public virtual void Log(string message, Category category, Priority priority) => LogAsync(message, category, priority);
 
         public async Task<bool> LogAsync(string message, Category category, Priority priority)
         {

@@ -20,8 +20,7 @@ namespace Prism.Logging.Loggly
             _options = options;
         }
 
-        public void Log(string message, Category category, Priority priority) =>
-            LogAsync(message, category, priority);
+        public void Log(string message, Category category, Priority priority) => LogAsync(message, category, priority);
 
         public async Task<bool> LogAsync(string message, Category category, Priority priority)
         {

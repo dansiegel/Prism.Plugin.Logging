@@ -5,6 +5,7 @@ using Prism.Logging;
 using Prism.Logging.Logger;
 using Prism.Logging.Loggly;
 using Prism.Logging.Syslog;
+using Prism.Logging.TestsHelpers;
 
 namespace LoggingDemo
 {
@@ -18,6 +19,7 @@ namespace LoggingDemo
         const string LogglyHttp = "Loggly Http";
         const string NetworkResilienceGeneric = "Network Resilience Generic Syslog";
         const string NetworkResilienceLogglyHttp = "Network Resilience Loggly Http";
+        const string NetworkResilienceErrorLogger = "Network Resilience ErrorLogger";
 
         static void Main(string[] args)
         {
@@ -42,7 +44,7 @@ namespace LoggingDemo
 
         private static ILoggerFacade GetLogger()
         {
-            switch(ConsoleUtility.Option("Which Logger would you like to use?", Generic, LogglySyslog, LogglyHttp, NetworkResilienceGeneric, NetworkResilienceLogglyHttp, "Quit"))
+            switch(ConsoleUtility.Option("Which Logger would you like to use?", Generic, LogglySyslog, LogglyHttp, NetworkResilienceGeneric, NetworkResilienceLogglyHttp, NetworkResilienceErrorLogger, "Quit"))
             {
                 case Generic:
                     var genOptions = new Options
@@ -64,9 +66,11 @@ namespace LoggingDemo
                         Port = ConsoleUtility.Question<int>("What is the port your Syslog Server is listening on?"),
                         AppNameOrTag = "LoggingDemo"
                     };
-                    return new NetworkResilienceLogger(new SyslogLogger(genOptions));
+                    return new NetworkResilienceLogger(new SyslogLogger(genOptions), new NotPersistentLogsRepository());
                 case NetworkResilienceLogglyHttp:
-                    return new NetworkResilienceLogger(new LogglyHttpLogger(GetLogglyOptions()));
+                    return new NetworkResilienceLogger(new LogglyHttpLogger(GetLogglyOptions()), new NotPersistentLogsRepository());
+                case NetworkResilienceErrorLogger:
+                    return new NetworkResilienceLogger(new ErrorLogger(), new NotPersistentLogsRepository());
                 case "Quit":
                     break;
                 default:
