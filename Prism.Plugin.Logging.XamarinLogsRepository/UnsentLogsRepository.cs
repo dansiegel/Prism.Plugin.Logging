@@ -1,13 +1,11 @@
 ﻿using System;
 using System.Collections.Concurrent;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Text;
 using Newtonsoft.Json;
+using Prism.Logging.Logger;
 using Xamarin.Forms;
-using Xamarin.Forms.Internals;
+using Log = Prism.Logging.Logger.Log;
 
-namespace Prism.Logging.Logger
+namespace Prism.Plugin.Logging.XamarinLogsRepository
 {
     public class UnsentLogsRepository : IDisposable, IUnsentLogsRepository
     {
