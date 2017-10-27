@@ -2,12 +2,25 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:LoggingDemoXF"
-             x:Class="LoggingDemoXF.MainPage">
+             x:Class="LoggingDemoXF.MainPage"
+             Padding="20">
+    
+    <ContentPage.BindingContext>
+        <local:MainPageViewModel/>
+    </ContentPage.BindingContext>
+    
     <ContentPage.Content>
         <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
+            <Label Text="LogglyHttp Setup"/>
+            <Entry Placeholder="Token" 
+                   Text="{Binding LogglyToken}"/>
+            <Button Text="Create Logger" Command="{Binding CreateLoggerCommand}"/>
+            <Label Text="Log"/>
+            <Entry Placeholder="Message"
+                   Text="{Binding Message}"/>
+            <Button Text="Send" 
+                    Command="{Binding SendLogCommand}"/>
         </StackLayout>
     </ContentPage.Content>
+    
 </ContentPage>

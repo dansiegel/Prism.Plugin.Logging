@@ -10,6 +10,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\src\Prism.Plugin.Logging.Common\Prism.Plugin.Logging.Common.csproj" />
+    <ProjectReference Include="..\..\..\src\Prism.Plugin.Logging.Loggly\Prism.Plugin.Logging.Loggly.csproj" />
     <ProjectReference Include="..\..\..\src\Prism.Plugin.Logging.XamarinLogsRepository\Prism.Plugin.Logging.XamarinLogsRepository.csproj" />
   </ItemGroup>
 

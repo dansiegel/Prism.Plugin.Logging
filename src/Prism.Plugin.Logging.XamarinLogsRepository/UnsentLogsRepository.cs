@@ -41,7 +41,10 @@ namespace Prism.Plugin.Logging.XamarinLogsRepository
         private void StoreLogs()
         {
             string json = JsonConvert.SerializeObject(_logs);
-            Application.Current.Properties.Add(UnsentLogKey, json);
+            
+
+            Application.Current.Properties[UnsentLogKey] = json;
+
 
             Application.Current.SavePropertiesAsync().Wait();
         }
