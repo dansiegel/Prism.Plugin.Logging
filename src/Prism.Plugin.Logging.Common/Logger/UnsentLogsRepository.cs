@@ -8,6 +8,7 @@ namespace Prism.Logging.Logger
     {
         private IPlatformStringStorage _logsStorage;
 
+        private bool _disposed = false;
         private ConcurrentQueue<Log> _logs;
 
         public UnsentLogsRepository(IPlatformStringStorage logsStorage)
@@ -20,16 +21,15 @@ namespace Prism.Logging.Logger
         private void InitializeLogs()
         {
             var json = _logsStorage.Read();
-
-             _logs = JsonConvert.DeserializeObject<ConcurrentQueue<Log>>((string)json);
-
-            _logs=new ConcurrentQueue<Log>();
+            if (json != String.Empty)
+            {
+                _logs = JsonConvert.DeserializeObject<ConcurrentQueue<Log>>((string) json);
+            }
+            else
+            {
+                _logs = new ConcurrentQueue<Log>();
+            }
             
-        }
-
-        public void Dispose()
-        {
-            StoreLogs();
         }
 
         private void StoreLogs()
@@ -46,6 +46,7 @@ namespace Prism.Logging.Logger
         {
             _logs.Enqueue(log);
 
+            StoreLogs();
             return true;
         }
 
@@ -82,5 +83,25 @@ namespace Prism.Logging.Logger
 
             return log;
         }
+
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!_disposed)
+            {
+                if (disposing)
+                {
+                    StoreLogs();
+                }
+                _disposed = true;
+            }
+        }
+
+        ~UnsentLogsRepository() { Dispose(false); }
     }
 }

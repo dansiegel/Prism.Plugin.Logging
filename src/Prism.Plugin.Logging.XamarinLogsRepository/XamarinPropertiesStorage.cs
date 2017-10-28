@@ -23,7 +23,12 @@ namespace Prism.Plugin.Logging.XamarinLogsRepository
         public bool Write(string data)
         {
             Application.Current.Properties[UnsentLogKey] = data;
+            
+            return true;
+        }
 
+        public bool Save()
+        {
             Application.Current.SavePropertiesAsync().Wait();
 
             return true;

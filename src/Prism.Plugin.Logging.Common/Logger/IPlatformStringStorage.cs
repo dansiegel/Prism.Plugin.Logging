@@ -4,5 +4,6 @@
     {
         string Read();
         bool Write(string data);
+        bool Save();
     }
 }

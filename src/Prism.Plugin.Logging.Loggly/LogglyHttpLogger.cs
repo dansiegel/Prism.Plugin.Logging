@@ -24,15 +24,22 @@ namespace Prism.Logging.Loggly
 
         public async Task<bool> LogAsync(string message, Category category, Priority priority)
         {
-            var result = await PostMessageAsync(new
+            try
             {
-                HostName = Dns.GetHostName(),
-                Priority = priority,
-                Category = category,
-                Message = message
-            }, LogglyUri()).ConfigureAwait(continueOnCapturedContext: false);
+                var result = await PostMessageAsync(new
+                {
+                    HostName = Dns.GetHostName(),
+                    Priority = priority,
+                    Category = category,
+                    Message = message
+                }, LogglyUri()).ConfigureAwait(continueOnCapturedContext: false);
 
-            return result.IsSuccessStatusCode;
+                return result.IsSuccessStatusCode;
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
         }
 
         protected virtual string LogglyBaseUri =>
@@ -43,13 +50,12 @@ namespace Prism.Logging.Loggly
 
         protected virtual string Tags()
         {
-            var encoder = UrlEncoder.Default;
             var tags = new List<string>{
-                encoder.Encode(_options.AppName)
+                WebUtility.UrlEncode(_options.AppName)
             };
-            foreach(var tag in _options.Tags)
+            foreach (var tag in _options.Tags)
             {
-                tags.Add(encoder.Encode(tag));
+                tags.Add(WebUtility.UrlEncode(tag));
             }
             return string.Join(",", tags);
         }

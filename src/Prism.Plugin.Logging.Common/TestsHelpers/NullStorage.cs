@@ -16,5 +16,10 @@ namespace Prism.Logging.TestsHelpers
         {
             return true;
         }
+
+        public bool Save()
+        {
+            return true;
+        }
     }
 }

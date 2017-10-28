@@ -86,7 +86,7 @@ namespace Prism.Logging.Logger
             };
 
             _unsentLogs.Add(log);
-
+            
             Debug.WriteLine(message);
         }
     }
