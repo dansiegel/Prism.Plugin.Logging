@@ -66,11 +66,11 @@ namespace LoggingDemo
                         Port = ConsoleUtility.Question<int>("What is the port your Syslog Server is listening on?"),
                         AppNameOrTag = "LoggingDemo"
                     };
-                    return new NetworkResilienceLogger(new SyslogLogger(genOptions), new NotPersistentLogsRepository());
+                    return new NetworkResilienceLogger(new SyslogLogger(genOptions), new UnsentLogsRepository(new NullStorage()));
                 case NetworkResilienceLogglyHttp:
-                    return new NetworkResilienceLogger(new LogglyHttpLogger(GetLogglyOptions()), new NotPersistentLogsRepository());
+                    return new NetworkResilienceLogger(new LogglyHttpLogger(GetLogglyOptions()), new UnsentLogsRepository(new NullStorage()));
                 case NetworkResilienceErrorLogger:
-                    return new NetworkResilienceLogger(new ErrorLogger(), new NotPersistentLogsRepository());
+                    return new NetworkResilienceLogger(new ErrorLogger(), new UnsentLogsRepository(new NullStorage()));
                 case "Quit":
                     break;
                 default:

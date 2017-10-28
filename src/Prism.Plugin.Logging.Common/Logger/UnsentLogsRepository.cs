@@ -1,33 +1,27 @@
 ﻿using System;
 using System.Collections.Concurrent;
 using Newtonsoft.Json;
-using Prism.Logging.Logger;
-using Xamarin.Forms;
-using Log = Prism.Logging.Logger.Log;
 
-namespace Prism.Plugin.Logging.XamarinLogsRepository
+namespace Prism.Logging.Logger
 {
     public class UnsentLogsRepository : IDisposable, IUnsentLogsRepository
     {
-        private const string UnsentLogKey = "UnsentLogs";
+        private IPlatformStringStorage _logsStorage;
 
         private ConcurrentQueue<Log> _logs;
 
-        public UnsentLogsRepository()
+        public UnsentLogsRepository(IPlatformStringStorage logsStorage)
         {
+            _logsStorage = logsStorage;
+
             InitializeLogs();
-           
         }
 
         private void InitializeLogs()
         {
-            if (Application.Current.Properties.ContainsKey(UnsentLogKey))
-            {
-                if (Application.Current.Properties.TryGetValue(UnsentLogKey, out var json))
-                {
-                    _logs = JsonConvert.DeserializeObject<ConcurrentQueue<Log>>((string)json);
-                }
-            }
+            var json = _logsStorage.Read();
+
+             _logs = JsonConvert.DeserializeObject<ConcurrentQueue<Log>>((string)json);
 
             _logs=new ConcurrentQueue<Log>();
             
@@ -41,12 +35,9 @@ namespace Prism.Plugin.Logging.XamarinLogsRepository
         private void StoreLogs()
         {
             string json = JsonConvert.SerializeObject(_logs);
-            
-
-            Application.Current.Properties[UnsentLogKey] = json;
 
 
-            Application.Current.SavePropertiesAsync().Wait();
+            _logsStorage.Write(json);
         }
 
         public bool IsEmpty => _logs.IsEmpty;

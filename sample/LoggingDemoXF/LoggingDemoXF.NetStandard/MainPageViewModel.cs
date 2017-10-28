@@ -8,6 +8,7 @@ using Prism.Logging;
 using Prism.Logging.Logger;
 using Prism.Logging.Loggly;
 using Prism.Logging.TestsHelpers;
+using Prism.Plugin.Logging.XamarinLogsRepository;
 using Xamarin.Forms;
 
 namespace LoggingDemoXF
@@ -77,8 +78,7 @@ namespace LoggingDemoXF
 
             Application.Current.Properties[LogglyTokenKey] = LogglyToken;
 
-
-            _logger = new NetworkResilienceLogger(new LogglyHttpLogger(GetLogglyOptions()), new NotPersistentLogsRepository());
+            _logger = new NetworkResilienceLogger(new LogglyHttpLogger(GetLogglyOptions()), new UnsentLogsRepository(new XamarinPropertiesStorage()));
 
             ((Command)SendLogCommand).ChangeCanExecute();
             ((Command)CreateLoggerCommand).ChangeCanExecute();
