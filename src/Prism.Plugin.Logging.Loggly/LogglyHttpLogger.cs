@@ -38,13 +38,12 @@ namespace Prism.Logging.Loggly
 
         protected virtual string Tags()
         {
-            var encoder = UrlEncoder.Default;
             var tags = new List<string>{
-                encoder.Encode(_options.AppName)
+                WebUtility.UrlEncode(_options.AppName)
             };
-            foreach(var tag in _options.Tags)
+            foreach (var tag in _options.Tags)
             {
-                tags.Add(encoder.Encode(tag));
+                tags.Add(WebUtility.UrlEncode(tag));
             }
             return string.Join(",", tags);
         }
