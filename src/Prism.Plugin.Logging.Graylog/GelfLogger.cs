@@ -4,11 +4,12 @@ using System.Net.Sockets;
 using System.Threading.Tasks;
 using Prism.Logging.Graylog.Extensions;
 using Prism.Logging.Http;
+using Prism.Logging.Logger;
 using Prism.Logging.Sockets;
 
 namespace Prism.Logging.Graylog
 {
-    public class GelfLogger : HttpLogger, IGelfLogger, ILoggerFacade
+    public class GelfLogger : HttpLogger, IGelfLogger, ILoggerFacade, ILogger
     {
         protected IGelfOptions _options { get; }
 
@@ -17,7 +18,13 @@ namespace Prism.Logging.Graylog
             _options = options;
         }
 
-        public void Log(string message, Level level = Level.Debug)
+        public void Log(string message, Level level = Level.Debug) => LogAsync(message, level);
+
+        public void Log(GelfMessage message) => LogAsync(message);
+
+        public void Log(string message, Category category, Priority priority) => LogAsync(message, category, priority);
+
+        public async Task<bool> LogAsync(string message, Level level = Level.Debug)
         {
             var gelf = new GelfMessage()
             {
@@ -25,15 +32,23 @@ namespace Prism.Logging.Graylog
                 Level = (long)level
             };
 
-            Log(gelf);
+            var result= await LogAsync(gelf).ConfigureAwait(continueOnCapturedContext: false);
+
+            return result;
         }
 
-        public void Log(GelfMessage message) =>
-            PostMessageAsync(message, new Uri(_options.Host, "gelf")).ContinueWith(t => { });
-
-        public void Log(string message, Category category, Priority priority)
+        public async Task<bool> LogAsync(GelfMessage message)
         {
-            Log(message, category.ToLevel());
+            var result=await PostMessageAsync(message, new Uri(_options.Host, "gelf"))
+                .ConfigureAwait(continueOnCapturedContext: false);
+            return result.IsSuccessStatusCode;
+        }
+
+        public async Task<bool> LogAsync(string message, Category category, Priority priority)
+        {
+            var result=await LogAsync(message, category.ToLevel()).ConfigureAwait(continueOnCapturedContext:false);
+
+            return result;
         }
     }
 }

@@ -20,15 +20,15 @@ namespace Prism.Logging.Sockets
             {
                 var endpoint = GetEndPoint(hostOrIp, port);
 
-                if(endpoint == null)
+                if (endpoint == null)
                 {
                     return false;
                 }
 
                 using(var socket = new Socket(endpoint.AddressFamily, SocketType.Dgram, ProtocolType.Udp))
                 {
-                    await socket.ConnectAsync(endpoint);
-                    if(!socket.Connected)
+                    await socket.ConnectAsync(endpoint).ConfigureAwait(continueOnCapturedContext: false);
+                    if (!socket.Connected)
                     {
                         return false;
                     }
@@ -43,8 +43,8 @@ namespace Prism.Logging.Sockets
                         // HACK: To ensure that the data packet fits in the buffer size
                         data = data.SubArray(socket.SendBufferSize);
                     }
-
-                    await socket.SendToAsync(data.ToArraySegment(), SocketFlags.None, endpoint);
+                    
+                    await socket.SendToAsync(data.ToArraySegment(), SocketFlags.None, endpoint).ConfigureAwait(continueOnCapturedContext:false);
                     return true;
                 }
 
