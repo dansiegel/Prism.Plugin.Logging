@@ -16,6 +16,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Prism.Plugin.Logging.Loggly
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Prism.Plugin.Logging.Syslog", "src\Prism.Plugin.Logging.Syslog\Prism.Plugin.Logging.Syslog.csproj", "{2A0D2E06-03AA-4568-AC2E-15B6D696AC5A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Prism.Plugin.Logging.AppCenter", "src\Prism.Plugin.Logging.AppCenter\Prism.Plugin.Logging.AppCenter.csproj", "{69CE9686-6547-4DB0-9853-3FD4361D408A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -86,6 +88,18 @@ Global
 		{2A0D2E06-03AA-4568-AC2E-15B6D696AC5A}.Release|x64.Build.0 = Release|Any CPU
 		{2A0D2E06-03AA-4568-AC2E-15B6D696AC5A}.Release|x86.ActiveCfg = Release|Any CPU
 		{2A0D2E06-03AA-4568-AC2E-15B6D696AC5A}.Release|x86.Build.0 = Release|Any CPU
+		{69CE9686-6547-4DB0-9853-3FD4361D408A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{69CE9686-6547-4DB0-9853-3FD4361D408A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{69CE9686-6547-4DB0-9853-3FD4361D408A}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{69CE9686-6547-4DB0-9853-3FD4361D408A}.Debug|x64.Build.0 = Debug|Any CPU
+		{69CE9686-6547-4DB0-9853-3FD4361D408A}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{69CE9686-6547-4DB0-9853-3FD4361D408A}.Debug|x86.Build.0 = Debug|Any CPU
+		{69CE9686-6547-4DB0-9853-3FD4361D408A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{69CE9686-6547-4DB0-9853-3FD4361D408A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{69CE9686-6547-4DB0-9853-3FD4361D408A}.Release|x64.ActiveCfg = Release|Any CPU
+		{69CE9686-6547-4DB0-9853-3FD4361D408A}.Release|x64.Build.0 = Release|Any CPU
+		{69CE9686-6547-4DB0-9853-3FD4361D408A}.Release|x86.ActiveCfg = Release|Any CPU
+		{69CE9686-6547-4DB0-9853-3FD4361D408A}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -96,6 +110,7 @@ Global
 		{FCADC794-1180-4DD3-95CA-220C73FA88DC} = {84F14C91-D01C-40B7-A94A-FCADF767DA61}
 		{2E99BD33-3141-4BA9-8931-1FA8F94ECF69} = {84F14C91-D01C-40B7-A94A-FCADF767DA61}
 		{2A0D2E06-03AA-4568-AC2E-15B6D696AC5A} = {84F14C91-D01C-40B7-A94A-FCADF767DA61}
+		{69CE9686-6547-4DB0-9853-3FD4361D408A} = {84F14C91-D01C-40B7-A94A-FCADF767DA61}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {2BEC0104-620A-444E-BC40-9BAE322DD9C7}

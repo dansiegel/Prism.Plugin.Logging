@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AppCenter.Analytics" Version="1.6.1" />
+    <PackageReference Include="Microsoft.AppCenter.Crashes" Version="1.6.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Prism.Plugin.Logging.Common\Prism.Plugin.Logging.Common.csproj" />
+  </ItemGroup>
+
+</Project>
