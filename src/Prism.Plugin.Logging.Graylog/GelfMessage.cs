@@ -9,7 +9,6 @@ namespace Prism.Logging.Graylog
 {
     public class GelfMessage : Dictionary<string, object>, ILogMessage
     {
-
         private const string FacilityKey = "facility";
         private const string FileKey = "file";
         private const string FullMessageKey = "full_message";
@@ -20,6 +19,21 @@ namespace Prism.Logging.Graylog
         private const string VersionKey = "version";
         private const string TimeStampKey = "timestamp";
 
+        public GelfMessage()
+        {
+
+        }
+
+        public GelfMessage(IDictionary<string, string> properties)
+        {
+            if(properties != null)
+            {
+                foreach(var prop in properties)
+                {
+                    Add(prop.Key, prop.Value);
+                }
+            }
+        }
 
         public string Facility
         {
@@ -103,6 +117,8 @@ namespace Prism.Logging.Graylog
 
         private void StoreValue(string key, object value)
         {
+            if (value == null) return;
+
             if (!ContainsKey(key))
                 Add(key, value);
             else

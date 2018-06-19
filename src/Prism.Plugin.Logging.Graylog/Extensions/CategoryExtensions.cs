@@ -4,6 +4,16 @@ namespace Prism.Logging.Graylog.Extensions
 {
     public static class CategoryExtensions
     {
+        public static Level ToLevel(this Category? category)
+        {
+            if(category.HasValue)
+            {
+                return category.Value.ToLevel();
+            }
+
+            return Level.Debug;
+        }
+
         public static Level ToLevel(this Category category)
         {
             switch (category)
