@@ -12,7 +12,7 @@ namespace Prism.Logging.AppCenter
     {
         public AppCenterLogger()
         {
-            IsDebug = Assembly.GetExecutingAssembly().GetCustomAttributes(false).OfType<DebuggableAttribute>().Any(da => da.IsJITTrackingEnabled);
+            IsDebug = Assembly.GetEntryAssembly().GetCustomAttributes(false).OfType<DebuggableAttribute>().Any(da => da.IsJITTrackingEnabled);
         }
 
         private bool IsDebug { get; }
