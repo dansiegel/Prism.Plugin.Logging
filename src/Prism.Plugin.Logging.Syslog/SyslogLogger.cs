@@ -1,15 +1,13 @@
-using Prism.Logging.Extensions;
-using Prism.Logging.Syslog.Extensions;
-using System.Collections.Generic;
-using Prism.Logging.Sockets;
 using System;
-using System.Runtime.InteropServices;
+using System.Collections.Generic;
 using System.Net;
 using System.Net.Sockets;
+using Prism.Logging.Sockets;
+using Prism.Logging.Syslog.Extensions;
 
 namespace Prism.Logging.Syslog
 {
-    public class SyslogLogger : SocketMessenger, ILoggerFacade, ISyslogLogger
+    public class SyslogLogger : SocketMessenger, ILogger, ISyslogLogger
     {
         public SyslogLogger(ISyslogOptions options)
         {
@@ -79,5 +77,30 @@ namespace Prism.Logging.Syslog
 
         protected bool SendMessage(SyslogMessage message) => 
             SendMessage(message, HostNameOrIp, Port);
+
+        public void Log(string message, IDictionary<string, string> properties)
+        {
+            var level = Level.Debug;
+            var facility = Facility.Daemon;
+            if(properties.ContainsKey(nameof(Category)) && Enum.TryParse(properties[nameof(Category)], out Category category))
+            {
+                level = category.ToLevel();
+            }
+            if(properties.ContainsKey(nameof(Facility)) && Enum.TryParse(properties[nameof(Facility)], out Facility fac))
+            {
+                facility = fac;
+            }
+
+            var syslog = new SyslogMessage(facility, level, message)
+            {
+                AppName = AppNameOrTag
+            };
+            SendMessage(syslog);
+        }
+
+        public void Report(Exception ex, IDictionary<string, string> properties)
+        {
+            Log(ex.ToString(), properties);
+        }
     }
 }

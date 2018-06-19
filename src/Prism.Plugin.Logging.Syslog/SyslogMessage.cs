@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Text;
-using Prism.Logging.Extensions;
 using Prism.Logging.Sockets;
 
 namespace Prism.Logging.Syslog
