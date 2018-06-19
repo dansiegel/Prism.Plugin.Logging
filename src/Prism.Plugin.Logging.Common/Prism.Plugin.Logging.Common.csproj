@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>netstandard1.3;netstandard2.0</TargetFrameworks>
+    <TargetFrameworks>netstandard2.0</TargetFrameworks>
     <RootNamespace>Prism.Logging</RootNamespace>
     <Description>Provides common logging abstractions and a basic networking logger for sending ILoggerFacade logs to a TCP/UDP server</Description>
   </PropertyGroup>

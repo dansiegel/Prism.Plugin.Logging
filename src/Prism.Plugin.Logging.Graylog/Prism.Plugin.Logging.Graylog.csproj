@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>netstandard1.3;netstandard2.0</TargetFrameworks>
+    <TargetFrameworks>netstandard2.0</TargetFrameworks>
     <RootNamespace>Prism.Logging.Graylog</RootNamespace>
     <Description>Provides logging implementions and abstractions for writing ILoggerFacade logs via Graylog Server's REST API</Description>
     <PackageTags>$(PackageTags);graylog;gelf</PackageTags>
