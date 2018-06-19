@@ -1,7 +1,7 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard1.3</TargetFramework>
+    <TargetFrameworks>netstandard1.3;netstandard2.0</TargetFrameworks>
     <RootNamespace>Prism.Logging.Syslog</RootNamespace>
     <Description>Provides implementations and abstractions for writing ILoggerFacade logs to conventional Syslog Servers.</Description>
     <PackageTags>$(PackageTags);syslog</PackageTags>

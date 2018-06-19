@@ -1,7 +1,7 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard1.3</TargetFramework>
+    <TargetFrameworks>netstandard1.3;netstandard2.0</TargetFrameworks>
     <RootNamespace>Prism.Logging.Loggly</RootNamespace>
     <Description>Provides logging implementations and abstractions for writing ILoggerFacade logs with Loggly's services. This includes implementations using either Loggly Syslog or Loggly's REST based API</Description>
     <PackageTags>$(PackageTags);loggly;syslog;</PackageTags>
