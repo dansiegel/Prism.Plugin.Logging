@@ -2,6 +2,9 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <RootNamespace>Prism.Logging.AppCenter</RootNamespace>
+    <Description>Provides implementations and abstractions for writing ILoggerFacade &amp; ILogger logs to App Center.</Description>
+    <PackageTags>$(PackageTags);appcenter</PackageTags>
   </PropertyGroup>
 
   <ItemGroup>

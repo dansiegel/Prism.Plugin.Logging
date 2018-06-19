@@ -6,15 +6,13 @@ using System.Reflection;
 using Microsoft.AppCenter.Analytics;
 using Microsoft.AppCenter.Crashes;
 
-using Prism.Logging;
-
-namespace Prism.Plugin.Logging.AppCenter
+namespace Prism.Logging.AppCenter
 {
     public class AppCenterLogger : ILogger
     {
         public AppCenterLogger()
         {
-            IsDebug = Assembly.GetExecutingAssembly().CustomAttributes.Any(a => a is DebuggableAttribute);
+            IsDebug = Assembly.GetExecutingAssembly().GetCustomAttributes(false).OfType<DebuggableAttribute>().Any(da => da.IsJITTrackingEnabled);
         }
 
         private bool IsDebug { get; }
