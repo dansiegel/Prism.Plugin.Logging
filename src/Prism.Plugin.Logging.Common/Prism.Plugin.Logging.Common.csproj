@@ -1,7 +1,9 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="MSBuild.Sdk.Extras">
 
   <PropertyGroup>
-    <TargetFrameworks>netstandard2.0</TargetFrameworks>
+    <TargetFrameworks></TargetFrameworks>
+    <TargetFrameworks Condition=" '$(OS)' == 'Windows_NT' ">netstandard2.0;net45;uap10.0.15063</TargetFrameworks>
+    <TargetFrameworks Condition=" '$(OS)' == 'Windows_NT' ">netstandard2.0;net45</TargetFrameworks>
     <RootNamespace>Prism.Logging</RootNamespace>
     <Description>Provides common logging abstractions and a basic networking logger for sending ILoggerFacade logs to a TCP/UDP server</Description>
   </PropertyGroup>
@@ -9,6 +11,10 @@
   <ItemGroup>
     <PackageReference Include="Prism.Core" Version="7.0.0.396" />
     <PackageReference Include="Newtonsoft.Json" Version="10.0.3" />
+  </ItemGroup>
+
+  <ItemGroup Condition=" '$(TargetFramework)' == 'net45' ">
+    <Reference Include="System.Net.Http" />
   </ItemGroup>
 
 </Project>
