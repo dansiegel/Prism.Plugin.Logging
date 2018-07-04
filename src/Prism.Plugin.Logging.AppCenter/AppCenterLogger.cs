@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
+using System.Timers;
 using Microsoft.AppCenter.Analytics;
 using Microsoft.AppCenter.Crashes;
 
@@ -13,18 +14,25 @@ namespace Prism.Logging.AppCenter
         public AppCenterLogger()
         {
             IsDebug = Assembly.GetEntryAssembly().GetCustomAttributes(false).OfType<DebuggableAttribute>().Any(da => da.IsJITTrackingEnabled);
+
+            if(!IsDebug)
+            {
+                AnalyticsEnabled();
+                CrashesEnabled();
+                Timer = new Timer(15 * 1000);
+                Timer.Elapsed += Timer_Elapsed;
+                Timer.Start();
+            }
         }
 
+        private Timer Timer { get; }
         private bool IsDebug { get; }
         private bool analyticsEnabled = false;
         private bool crashesEnabled = false;
 
-        private DateTime? analyticsChecked = null;
-        private DateTime? crashesChecked = null;
-
         public void Log(string message, IDictionary<string, string> properties)
         {
-            if(AnalyticsEnabled())
+            if(IsDebug || !analyticsEnabled)
             {
                 DebugLog(message, properties);
                 return;
@@ -44,7 +52,7 @@ namespace Prism.Logging.AppCenter
 
         public void Report(Exception ex, IDictionary<string, string> properties)
         {
-            if (CrashesEnabled())
+            if (IsDebug || !crashesEnabled)
             {
                 if (properties == null) properties = new Dictionary<string, string>();
 
@@ -69,30 +77,21 @@ namespace Prism.Logging.AppCenter
             }
         }
 
+
+        private void Timer_Elapsed(object sender, ElapsedEventArgs e)
+        {
+            AnalyticsEnabled();
+            CrashesEnabled();
+        }
+
         private bool AnalyticsEnabled()
         {
-            if (analyticsEnabled) return analyticsEnabled;
-
-            if(analyticsChecked.HasValue && analyticsChecked.Value < DateTime.Now.AddSeconds(-30))
-            {
-                analyticsEnabled = Analytics.IsEnabledAsync().GetAwaiter().GetResult();
-                analyticsChecked = DateTime.Now;
-            }
-
-            return analyticsEnabled;
+            return analyticsEnabled = Analytics.IsEnabledAsync().GetAwaiter().GetResult();
         }
 
         private bool CrashesEnabled()
         {
-            if (crashesEnabled) return crashesEnabled;
-
-            if (crashesChecked.HasValue && crashesChecked.Value < DateTime.Now.AddSeconds(-30))
-            {
-                crashesEnabled = Crashes.IsEnabledAsync().GetAwaiter().GetResult();
-                crashesChecked = DateTime.Now;
-            }
-
-            return crashesEnabled;
+            return crashesEnabled = Crashes.IsEnabledAsync().GetAwaiter().GetResult();
         }
     }
 }
