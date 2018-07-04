@@ -1,0 +1,20 @@
+﻿<Project Sdk="MSBuild.Sdk.Extras">
+
+  <PropertyGroup>
+    <TargetFrameworks>netstandard2.0</TargetFrameworks>
+    <!-- <TargetFrameworks Condition=" '$(OS)' == 'Windows_NT' ">netstandard2.0;Xamarin.iOS10;MonoAndroid81;net45;uap10.0.15063</TargetFrameworks>
+    <TargetFrameworks Condition=" '$(OS)' != 'Windows_NT' ">netstandard2.0;Xamarin.iOS10;MonoAndroid81;net45</TargetFrameworks> -->
+    <RootNamespace>Prism.Logging.AppInsights</RootNamespace>
+    <Description>Provides implementations and abstractions for writing ILoggerFacade &amp; ILogger logs to Application Insights.</Description>
+    <PackageTags>$(PackageTags);appinsights</PackageTags>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.ApplicationInsights" Version="2.6.4" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Prism.Plugin.Logging.Common\Prism.Plugin.Logging.Common.csproj" />
+  </ItemGroup>
+
+</Project>
