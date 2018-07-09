@@ -5,7 +5,6 @@ using System.Linq;
 using System.Reflection;
 using System.Threading;
 using Microsoft.ApplicationInsights;
-using Prism.Logging;
 
 namespace Prism.Logging.AppInsights
 {
@@ -19,15 +18,35 @@ namespace Prism.Logging.AppInsights
 
         public AppInsightsLogger(IApplicationInsightsOptions options)
         {
-            var isDebug = Assembly.GetEntryAssembly().GetCustomAttributes(false).OfType<DebuggableAttribute>().Any(da => da.IsJITTrackingEnabled);
-
-            if(!isDebug)
+            if(!IsDebugBuild())
             {
                 _options = options;
                 Startup();
             }
             
         }
+
+        private bool IsDebugBuild()
+        {
+            try
+            {
+                var entryAssembly = Assembly.GetEntryAssembly();
+                if (entryAssembly == null)
+                {
+                    return new StackTrace().GetFrames().Select(f => f.GetMethod().DeclaringType.Assembly).Distinct().Any(a => IsDebugAssembly(a));
+                }
+
+                return IsDebugAssembly(entryAssembly);
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine(ex);
+                return false;
+            }
+        }
+
+        private bool IsDebugAssembly(Assembly assembly) =>
+            assembly.GetCustomAttributes(false).OfType<DebuggableAttribute>().Any(da => da.IsJITTrackingEnabled);
 
         internal void Startup()
         {

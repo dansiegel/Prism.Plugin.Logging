@@ -13,7 +13,7 @@ namespace Prism.Logging.AppCenter
     {
         public AppCenterLogger()
         {
-            IsDebug = Assembly.GetEntryAssembly().GetCustomAttributes(false).OfType<DebuggableAttribute>().Any(da => da.IsJITTrackingEnabled);
+            IsDebug = IsDebugBuild();
 
             if(!IsDebug)
             {
@@ -24,6 +24,28 @@ namespace Prism.Logging.AppCenter
                 Timer.Start();
             }
         }
+
+        private bool IsDebugBuild()
+        {
+            try
+            {
+                var entryAssembly = Assembly.GetEntryAssembly();
+                if(entryAssembly == null)
+                {
+                    var stackTrace = new StackTrace();
+                    return stackTrace.GetFrames().Select(f => f.GetMethod().DeclaringType.Assembly).Distinct().Any(a => IsDebugAssembly(a));
+                }
+
+                return IsDebugAssembly(entryAssembly);
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        private bool IsDebugAssembly(Assembly assembly) =>
+            assembly.GetCustomAttributes(false).OfType<DebuggableAttribute>().Any(da => da.IsJITTrackingEnabled);
 
         private Timer Timer { get; }
         private bool IsDebug { get; }
