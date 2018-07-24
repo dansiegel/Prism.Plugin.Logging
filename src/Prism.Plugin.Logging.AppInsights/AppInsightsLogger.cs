@@ -10,6 +10,11 @@ namespace Prism.Logging.AppInsights
 {
     public class AppInsightsLogger : ILogger
     {
+        private static Assembly StartupAssembly = null;
+
+        public static void Init(object assemblyType) =>
+            StartupAssembly = assemblyType.GetType().Assembly;
+
         private TelemetryClient _telemetry;
         private CancellationTokenSource source;
         private CancellationToken token;
@@ -33,7 +38,7 @@ namespace Prism.Logging.AppInsights
                 var entryAssembly = Assembly.GetEntryAssembly();
                 if (entryAssembly == null)
                 {
-                    return new StackTrace().GetFrames().Select(f => f.GetMethod().DeclaringType.Assembly).Distinct().Any(a => IsDebugAssembly(a));
+                    entryAssembly = StartupAssembly;
                 }
 
                 return IsDebugAssembly(entryAssembly);
@@ -46,7 +51,9 @@ namespace Prism.Logging.AppInsights
         }
 
         private bool IsDebugAssembly(Assembly assembly) =>
-            assembly.GetCustomAttributes(false).OfType<DebuggableAttribute>().Any(da => da.IsJITTrackingEnabled);
+            assembly?.GetCustomAttributes(false)
+                    .OfType<DebuggableAttribute>()
+                    .Any(da => da.IsJITTrackingEnabled) ?? false;
 
         internal void Startup()
         {
