@@ -11,6 +11,8 @@ Prism's ILoggerFacade provides logging of all internal Prism errors, and a quick
 | Package | NuGet | MyGet |
 |-------|:-----:|:------:|
 | Prism.Logging.Common | [![CommonLoggingShield]][CommonLoggingNuGet] | [![CommonLoggingMyGetShield]][CommonLoggingMyGet] |
+| Prism.Logging.AppCenter | [![AppCenterLoggingShield]][AppCenterLoggingNuGet] | [![AppCenterLoggingMyGetShield]][AppCenterLoggingMyGet] |
+| Prism.Logging.AppCenter | [![AppInsightsLoggingShield]][AppInsightsLoggingNuGet] | [![AppInsightsLoggingMyGetShield]][AppInsightsLoggingMyGet] |
 | Prism.Logging.Graylog | [![GraylogLoggingShield]][GraylogLoggingNuGet] | [![GraylogLoggingMyGetShield]][GraylogLoggingMyGet] |
 | Prism.Logging.Loggly | [![LogglyLoggingShield]][LogglyLoggingNuGet] | [![LogglyLoggingMyGetShield]][LogglyLoggingMyGet] |
 | Prism.Logging.Syslog | [![SyslogLoggingShield]][SyslogLoggingNuGet] | [![SyslogLoggingMyGetShield]][SyslogLoggingMyGet] |
@@ -28,6 +30,14 @@ The Plugin supports various Network based Logging providers to better assist you
 ### App Center & Application Insights
 
 The App Center and Application Insights packages both make some assumptions that while running a Debug build that the logging output should be sent to the Application Output (the console in the IDE). Simply running a Release build will trigger the logger to attempt to send telemetry using the App Center or Application Insights SDK's.
+
+#### Using Application Insights
+
+Application Insights requires that you have an Instrumentation Key to create the client. In addition you may pass any root telemetry you wish about your users. This could include the Device type, OS version, etc. You are able to pass both the Instrumentation Key and User Traits to the Application Insights Logger using the `IApplicationInsightsOptions`. Note that Prism.Forms developers may want implement this on a Platform Specific basis and register this with the `IPlatformInitializer`.
+
+#### Debug Logging
+
+Both the App Center and Application Insights loggers attempt to make a determination if the build is a Debug build. This is done based on the entry assembly. All Debug builds will automatically write to the Device Console. The Console will also be used if the underlying service is not available. This could occur becuase you failed to start App Center Crashes or Analyics, or provided the wrong client id for either App Center or Application Insights.
 
 ### SocketLogger
 
@@ -153,7 +163,6 @@ public class App : PrismApplication
 [AppCenterLoggingShield]: https://img.shields.io/nuget/vpre/Prism.Plugin.Logging.AppCenter.svg
 [AppCenterLoggingMyGet]: https://www.myget.org/feed/prism/package/nuget/Prism.Plugin.Logging.AppCenter
 [AppCenterLoggingMyGetShield]: https://img.shields.io/myget/prism-plugins/vpre/Prism.Plugin.Logging.AppCenter.svg
-
 
 [GraylogLoggingNuGet]: https://www.nuget.org/packages/Prism.Plugin.Logging.Graylog
 [GraylogLoggingShield]: https://img.shields.io/nuget/vpre/Prism.Plugin.Logging.Graylog.svg
