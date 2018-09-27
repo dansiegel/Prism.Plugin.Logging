@@ -9,7 +9,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Prism.Core" Version="7.0.0.396" />
+    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0-beta-63127-02">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Prism.Core" Version="7.1.0.279-pre" />
     <PackageReference Include="Newtonsoft.Json" Version="10.0.3" />
   </ItemGroup>
 

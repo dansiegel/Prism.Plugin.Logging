@@ -6,22 +6,32 @@
     <Authors>Dan Siegel</Authors>
     <Owners>Dan Siegel</Owners>
     <PackageProjectUrl>https://github.com/dansiegel/Prism.Plugin.Logging</PackageProjectUrl>
-    <PackageLicenseUrl>https://github.com/dansiegel/Prism.Plugin.Logging/blob/master/LICENSE</PackageLicenseUrl>
+    <PackageLicenseUrl>https://raw.githubusercontent.com/dansiegel/Prism.Plugin.Logging/master/LICENSE</PackageLicenseUrl>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <RepositoryType>git</RepositoryType>
-    <RepositoryUrl>https://github.com/dansiegel/Prism.Plugin.Logging</RepositoryUrl>
+    <RepositoryUrl>https://github.com/dansiegel/Prism.Plugin.Logging.git</RepositoryUrl>
     <PackageTags>prism;logging;</PackageTags>
     <NoWarn>$(NoWarn);1701;1702;CS1591</NoWarn>
     <DefaultLanguage>en-US</DefaultLanguage>
     <IncludeSymbols>True</IncludeSymbols>
     <IncludeSource>True</IncludeSource>
+    <IS_PREVIEW Condition=" '$(IS_PREVIEW)' == '' ">false</IS_PREVIEW>
+    <IS_RELEASE Condition=" '$(IS_RELEASE)' == '' ">false</IS_RELEASE>
     <PackageOutputPath>$(MSBuildThisFileDirectory)Artifacts</PackageOutputPath>
     <PackageOutputPath Condition=" '$(BUILD_ARTIFACTSTAGINGDIRECTORY)' != '' ">$(BUILD_ARTIFACTSTAGINGDIRECTORY)</PackageOutputPath>
-    <VersionPrefix>1.1.0</VersionPrefix>
+    <VersionPrefix>1.1.1</VersionPrefix>
     <IS_PREVIEW Condition=" '$(IS_PREVIEW)' == '' ">false</IS_PREVIEW>
     <VersionPrefix Condition=" '$(BUILD_BUILDNUMBER)' != '' ">$(VersionPrefix).$(BUILD_BUILDNUMBER)</VersionPrefix>
-    <VersionSuffix Condition=" '$(BUILD_BUILDNUMBER)' != '' And '$(IS_RELEASE)' != 'true' ">ci</VersionSuffix>
+    <VersionSuffix>ci</VersionSuffix>
     <VersionSuffix Condition=" '$(IS_PREVIEW)' ">pre</VersionSuffix>
+    <VersionSuffix Condition=" '$(IS_RELEASE)' "></VersionSuffix>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <!-- Nuget source link -->
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
+    <EmbedUntrackedSources>true</EmbedUntrackedSources>
+    <AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb</AllowedOutputExtensionsInPackageBuildOutputFolder>
   </PropertyGroup>
 
   <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
