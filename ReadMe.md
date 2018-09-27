@@ -4,7 +4,7 @@ Prism's ILoggerFacade provides logging of all internal Prism errors, and a quick
 
 **NOTE** These packages only take a dependency on Prism.Core and as such will work in any project using Prism.
 
-![Current Build][buildStatus]
+[![Build Status](https://dev.azure.com/dansiegel/Prism.Plugins/_apis/build/status/Prism.Plugins.Logging-CI)](https://dev.azure.com/dansiegel/Prism.Plugins/_build/latest?definitionId=29)
 
 ## NuGet
 
@@ -178,5 +178,3 @@ public class App : PrismApplication
 [SyslogLoggingShield]: https://img.shields.io/nuget/vpre/Prism.Plugin.Logging.Syslog.svg
 [SyslogLoggingMyGet]: https://www.myget.org/feed/prism/package/nuget/Prism.Plugin.Logging.Syslog
 [SyslogLoggingMyGetShield]: https://img.shields.io/myget/prism-plugins/vpre/Prism.Plugin.Logging.Syslog.svg
-
-[buildStatus]: https://dansiegel.visualstudio.com/6e9062a8-b622-4f65-978b-1f630d6b7776/_apis/build/status/5
