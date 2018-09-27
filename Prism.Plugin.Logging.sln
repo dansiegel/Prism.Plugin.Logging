@@ -18,7 +18,14 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Prism.Plugin.Logging.Syslog
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Prism.Plugin.Logging.AppCenter", "src\Prism.Plugin.Logging.AppCenter\Prism.Plugin.Logging.AppCenter.csproj", "{69CE9686-6547-4DB0-9853-3FD4361D408A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Prism.Plugin.Logging.AppInsights", "src\Prism.Plugin.Logging.AppInsights\Prism.Plugin.Logging.AppInsights.csproj", "{0650E421-9A39-4175-BA0C-5B400F2B249D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Prism.Plugin.Logging.AppInsights", "src\Prism.Plugin.Logging.AppInsights\Prism.Plugin.Logging.AppInsights.csproj", "{0650E421-9A39-4175-BA0C-5B400F2B249D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{8BCA18F8-A1C6-43B4-A855-799E43819BC9}"
+	ProjectSection(SolutionItems) = preProject
+		Directory.build.props = Directory.build.props
+		global.json = global.json
+		ReadMe.md = ReadMe.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
