@@ -12,7 +12,7 @@ Prism's ILoggerFacade provides logging of all internal Prism errors, and a quick
 |-------|:-----:|:------:|
 | Prism.Logging.Common | [![CommonLoggingShield]][CommonLoggingNuGet] | [![CommonLoggingMyGetShield]][CommonLoggingMyGet] |
 | Prism.Logging.AppCenter | [![AppCenterLoggingShield]][AppCenterLoggingNuGet] | [![AppCenterLoggingMyGetShield]][AppCenterLoggingMyGet] |
-| Prism.Logging.AppCenter | [![AppInsightsLoggingShield]][AppInsightsLoggingNuGet] | [![AppInsightsLoggingMyGetShield]][AppInsightsLoggingMyGet] |
+| Prism.Logging.AppInsights | [![AppInightsLoggingShield]][AppInightsLoggingNuGet] | [![AppInightsLoggingMyGetShield]][AppInightsLoggingMyGet] |
 | Prism.Logging.Graylog | [![GraylogLoggingShield]][GraylogLoggingNuGet] | [![GraylogLoggingMyGetShield]][GraylogLoggingMyGet] |
 | Prism.Logging.Loggly | [![LogglyLoggingShield]][LogglyLoggingNuGet] | [![LogglyLoggingMyGetShield]][LogglyLoggingMyGet] |
 | Prism.Logging.Syslog | [![SyslogLoggingShield]][SyslogLoggingNuGet] | [![SyslogLoggingMyGetShield]][SyslogLoggingMyGet] |
