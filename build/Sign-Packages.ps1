@@ -6,21 +6,37 @@ if([string]::IsNullOrEmpty($env:SignClientSecret)){
     return;
 }
 
-dotnet tool install SignClient -g
+dotnet tool install --tool-path . SignClient
 
 # Setup Variables we need to pass into the sign client tool
 
 $appSettings = "$currentDirectory\appsettings.json"
 $fileList = "$currentDirectory\filelist.txt"
 
-$nupkgs = gci $env:BUILD_ARTIFACTSTAGINGDIRECTORY\Prism.*.nupkg -recurse | Select-Object -ExpandProperty FullName
+$azureAd = @{
+    SignClient = @{
+        AzureAd = @{
+            AADInstance = $env:SignClientAADInstance
+            ClientId = $env:SignClientClientId
+            TenantId = $env:SignClientTenantId
+        }
+        Service = @{
+            Url = $env:SignServiceUrl
+            ResourceId = $env:SignServiceResourceId
+        }
+    }
+}
+
+$azureAd | ConvertTo-Json -Compress | Out-File $appSettings
+
+$nupkgs = Get-ChildItem $env:BUILD_ARTIFACTSTAGINGDIRECTORY\*.nupkg -recurse | Select-Object -ExpandProperty FullName
 
 foreach ($nupkg in $nupkgs){
-  Write-Host "Submitting $nupkg for signing"
+    Write-Host "Submitting $nupkg for signing"
 
-  SignClient 'sign' -c $appSettings -i $nupkg -f $fileList -r $env:SignClientUser -s $env:SignClientSecret -n 'Prism.Plugin.Logging' -d 'Prism.Plugin.Logging' -u 'https://github.com/dansiegel/Prism.Plugin.Logging' 
+    .\SignClient 'sign' -c $appSettings -i $nupkg -f $fileList -r $env:SignClientUser -s $env:SignClientSecret -n 'Prism.Plugin.Logging' -d 'Prism.Plugin.Logging' -u 'https://github.com/dansiegel/Prism.Plugin.Logging'
 
-  Write-Host "Finished signing $nupkg"
+    Write-Host "Finished signing $nupkg"
 }
 
 Write-Host "Sign-package complete"
