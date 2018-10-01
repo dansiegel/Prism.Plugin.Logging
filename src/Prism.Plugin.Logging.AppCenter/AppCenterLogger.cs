@@ -95,12 +95,12 @@ namespace Prism.Logging.AppCenter
 
         private void DebugLog(string message, IDictionary<string, string> properties)
         {
-            Console.WriteLine(message);
+            Trace.WriteLine(message);
             if(properties != null)
             {
                 foreach (var prop in properties)
                 {
-                    Console.WriteLine($"    {prop.Key}: {prop.Value}");
+                    Trace.WriteLine($"    {prop.Key}: {prop.Value}");
                 }
             }
         }
