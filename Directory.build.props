@@ -5,26 +5,35 @@
     <MinClientVersion>2.12</MinClientVersion>
     <Authors>Dan Siegel</Authors>
     <Owners>Dan Siegel</Owners>
+    <Copyright>© Dan Siegel. All rights reserved.</Copyright>
+    <PackageIconUrl>http://prismlibrary.github.io/images/prism-logo-graphic-128.png</PackageIconUrl>
     <PackageProjectUrl>https://github.com/dansiegel/Prism.Plugin.Logging</PackageProjectUrl>
     <PackageLicenseUrl>https://raw.githubusercontent.com/dansiegel/Prism.Plugin.Logging/master/LICENSE</PackageLicenseUrl>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <RepositoryType>git</RepositoryType>
     <RepositoryUrl>https://github.com/dansiegel/Prism.Plugin.Logging.git</RepositoryUrl>
-    <PackageTags>prism;logging;</PackageTags>
+    <PackageTags>prism;logging</PackageTags>
     <NoWarn>$(NoWarn);1701;1702;CS1591</NoWarn>
-    <DefaultLanguage>en-US</DefaultLanguage>
+    <NeutralLanguage>en-US</NeutralLanguage>
     <IncludeSymbols>True</IncludeSymbols>
     <IncludeSource>True</IncludeSource>
-    <IS_PREVIEW Condition=" '$(IS_PREVIEW)' == '' ">false</IS_PREVIEW>
-    <IS_RELEASE Condition=" '$(IS_RELEASE)' == '' ">false</IS_RELEASE>
-    <PackageOutputPath>$(MSBuildThisFileDirectory)Artifacts</PackageOutputPath>
-    <PackageOutputPath Condition=" '$(BUILD_ARTIFACTSTAGINGDIRECTORY)' != '' ">$(BUILD_ARTIFACTSTAGINGDIRECTORY)</PackageOutputPath>
     <VersionPrefix>1.1.1</VersionPrefix>
-    <IS_PREVIEW Condition=" '$(IS_PREVIEW)' == '' ">false</IS_PREVIEW>
-    <VersionPrefix Condition=" '$(BUILD_BUILDNUMBER)' != '' ">$(VersionPrefix).$(BUILD_BUILDNUMBER)</VersionPrefix>
+  </PropertyGroup>
+
+  <!-- CI Helpers -->
+  <PropertyGroup>
+    <PackageOutputPath>$(MSBuildThisFileDirectory)/Artifacts</PackageOutputPath>
+    <PackageOutputPath Condition=" $(BUILD_ARTIFACTSTAGINGDIRECTORY) != '' ">$(BUILD_ARTIFACTSTAGINGDIRECTORY)</PackageOutputPath>
+    <IsPackable>true</IsPackable>
+    <IsPackable Condition=" $(ProjectName.Contains('Sample')) ">false</IsPackable>
+    <IsPackable Condition=" $(ProjectName.Contains('Test')) ">false</IsPackable>
+    <GeneratePackageOnBuild>$(IsPackable)</GeneratePackageOnBuild>
+    <IS_PREVIEW Condition=" $(IS_PREVIEW) == '' ">false</IS_PREVIEW>
+    <IS_RELEASE Condition=" $(IS_RELEASE) == '' ">false</IS_RELEASE>
+    <VersionPrefix Condition=" $(BUILD_BUILDNUMBER) != '' ">$(VersionPrefix).$(BUILD_BUILDNUMBER)</VersionPrefix>
     <VersionSuffix>ci</VersionSuffix>
-    <VersionSuffix Condition=" '$(IS_PREVIEW)' ">pre</VersionSuffix>
-    <VersionSuffix Condition=" '$(IS_RELEASE)' "></VersionSuffix>
+    <VersionSuffix Condition=" $(IS_PREVIEW) ">pre</VersionSuffix>
+    <VersionSuffix Condition=" $(IS_RELEASE) "></VersionSuffix>
   </PropertyGroup>
 
   <PropertyGroup>
