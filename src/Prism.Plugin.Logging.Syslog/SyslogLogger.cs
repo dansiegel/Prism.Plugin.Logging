@@ -82,6 +82,9 @@ namespace Prism.Logging.Syslog
         {
             var level = Level.Debug;
             var facility = Facility.Daemon;
+
+            if (properties is null) properties = new Dictionary<string, string>();
+
             if(properties.ContainsKey(nameof(Category)) && Enum.TryParse(properties[nameof(Category)], out Category category))
             {
                 level = category.ToLevel();

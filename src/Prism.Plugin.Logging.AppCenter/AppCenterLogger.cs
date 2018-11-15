@@ -103,7 +103,7 @@ namespace Prism.Logging.AppCenter
             Trace.WriteLine(message);
             if(properties != null)
             {
-                foreach (var prop in properties)
+                foreach (var prop in properties ?? new Dictionary<string, string>())
                 {
                     Trace.WriteLine($"    {prop.Key}: {prop.Value}");
                 }
