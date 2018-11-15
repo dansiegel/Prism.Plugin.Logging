@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using System.Net.Sockets;
 using Prism.Logging.Sockets;
@@ -89,9 +90,16 @@ namespace Prism.Logging.Syslog
             {
                 level = category.ToLevel();
             }
+
             if(properties.ContainsKey(nameof(Facility)) && Enum.TryParse(properties[nameof(Facility)], out Facility fac))
             {
                 facility = fac;
+            }
+
+            message += "\nProperties";
+            foreach(var prop in properties.Where(x => x.Key != nameof(Category) && x.Key != nameof(Facility)))
+            {
+                message += $"\n    {prop.Key} - {prop.Value}";
             }
 
             var syslog = new SyslogMessage(facility, level, message)
