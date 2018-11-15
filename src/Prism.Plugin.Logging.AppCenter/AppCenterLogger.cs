@@ -58,7 +58,7 @@ namespace Prism.Logging.AppCenter
         private bool analyticsEnabled = false;
         private bool crashesEnabled = false;
 
-        public void Log(string message, IDictionary<string, string> properties)
+        public virtual void Log(string message, IDictionary<string, string> properties)
         {
             if(IsDebug || !analyticsEnabled)
             {
@@ -69,7 +69,7 @@ namespace Prism.Logging.AppCenter
             Analytics.TrackEvent(message, properties);
         }
 
-        public void Log(string message, Category category, Priority priority)
+        public virtual void Log(string message, Category category, Priority priority)
         {
             Log(message, new Dictionary<string, string>
             {
