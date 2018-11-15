@@ -18,7 +18,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Prism.Plugin.Logging.Common\Prism.Plugin.Logging.Common.csproj" />
+    <ProjectReference Include="..\Prism.Plugin.Logging.Abstractions\Prism.Plugin.Logging.Abstractions.csproj" />
   </ItemGroup>
 
 </Project>

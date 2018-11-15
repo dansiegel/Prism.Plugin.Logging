@@ -58,7 +58,7 @@ namespace Prism.Logging
         }
 
         public static void Report(this ILogger logger, Exception ex) =>
-            logger.Report(ex, null);
+            logger.Report(ex, new Dictionary<string, string>());
 
         public static void Warn(this ILogger logger, string message, IDictionary<string, string> properties = null)
         {
