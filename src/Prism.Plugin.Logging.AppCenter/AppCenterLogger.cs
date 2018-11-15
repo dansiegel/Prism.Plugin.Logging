@@ -93,6 +93,11 @@ namespace Prism.Logging.AppCenter
             Crashes.TrackError(ex, properties);
         }
 
+        public void TrackEvent(string name, IDictionary<string, string> properties)
+        {
+            Analytics.TrackEvent(name, properties);
+        }
+
         private void DebugLog(string message, IDictionary<string, string> properties)
         {
             Trace.WriteLine(message);

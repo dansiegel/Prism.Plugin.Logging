@@ -41,6 +41,9 @@ namespace Prism.Logging.Graylog
             Log(gelf);
         }
 
+        public void TrackEvent(string name, IDictionary<string, string> properties) =>
+            Log(name, properties);
+
         private GelfMessage CreateMessage(string shortMessage = null, string fullMessage = null, Category? category = null, Priority? priority = null, Level level = Level.Debug, IDictionary<string, string> properties = null)
         {
             if(properties == null)

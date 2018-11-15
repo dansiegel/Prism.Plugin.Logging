@@ -79,5 +79,8 @@ namespace Prism.Logging.Loggly
 
             PostMessageAsync(properties, LogglyUri(Tags())).ContinueWith(t => { });
         }
+
+        public void TrackEvent(string name, IDictionary<string, string> properties) =>
+            Log(name, properties);
     }
 }

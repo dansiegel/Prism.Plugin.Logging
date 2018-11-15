@@ -188,5 +188,8 @@ namespace Prism.Logging.AppInsights
 
             _telemetry.TrackException(ex, properties);
         }
+
+        public void TrackEvent(string name, IDictionary<string, string> properties) => 
+            Log(name, properties);
     }
 }

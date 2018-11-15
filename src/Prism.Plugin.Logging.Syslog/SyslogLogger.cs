@@ -98,9 +98,10 @@ namespace Prism.Logging.Syslog
             SendMessage(syslog);
         }
 
-        public void Report(Exception ex, IDictionary<string, string> properties)
-        {
+        public void Report(Exception ex, IDictionary<string, string> properties) => 
             Log(ex.ToString(), properties);
-        }
+
+        public void TrackEvent(string name, IDictionary<string, string> properties) =>
+            Log(name, properties);
     }
 }
