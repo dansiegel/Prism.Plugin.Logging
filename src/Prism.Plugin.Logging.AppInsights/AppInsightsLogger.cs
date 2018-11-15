@@ -87,14 +87,14 @@ namespace Prism.Logging.AppInsights
                     _telemetry.Context.Session.Id = Guid.NewGuid().ToString();
                 }
 
-                _telemetry.Context.Properties["language"] = Thread.CurrentThread.CurrentCulture.Name;
-                _telemetry.Context.Properties["user"] = user;
+                _telemetry.Context.GlobalProperties["language"] = Thread.CurrentThread.CurrentCulture.Name;
+                _telemetry.Context.GlobalProperties["user"] = user;
                 
                 if(_options.UserTraits != null)
                 {
                     foreach(var trait in _options.UserTraits)
                     {
-                        _telemetry.Context.Properties[trait.Key] = trait.Value;
+                        _telemetry.Context.GlobalProperties[trait.Key] = trait.Value;
                     }
                 }
 
@@ -112,7 +112,6 @@ namespace Prism.Logging.AppInsights
         {
             return Environment.OSVersion.Platform.ToString();
         }
-
 
         private void Heartbeat(object obj)
         {
