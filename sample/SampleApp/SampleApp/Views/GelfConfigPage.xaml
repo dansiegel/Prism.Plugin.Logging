@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             Title="Graylog Configuration"
+             x:Class="SampleApp.Views.GelfConfigPage">
+  <StackLayout HorizontalOptions="Center"
+               VerticalOptions="Center">
+    <Label Text="Uri:" />
+    <Entry Text="{Binding Config.Uri}"
+           IsSpellCheckEnabled="False"
+           IsTextPredictionEnabled="False" />
+    <Button Text="Update Logger"
+            Command="{Binding UpdateLoggerCommand}" />
+  </StackLayout>
+</ContentPage>

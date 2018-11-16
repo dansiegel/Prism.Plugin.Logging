@@ -1,0 +1,48 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<MasterDetailPage xmlns="http://xamarin.com/schemas/2014/forms"
+                  xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                  xmlns:nav="clr-namespace:Prism.Navigation.Xaml;assembly=Prism.Forms"
+                  xmlns:xaml="clr-namespace:SampleApp.Xaml"
+                  x:Class="SampleApp.Views.MainPage">
+  <MasterDetailPage.Master>
+    <ContentPage Title="Menu">
+      <Grid>
+        <Grid.RowDefinitions>
+          <RowDefinition Height="1*" />
+          <RowDefinition Height="3*" />
+        </Grid.RowDefinitions>
+        <BoxView BackgroundColor="Black"
+                 Opacity="0.1"
+                 Grid.Row="0" />
+        <Image Source="{xaml:EmbeddedImage 'PrismLogo.png'}" />
+
+        <StackLayout Padding="20"
+                     BackgroundColor="White"
+                     Grid.Row="1">
+          <Button Text="Generate Test Logs"
+                  Command="{nav:NavigateTo 'NavigationPage/LogGeneratorPage'}"/>
+
+          <BoxView BackgroundColor="Black"
+                   HeightRequest="1" />
+
+          <Label Text="-- Settings --"
+                 FontAttributes="Bold"
+                 HorizontalOptions="Center" />
+          <Button Text="App Center"
+                  Command="{nav:NavigateTo 'NavigationPage/AppCenterConfigPage'}"/>
+          <Button Text="Application Insights"
+                  Command="{nav:NavigateTo 'NavigationPage/AppInsightsConfigPage'}"/>
+          <Button Text="Graylog"
+                  Command="{nav:NavigateTo 'NavigationPage/GelfConfigPage'}"/>
+          <Button Text="Loggly"
+                  Command="{nav:NavigateTo 'NavigationPage/LogglyConfigPage'}"/>
+          <Button Text="Syslog"
+                  Command="{nav:NavigateTo 'NavigationPage/SyslogConfigPage'}"/>
+        </StackLayout>
+      </Grid>
+    </ContentPage>
+  </MasterDetailPage.Master>
+  <MasterDetailPage.Detail>
+    <ContentPage />
+  </MasterDetailPage.Detail>
+</MasterDetailPage>

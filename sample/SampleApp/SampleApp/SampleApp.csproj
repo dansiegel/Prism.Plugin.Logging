@@ -1,0 +1,58 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DebugType>pdbonly</DebugType>
+    <DebugSymbols>true</DebugSymbols>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Images\PrismLogo.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Images\PrismLogo.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Prism.DryIoc.Forms" Version="7.1.0.431" />
+    <PackageReference Include="Xamarin.Forms" Version="3.4.0.1008975" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Views\AppCenterConfigPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\AppInsightsConfigPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\GelfConfigPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\LogGeneratorPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\LogglyConfigPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\MainPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\SyslogConfigPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\src\Prism.Plugin.Logging.Abstractions\Prism.Plugin.Logging.Abstractions.csproj" />
+    <ProjectReference Include="..\..\..\src\Prism.Plugin.Logging.AppCenter\Prism.Plugin.Logging.AppCenter.csproj" />
+    <ProjectReference Include="..\..\..\src\Prism.Plugin.Logging.AppInsights\Prism.Plugin.Logging.AppInsights.csproj" />
+    <ProjectReference Include="..\..\..\src\Prism.Plugin.Logging.Common\Prism.Plugin.Logging.Common.csproj" />
+    <ProjectReference Include="..\..\..\src\Prism.Plugin.Logging.Graylog\Prism.Plugin.Logging.Graylog.csproj" />
+    <ProjectReference Include="..\..\..\src\Prism.Plugin.Logging.Loggly\Prism.Plugin.Logging.Loggly.csproj" />
+    <ProjectReference Include="..\..\..\src\Prism.Plugin.Logging.Syslog\Prism.Plugin.Logging.Syslog.csproj" />
+  </ItemGroup>
+</Project>

@@ -1,0 +1,55 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
+             ios:Page.UseSafeArea="True"
+             Title="Log Generator"
+             Padding="15"
+             x:Class="SampleApp.Views.LogGeneratorPage">
+  <ContentPage.Resources>
+    <ResourceDictionary>
+      <Style TargetType="BoxView">
+        <Setter Property="HeightRequest" Value="1" />
+        <Setter Property="BackgroundColor" Value="Black" />
+        <Setter Property="Margin" Value="20,5" />
+      </Style>
+    </ResourceDictionary>
+  </ContentPage.Resources>
+  <ScrollView>
+    <Grid RowSpacing="15">
+      <Grid.RowDefinitions>
+        <RowDefinition Height="Auto" />
+        <RowDefinition Height="Auto" />
+        <RowDefinition Height="Auto" />
+      </Grid.RowDefinitions>
+
+      <StackLayout Grid.Row="0">
+        <Label Text="Analytics"
+             Style="{DynamicResource TitleStyle}" />
+        <Label Text="The logging plugin helps with Analytics. While you can do general purpose logging, this is correlated to the Analytics service from App Center, as well as providing the IAnalyticsService." />
+        <Button Text="Track Event"
+                Command="{Binding TestAnalyticsCommand}" />
+        <BoxView />
+      </StackLayout>
+
+      <StackLayout Grid.Row="1">
+        <Label Text="Crashes"
+             Style="{DynamicResource TitleStyle}" />
+        <Label Text="The logging plugin helps with Crashes with the ability to Report Exceptions. This is directly correlated to the Crashes service from App Center. It is part of the ILogger Interface, and exposed through the ICrashesService when you want to provide the specific functionality." />
+        <Button Text="Send Test Crash"
+                Command="{Binding TestCrashCommand}" />
+        <BoxView />
+      </StackLayout>
+
+      <StackLayout Grid.Row="2">
+        <Label Text="Logging"
+             Style="{DynamicResource TitleStyle}" />
+        <Label Text="Very similar to the Analytics API is the general purpose logging API. This allows you to differentiate messages so that you can mix and match services like App Center Analytics with a general purpose logger for debugging." />
+        <Label Text="Message:" />
+        <Entry Text="{Binding Message}" />
+        <Button Text="Log Event"
+                Command="{Binding TestLogCommand}" />
+      </StackLayout>
+    </Grid>
+  </ScrollView>
+</ContentPage>

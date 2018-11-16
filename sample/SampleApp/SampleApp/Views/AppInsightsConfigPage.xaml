@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             Title="Application Insights Configuration"
+             x:Class="SampleApp.Views.AppInsightsConfigPage">
+  <StackLayout HorizontalOptions="Center"
+               VerticalOptions="Center">
+    <Label Text="InstrumentationKey:" />
+    <Entry Text="{Binding Config.InstrumentationKey}" IsSpellCheckEnabled="False" IsTextPredictionEnabled="False" />
+    <Button Text="Update Logger"
+            Command="{Binding UpdateLoggerCommand}" />
+  </StackLayout>
+</ContentPage>
