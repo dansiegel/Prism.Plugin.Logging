@@ -1,8 +1,14 @@
 # Prism Logging Plugin's
 
-Prism's ILoggerFacade provides logging of all internal Prism errors, and a quick and easy way for your WPF, UWP, or Xamarin Forms app to introduce logging throughout your ViewModels and Services. The implementation of ILoggerFacade is really left to the developer to determine how you want to handle your logging. Using the Logging Plugins will allow you to rapidly configure remote network based logging.
+Prism's ILoggerFacade provides logging of all internal Prism errors, and a quick and easy way for your WPF, UWP, or Xamarin Forms app to introduce logging throughout your ViewModels and Services. The implementation of ILoggerFacade is really left to the developer to determine how you want to handle your logging. While this "Works", it is also a more than a decade old definition that doesn't match modern application logging demands. For this reason the Prism Logging Plugins introduce some new logging interfaces:
 
-**NOTE** These packages only take a dependency on Prism.Core and as such will work in any project using Prism.
+- IAnalyticsService
+  - adds `void TrackEvent(string name, IDictionary&lt;string, string&gt; properties)`
+- ICrashesService
+  - adds `void Report(Exception ex, IDictionary&lt;string, string&gt; properties)`
+- ILogger (inherits from IAnalyticsService, ICrashesService, ILoggerFacade)
+  - adds `void Log(string message, IDictionary&lt;string, string&gt; properties)`
+  - has extensions for Debug, Info, Warn
 
 [![Build Status](https://dev.azure.com/dansiegel/Prism.Plugins/_apis/build/status/Prism.Plugins.Logging-CI)](https://dev.azure.com/dansiegel/Prism.Plugins/_build/latest?definitionId=29)
 
@@ -10,12 +16,13 @@ Prism's ILoggerFacade provides logging of all internal Prism errors, and a quick
 
 | Package | NuGet | MyGet |
 |-------|:-----:|:------:|
-| Prism.Logging.Common | [![CommonLoggingShield]][CommonLoggingNuGet] | [![CommonLoggingMyGetShield]][CommonLoggingMyGet] |
-| Prism.Logging.AppCenter | [![AppCenterLoggingShield]][AppCenterLoggingNuGet] | [![AppCenterLoggingMyGetShield]][AppCenterLoggingMyGet] |
-| Prism.Logging.AppInsights | [![AppInightsLoggingShield]][AppInightsLoggingNuGet] | [![AppInightsLoggingMyGetShield]][AppInightsLoggingMyGet] |
-| Prism.Logging.Graylog | [![GraylogLoggingShield]][GraylogLoggingNuGet] | [![GraylogLoggingMyGetShield]][GraylogLoggingMyGet] |
-| Prism.Logging.Loggly | [![LogglyLoggingShield]][LogglyLoggingNuGet] | [![LogglyLoggingMyGetShield]][LogglyLoggingMyGet] |
-| Prism.Logging.Syslog | [![SyslogLoggingShield]][SyslogLoggingNuGet] | [![SyslogLoggingMyGetShield]][SyslogLoggingMyGet] |
+| Prism.Plugin.Logging.Abstractions | [![AbstractionsLoggingShield]][AbstractionsLoggingNuGet] | [![AbstractionsLoggingMyGetShield]][AbstractionsLoggingMyGet] |
+| Prism.Plugin.Logging.Common | [![CommonLoggingShield]][CommonLoggingNuGet] | [![CommonLoggingMyGetShield]][CommonLoggingMyGet] |
+| Prism.Plugin.Logging.AppCenter | [![AppCenterLoggingShield]][AppCenterLoggingNuGet] | [![AppCenterLoggingMyGetShield]][AppCenterLoggingMyGet] |
+| Prism.Plugin.Logging.AppInsights | [![AppInightsLoggingShield]][AppInightsLoggingNuGet] | [![AppInightsLoggingMyGetShield]][AppInightsLoggingMyGet] |
+| Prism.Plugin.Logging.Graylog | [![GraylogLoggingShield]][GraylogLoggingNuGet] | [![GraylogLoggingMyGetShield]][GraylogLoggingMyGet] |
+| Prism.Plugin.Logging.Loggly | [![LogglyLoggingShield]][LogglyLoggingNuGet] | [![LogglyLoggingMyGetShield]][LogglyLoggingMyGet] |
+| Prism.Plugin.Logging.Syslog | [![SyslogLoggingShield]][SyslogLoggingNuGet] | [![SyslogLoggingMyGetShield]][SyslogLoggingMyGet] |
 
 ## Support
 
@@ -25,11 +32,29 @@ If this project helped you reduce time to develop and made your app better, plea
 
 ## Providers
 
-The Plugin supports various Network based Logging providers to better assist you in collecting data on your apps.
+Logging is an important facet of app development. It can help you identify how users are navigating through your application, alert you when unexcepted exceptions are thrown, and help shorten the Dev-Loop. Note that the sample below show registering the logger with Prism IContainerRegistry as a Transient Service. It is typically advisable to access the underlying container and register a single instance of your logger against any interfaces that may be called by your app.
+
+```cs
+// For DryIoc it might look something like this:
+var container = containerRegistry.GetContainer();
+container.RegisterMany<SyslogLogger>(Reuse.Singleton,
+                                     ifAlreadyRegistered: IfAlreadyRegistered.Replace,
+                                     serviceTypeCondition: t => typeof(SyslogLogger).ImplementsServiceType(t));
+
+// For Unity it might look something like this:
+var logger = Container.Resolve<SyslogLogger>();
+containerRegistry.RegisterInstance<ILoggerFacade>(logger);
+containerRegistry.RegisterInstance<ILogger>(logger);
+containerRegistry.RegisterInstance<IAnalyticsService>(logger);
+containerRegistry.RegisterInstance<ICrashesService>(logger);
+containerRegistry.RegisterInstance<ISyslogLogger>(logger);
+```
 
 ### App Center & Application Insights
 
-The App Center and Application Insights packages both make some assumptions that while running a Debug build that the logging output should be sent to the Application Output (the console in the IDE). Simply running a Release build will trigger the logger to attempt to send telemetry using the App Center or Application Insights SDK's.
+The App Center and Application Insights packages both make some assumptions that while running a Debug build that the logging output should be sent to the Application Output (the console in the IDE). Simply running a Release build will trigger the logger to attempt to send telemetry using the App Center or Application Insights SDK's
+
+Starting with version 1.2, two new interfaces were added for mocking Analytics and Crashes. While the `Report` API was previously available in the ILogger, this has been moved to the `ICrashesService`, with a new `IAnalyticsService` that exposes a TrackEvent API. Both of these interfaces are implemented through the ILogger. These services map directly App Center Analytics and Crashes API's. This allows you to null logging events you may use during development, while leaving intact specific tracking of events and crashes.
 
 #### Using Application Insights
 
@@ -57,10 +82,13 @@ public class SocketOptions : ISocketLoggerOptions
 
 public class App : PrismApplication
 {
-    protected override void RegisterTypes()
+    protected override void RegisterTypes(IContainerRegistry containerRegistry)
     {
-        Container.Register<ISocketLoggerOptions, SocketOptions>();
-        Container.Register<ILoggerFacade, SocketLogger>();
+        containerRegistry.Register<ISocketLoggerOptions, SocketOptions>();
+
+        // Resolve the logger as a Transient Service
+        containerRegistry.Register<ILoggerFacade, SocketLogger>();
+        containerRegistry.Register<ILogger, SocketLogger>();
     }
 }
 ```
@@ -84,10 +112,13 @@ public class AwesomeAppOptions : ISyslogOptions
 
 public class App : PrismApplication
 {
-    protected override void RegisterTypes()
+    protected override void RegisterTypes(IContainerRegistry containerRegistry)
     {
-        Container.Register<ISyslogOptions, AwesomeAppOptions>();
-        Container.Register<ILoggerFacade, SyslogLogger>();
+        containerRegistry.Register<ISyslogOptions, AwesomeAppOptions>();
+
+        // Registers the Syslog Logger as a Transient Service
+        containerRegistry.Register<ILoggerFacade, SyslogLogger>();
+        containerRegistry.Register<ILogger, SyslogLogger>();
     }
 }
 ```
@@ -116,14 +147,14 @@ public class LogglyOptions : ILogglyOptions
 
 public class App : PrismApplication
 {
-    protected override void RegisterTypes()
+    protected override void RegisterTypes(IContainerRegistry containerRegistry)
     {
         // Used by both the LogglyHttpLogger and LogglySyslogLogger
-        Container.Register<ILogglyOptions, LogglyOptions>();
+        containerRegistry.Register<ILogglyOptions, LogglyOptions>();
 
-        Container.Register<ILoggerFacade, LogglyHttpLogger>();
+        containerRegistry.Register<ILoggerFacade, LogglyHttpLogger>();
         // Or
-        Container.Register<ILoggerFacade, LogglySyslogLogger>();
+        containerRegistry.Register<ILoggerFacade, LogglySyslogLogger>();
     }
 }
 ```
@@ -141,13 +172,18 @@ public class GelfOptions : IGelfOptions
 
 public class App : PrismApplication
 {
-    protected override void RegisterTypes()
+    protected override void RegisterTypes(IContainerRegistry containerRegistry)
     {
-        Container.Register<IGelfOptions, GelfOptions>();
-        Container.Register<ILoggerFacade, GelfLogger>();
+        containerRegistry.Register<IGelfOptions, GelfOptions>();
+        containerRegistry.Register<ILoggerFacade, GelfLogger>();
     }
 }
 ```
+
+[AbstractionsLoggingNuGet]: https://www.nuget.org/packages/Prism.Plugin.Logging.Abstractions
+[AbstractionsLoggingShield]: https://img.shields.io/nuget/vpre/Prism.Plugin.Logging.Abstractions.svg
+[AbstractionsLoggingMyGet]: https://www.myget.org/feed/prism/package/nuget/Prism.Plugin.Logging.Abstractions
+[AbstractionsLoggingMyGetShield]: https://img.shields.io/myget/prism-plugins/vpre/Prism.Plugin.Logging.Abstractions.svg
 
 [CommonLoggingNuGet]: https://www.nuget.org/packages/Prism.Plugin.Logging.Common
 [CommonLoggingShield]: https://img.shields.io/nuget/vpre/Prism.Plugin.Logging.Common.svg
