@@ -2,6 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <IsPackable>false</IsPackable>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -55,4 +56,5 @@
     <ProjectReference Include="..\..\..\src\Prism.Plugin.Logging.Loggly\Prism.Plugin.Logging.Loggly.csproj" />
     <ProjectReference Include="..\..\..\src\Prism.Plugin.Logging.Syslog\Prism.Plugin.Logging.Syslog.csproj" />
   </ItemGroup>
+
 </Project>

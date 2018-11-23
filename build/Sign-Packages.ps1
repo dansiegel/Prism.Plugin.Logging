@@ -1,4 +1,4 @@
-$currentDirectory = split-path $MyInvocation.MyCommand.Definition
+$currentDirectory = Split-Path $MyInvocation.MyCommand.Definition
 
 # See if we have the ClientSecret available
 if([string]::IsNullOrEmpty($env:SignClientSecret)){
@@ -12,6 +12,7 @@ dotnet tool install --tool-path . SignClient
 
 $appSettings = "$currentDirectory\appsettings.json"
 $fileList = "$currentDirectory\filelist.txt"
+$repoName = $env:BUILD_REPOSITORY_NAME -replace ".*/",""
 
 $azureAd = @{
     SignClient = @{
@@ -34,7 +35,7 @@ $nupkgs = Get-ChildItem $env:BUILD_ARTIFACTSTAGINGDIRECTORY\*.nupkg -recurse | S
 foreach ($nupkg in $nupkgs){
     Write-Host "Submitting $nupkg for signing"
 
-    .\SignClient 'sign' -c $appSettings -i $nupkg -f $fileList -r $env:SignClientUser -s $env:SignClientSecret -n 'Prism.Plugin.Logging' -d 'Prism.Plugin.Logging' -u 'https://github.com/dansiegel/Prism.Plugin.Logging'
+    .\SignClient 'sign' -c $appSettings -i $nupkg -f $fileList -r $env:SignClientUser -s $env:SignClientSecret -n $repoName -d $repoName -u $env:BUILD_REPOSITORY_URI
 
     Write-Host "Finished signing $nupkg"
 }

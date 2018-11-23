@@ -22,8 +22,12 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Prism.Plugin.Logging.AppIns
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{8BCA18F8-A1C6-43B4-A855-799E43819BC9}"
 	ProjectSection(SolutionItems) = preProject
+		azure-pipelines.yml = azure-pipelines.yml
+		CodeCoverage.runsettings = CodeCoverage.runsettings
 		Directory.build.props = Directory.build.props
 		global.json = global.json
+		LICENSE = LICENSE
+		NuGet.config = NuGet.config
 		ReadMe.md = ReadMe.md
 	EndProjectSection
 EndProject
@@ -35,7 +39,13 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SampleApp.iOS", "sample\Sam
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SampleApp.UWP", "sample\SampleApp\SampleApp.UWP\SampleApp.UWP.csproj", "{41BF7872-AC94-490F-8EF2-4817D5DEC179}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SampleApp", "sample\SampleApp\SampleApp\SampleApp.csproj", "{D20F1CF6-0653-48AD-BEB0-18AF86B7D3DB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SampleApp", "sample\SampleApp\SampleApp\SampleApp.csproj", "{D20F1CF6-0653-48AD-BEB0-18AF86B7D3DB}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "build", "build", "{8CFF3EA5-894B-4EA2-9E5F-C65E6C0DE418}"
+	ProjectSection(SolutionItems) = preProject
+		build\filelist.txt = build\filelist.txt
+		build\Sign-Packages.ps1 = build\Sign-Packages.ps1
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
