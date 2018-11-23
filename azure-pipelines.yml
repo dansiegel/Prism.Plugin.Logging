@@ -39,7 +39,7 @@ steps:
     SignClientClientId: $(SignClientClientId)
     SignClientTenantId: $(SignClientTenantId)
     SignServiceResourceId: $(SignServiceResourceId)
-  condition: and(succeeded(), eq(variables['system.pullrequest.isfork'], false))
+  condition: and(succeeded(), not(eq(variables['build.reason'], 'PullRequest')), not(eq(variables['SignClientSecret'], '')), not(eq(variables['SignClientUser'], '')))
 
 - task: PublishBuildArtifacts@1
   displayName: Publish Package Artifacts
