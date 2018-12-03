@@ -4,16 +4,20 @@ using Prism.Mvvm;
 using SampleApp.Collections;
 using System;
 using System.Collections.Generic;
+using DryIoc;
+using Prism.Navigation;
 
 namespace SampleApp.ViewModels
 {
-    public class LogGeneratorPageViewModel : BindableBase
+    public class LogGeneratorPageViewModel : BindableBase, INavigatingAware
     {
+        private IContainer _container { get; }
         private ILogger _logger;
 
-        public LogGeneratorPageViewModel(ILogger logger)
+        public LogGeneratorPageViewModel(IContainer container)
         {
-            _logger = logger;
+            _container = container;
+            _logger = container.Resolve<ILogger>();
             Properties = new ObservableDictionary<string, string>();
 
             TestAnalyticsCommand = new DelegateCommand(OnTestAnalyticsCommandExecuted);
@@ -50,13 +54,17 @@ namespace SampleApp.ViewModels
             catch (Exception ex)
             {
                 _logger.Report(ex, new Dictionary<string, string> { { "caller", nameof(OnTestCrashCommandExecuted) } });
-                throw;
             }
         }
 
         private void OnTestLogCommandExecuted()
         {
             _logger.Log(Message);
+        }
+
+        public void OnNavigatingTo(INavigationParameters parameters)
+        {
+            _logger = _container.Resolve<ILogger>();
         }
     }
 }
