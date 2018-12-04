@@ -101,7 +101,9 @@ namespace SampleApp
                     break;
             }
 
-            Container.Resolve<ILogger>().TrackEvent("Starting Logger...");
+            var logger = Container.Resolve<ILogger>();
+            logger.TrackEvent("Starting Logger...");
+            Container.Resolve<IEventAggregator>().GetEvent<LoggerUpdatedEvent>().Publish(logger);
             NavigationService.NavigateAsync("/MainPage/NavigationPage/LogGeneratorPage");
         }
     }

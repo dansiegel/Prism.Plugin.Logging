@@ -6,23 +6,29 @@ using System;
 using System.Collections.Generic;
 using DryIoc;
 using Prism.Navigation;
+using Prism.Events;
+using SampleApp.Events;
 
 namespace SampleApp.ViewModels
 {
-    public class LogGeneratorPageViewModel : BindableBase, INavigatingAware
+    public class LogGeneratorPageViewModel : BindableBase
     {
-        private IContainer _container { get; }
         private ILogger _logger;
 
-        public LogGeneratorPageViewModel(IContainer container)
+        public LogGeneratorPageViewModel(IEventAggregator eventAggregator, ILogger logger)
         {
-            _container = container;
-            _logger = container.Resolve<ILogger>();
+            _logger = logger;
+            eventAggregator.GetEvent<LoggerUpdatedEvent>().Subscribe(OnLoggerUpdated);
             Properties = new ObservableDictionary<string, string>();
 
             TestAnalyticsCommand = new DelegateCommand(OnTestAnalyticsCommandExecuted);
             TestCrashCommand = new DelegateCommand(OnTestCrashCommandExecuted);
             TestLogCommand = new DelegateCommand(OnTestLogCommandExecuted);
+        }
+
+        private void OnLoggerUpdated(ILogger logger)
+        {
+            _logger = logger;
         }
 
         private string _message;
@@ -60,11 +66,6 @@ namespace SampleApp.ViewModels
         private void OnTestLogCommandExecuted()
         {
             _logger.Log(Message);
-        }
-
-        public void OnNavigatingTo(INavigationParameters parameters)
-        {
-            _logger = _container.Resolve<ILogger>();
         }
     }
 }
