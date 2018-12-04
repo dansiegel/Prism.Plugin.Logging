@@ -78,7 +78,7 @@ namespace Prism.Logging.AppCenter
             });
         }
 
-        public void Report(Exception ex, IDictionary<string, string> properties)
+        public virtual void Report(Exception ex, IDictionary<string, string> properties)
         {
             if (IsDebug || !crashesEnabled)
             {
@@ -93,7 +93,7 @@ namespace Prism.Logging.AppCenter
             Crashes.TrackError(ex, properties);
         }
 
-        public void TrackEvent(string name, IDictionary<string, string> properties)
+        public virtual void TrackEvent(string name, IDictionary<string, string> properties)
         {
             Analytics.TrackEvent(name, properties);
         }

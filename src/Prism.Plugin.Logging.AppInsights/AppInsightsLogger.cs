@@ -108,7 +108,7 @@ namespace Prism.Logging.AppInsights
             }
         }
 
-        public string GetPlatform()
+        protected virtual string GetPlatform()
         {
             return Environment.OSVersion.Platform.ToString();
         }
@@ -156,7 +156,7 @@ namespace Prism.Logging.AppInsights
             }
         }
 
-        public void Log(string message, IDictionary<string, string> properties)
+        public virtual void Log(string message, IDictionary<string, string> properties)
         {
             if(_telemetry == null)
             {
@@ -167,7 +167,7 @@ namespace Prism.Logging.AppInsights
             _telemetry.TrackEvent(message, properties);
         }
 
-        public void Log(string message, Category category, Priority priority)
+        public virtual void Log(string message, Category category, Priority priority)
         {
             var properties = new Dictionary<string, string>
             {
@@ -177,7 +177,7 @@ namespace Prism.Logging.AppInsights
             Log(message, properties);
         }
 
-        public void Report(Exception ex, IDictionary<string, string> properties)
+        public virtual void Report(Exception ex, IDictionary<string, string> properties)
         {
             if (_telemetry == null)
             {
@@ -188,7 +188,7 @@ namespace Prism.Logging.AppInsights
             _telemetry.TrackException(ex, properties);
         }
 
-        public void TrackEvent(string name, IDictionary<string, string> properties) => 
+        public virtual void TrackEvent(string name, IDictionary<string, string> properties) => 
             Log(name, properties);
     }
 }

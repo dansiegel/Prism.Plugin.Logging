@@ -46,7 +46,7 @@ namespace Prism.Logging.Syslog
                 AppName = AppNameOrTag
             };
 
-        private string GetLocalIP()
+        protected virtual string GetLocalIP()
         {
             if(string.IsNullOrEmpty(LocalHostName))
             {
@@ -79,7 +79,7 @@ namespace Prism.Logging.Syslog
         protected bool SendMessage(SyslogMessage message) => 
             SendMessage(message, HostNameOrIp, Port);
 
-        public void Log(string message, IDictionary<string, string> properties)
+        public virtual void Log(string message, IDictionary<string, string> properties)
         {
             var level = Level.Debug;
             var facility = Facility.Daemon;
@@ -109,10 +109,10 @@ namespace Prism.Logging.Syslog
             SendMessage(syslog);
         }
 
-        public void Report(Exception ex, IDictionary<string, string> properties) => 
+        public virtual void Report(Exception ex, IDictionary<string, string> properties) => 
             Log(ex.ToString(), properties);
 
-        public void TrackEvent(string name, IDictionary<string, string> properties) =>
+        public virtual void TrackEvent(string name, IDictionary<string, string> properties) =>
             Log(name, properties);
     }
 }

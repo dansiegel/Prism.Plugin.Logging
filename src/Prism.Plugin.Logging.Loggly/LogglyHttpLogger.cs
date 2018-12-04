@@ -16,7 +16,7 @@ namespace Prism.Logging.Loggly
             _options = options;
         }
 
-        public void Log(string message, Category category, Priority priority)
+        public virtual void Log(string message, Category category, Priority priority)
         {
             PostMessageAsync(new
             {
@@ -52,7 +52,7 @@ namespace Prism.Logging.Loggly
             return string.Join(",", tags);
         }
 
-        public void Log(string message, IDictionary<string, string> properties)
+        public virtual void Log(string message, IDictionary<string, string> properties)
         {
             if(properties == null)
             {
@@ -65,7 +65,7 @@ namespace Prism.Logging.Loggly
             PostMessageAsync(properties, LogglyUri(Tags())).ContinueWith(t => { });
         }
 
-        public void Report(Exception ex, IDictionary<string, string> properties)
+        public virtual void Report(Exception ex, IDictionary<string, string> properties)
         {
             if (properties == null)
             {
@@ -80,7 +80,7 @@ namespace Prism.Logging.Loggly
             PostMessageAsync(properties, LogglyUri(Tags())).ContinueWith(t => { });
         }
 
-        public void TrackEvent(string name, IDictionary<string, string> properties) =>
+        public virtual void TrackEvent(string name, IDictionary<string, string> properties) =>
             Log(name, properties);
     }
 }

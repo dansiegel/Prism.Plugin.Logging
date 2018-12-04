@@ -14,7 +14,7 @@ namespace Prism.Logging.Graylog
             _options = options;
         }
 
-        public void Log(string message, Level level = Level.Debug)
+        public virtual void Log(string message, Level level = Level.Debug)
         {
             var gelf = CreateMessage(fullMessage: message, level: level);
             Log(gelf);
@@ -29,22 +29,22 @@ namespace Prism.Logging.Graylog
             Log(gelf);
         }
 
-        public void Log(string message, IDictionary<string, string> properties)
+        public virtual void Log(string message, IDictionary<string, string> properties)
         {
             var gelf = CreateMessage(fullMessage: message, properties: properties);
             Log(gelf);
         }
 
-        public void Report(Exception ex, IDictionary<string, string> properties)
+        public virtual void Report(Exception ex, IDictionary<string, string> properties)
         {
             var gelf = CreateMessage(ex.Message, ex.ToString(), properties: properties);
             Log(gelf);
         }
 
-        public void TrackEvent(string name, IDictionary<string, string> properties) =>
+        public virtual void TrackEvent(string name, IDictionary<string, string> properties) =>
             Log(name, properties);
 
-        private GelfMessage CreateMessage(string shortMessage = null, string fullMessage = null, Category? category = null, Priority? priority = null, Level level = Level.Debug, IDictionary<string, string> properties = null)
+        protected virtual GelfMessage CreateMessage(string shortMessage = null, string fullMessage = null, Category? category = null, Priority? priority = null, Level level = Level.Debug, IDictionary<string, string> properties = null)
         {
             if(properties == null)
             {
