@@ -71,6 +71,7 @@ namespace Prism.Logging.Loggly
             properties.Add("Type", ex.GetType().FullName);
             properties.Add("Message", ex.Message);
             properties.Add("StackTrace", ex.StackTrace);
+            properties.Add("FullMessage", ex.ToString());
 
             AddDefaultProperties(properties);
             PostMessageAsync(properties, LogglyUri(Tags())).ContinueWith(t => { });
