@@ -96,13 +96,10 @@ namespace Prism.Logging.Syslog
                 facility = fac;
             }
 
-            message += "\nProperties";
-            foreach(var prop in properties.Where(x => x.Key != nameof(Category) && x.Key != nameof(Facility)))
-            {
-                message += $"\n    {prop.Key} - {prop.Value}";
-            }
+            var props = properties?.Where(x => x.Key != nameof(Category) && x.Key != nameof(Facility))
+                .Select(prop => $"\n    {prop.Key} - {prop.Value}") ?? Array.Empty<string>();
 
-            var syslog = new SyslogMessage(facility, level, message)
+            var syslog = new SyslogMessage(facility, level, $"{message}\nProperties{string.Join("", props)}")
             {
                 AppName = AppNameOrTag
             };

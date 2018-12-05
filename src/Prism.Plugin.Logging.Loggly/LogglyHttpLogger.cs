@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using Prism.Logging.Http;
 
@@ -44,43 +45,41 @@ namespace Prism.Logging.Loggly
 
         protected virtual string Tags(IList<string> tags)
         {
-            for(var i = 0; i < tags.Count; i++)
-            {
-                tags[i] = WebUtility.UrlEncode(tags[i]);
-            }
-
-            return string.Join(",", tags);
+            return string.Join(",", tags.Select(x => WebUtility.UrlEncode(x)));
         }
 
         public virtual void Log(string message, IDictionary<string, string> properties)
         {
-            if(properties == null)
+            if(properties is null)
             {
                 properties = new Dictionary<string, string>();
             }
 
-            properties.Add("HostName", Dns.GetHostName());
             properties.Add("Message", message);
+            AddDefaultProperties(properties);
 
             PostMessageAsync(properties, LogglyUri(Tags())).ContinueWith(t => { });
         }
 
         public virtual void Report(Exception ex, IDictionary<string, string> properties)
         {
-            if (properties == null)
+            if (properties is null)
             {
                 properties = new Dictionary<string, string>();
             }
 
-            properties.Add("HostName", Dns.GetHostName());
             properties.Add("Type", ex.GetType().FullName);
             properties.Add("Message", ex.Message);
             properties.Add("StackTrace", ex.StackTrace);
 
+            AddDefaultProperties(properties);
             PostMessageAsync(properties, LogglyUri(Tags())).ContinueWith(t => { });
         }
 
         public virtual void TrackEvent(string name, IDictionary<string, string> properties) =>
             Log(name, properties);
+
+        protected virtual void AddDefaultProperties(IDictionary<string, string> properties) =>
+            properties.Add("HostName", Dns.GetHostName());
     }
 }

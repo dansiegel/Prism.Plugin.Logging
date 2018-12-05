@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using System.Text;
 using Prism.Logging.Sockets;
@@ -38,14 +39,7 @@ namespace Prism.Logging.Syslog
         public override string ToString() =>
             $"<{Priority}>{DateTimeOffset.Now.ToString("MMM dd HH:mm:ss")} {Dns.GetHostName()} {GetTags()}: {Text}";
 
-        protected virtual string GetTags()
-        {
-            var tags = AppName;
-            foreach(var tag in Tags ?? new string[] {})
-            {
-                tags += $" {tag}";
-            }
-            return tags;
-        }
+        protected virtual string GetTags() =>
+            Tags?.Any() ?? false ? $"{AppName} {string.Join(" ", Tags)}" : AppName;
     }
 }
