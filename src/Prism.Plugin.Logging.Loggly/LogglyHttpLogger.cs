@@ -19,13 +19,11 @@ namespace Prism.Logging.Loggly
 
         public virtual void Log(string message, Category category, Priority priority)
         {
-            PostMessageAsync(new
+            Log(message, new Dictionary<string, string>
             {
-                HostName = Dns.GetHostName(),
-                Priority = priority,
-                Category = category,
-                Message = message
-            }, LogglyUri(Tags())).ContinueWith(t => { });
+                { "Priority", priority.ToString() },
+                { "Category", category.ToString() }
+            });
         }
 
         protected virtual string LogglyBaseUri =>
@@ -40,8 +38,16 @@ namespace Prism.Logging.Loggly
                 _options.AppName
             };
 
-        protected virtual string Tags() => 
-            Tags(DefaultTags());
+        protected virtual string Tags(string category)
+        {
+            var tags = DefaultTags();
+            if(!string.IsNullOrWhiteSpace(category))
+            {
+                tags.Add(category);
+            }
+
+            return Tags(tags);
+        }
 
         protected virtual string Tags(IList<string> tags)
         {
@@ -58,7 +64,9 @@ namespace Prism.Logging.Loggly
             properties.Add("Message", message);
             AddDefaultProperties(properties);
 
-            PostMessageAsync(properties, LogglyUri(Tags())).ContinueWith(t => { });
+            string category = ExtractCategory(properties);
+
+            PostMessageAsync(properties, LogglyUri(Tags(category))).ContinueWith(t => { });
         }
 
         public virtual void Report(Exception ex, IDictionary<string, string> properties)
@@ -74,11 +82,37 @@ namespace Prism.Logging.Loggly
             properties.Add("FullMessage", ex.ToString());
 
             AddDefaultProperties(properties);
-            PostMessageAsync(properties, LogglyUri(Tags())).ContinueWith(t => { });
+            var category = ExtractCategory(properties, nameof(Report));
+            PostMessageAsync(properties, LogglyUri(Tags(category))).ContinueWith(t => { });
         }
 
-        public virtual void TrackEvent(string name, IDictionary<string, string> properties) =>
+        protected string ExtractCategory(IDictionary<string, string> properties, string category = null)
+        {
+            if (properties.Keys.Contains("Category"))
+            {
+                category = properties["Category"];
+                properties.Remove("Category");
+                return category;
+            }
+
+            if(properties.Keys.Contains("category"))
+            {
+                category = properties["category"];
+                properties.Remove("category");
+            }
+
+            return category;
+        }
+
+        public virtual void TrackEvent(string name, IDictionary<string, string> properties)
+        {
+            if(!properties.Keys.Any(x => x.Equals("Category", StringComparison.InvariantCultureIgnoreCase)))
+            {
+                properties.Add("Category", "TrackedEvent");
+            }
+
             Log(name, properties);
+        }
 
         protected virtual void AddDefaultProperties(IDictionary<string, string> properties) =>
             properties.Add("HostName", Dns.GetHostName());
