@@ -70,7 +70,7 @@ namespace Prism.Logging.Graylog
             return new GelfMessage(properties)
             {
                 Host = Environment.MachineName,
-                Level = (long)category.ToLevel(),
+                Level = (long)level,
                 ShortMessage = shortMessage,
                 FullMessage = fullMessage
             };
