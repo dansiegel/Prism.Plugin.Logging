@@ -14,8 +14,4 @@
     <PackageReference Include="Prism.Core" Version="7.2.0.1233-pre" />
   </ItemGroup>
 
-  <ItemGroup Condition=" $(TargetFramework.StartsWith('uap10.0')) ">
-    <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform" Version="6.1.9" />
-  </ItemGroup>
-
 </Project>
