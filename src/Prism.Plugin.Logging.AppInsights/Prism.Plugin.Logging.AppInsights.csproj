@@ -2,8 +2,6 @@
 
   <PropertyGroup>
     <TargetFrameworks>netstandard2.0</TargetFrameworks>
-    <!-- <TargetFrameworks Condition=" '$(OS)' == 'Windows_NT' ">netstandard2.0;Xamarin.iOS10;MonoAndroid81;net45;uap10.0.15063</TargetFrameworks>
-    <TargetFrameworks Condition=" '$(OS)' != 'Windows_NT' ">netstandard2.0;Xamarin.iOS10;MonoAndroid81;net45</TargetFrameworks> -->
     <RootNamespace>Prism.Logging.AppInsights</RootNamespace>
     <Description>Provides implementations and abstractions for writing ILoggerFacade &amp; ILogger logs to Application Insights.</Description>
     <PackageTags>$(PackageTags);appinsights</PackageTags>

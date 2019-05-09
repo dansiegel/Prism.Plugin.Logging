@@ -1,7 +1,7 @@
 ﻿<Project Sdk="MSBuild.Sdk.Extras">
 
   <PropertyGroup>
-    <TargetFrameworks>netstandard2.0;net45;uap10.0.16299</TargetFrameworks>
+    <TargetFrameworks>netstandard2.0;net45</TargetFrameworks>
     <RootNamespace>Prism.Logging</RootNamespace>
     <Description>Provides common logging abstractions and a basic networking logger for sending ILoggerFacade logs to a TCP/UDP server</Description>
   </PropertyGroup>
