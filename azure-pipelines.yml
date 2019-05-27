@@ -84,6 +84,7 @@ stages:
       condition: and(succeeded(), eq(variables['system.pullrequest.isfork'], false))
 - stage: deploy
   displayName: Deploy NuGets
+  condition: and(succeeded(), eq(variables['system.pullrequest.isfork'], false))
   jobs:
   - deployment: MyGet
     displayName: MyGet.org
