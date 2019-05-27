@@ -85,17 +85,6 @@ stages:
 - stage: deploy
   displayName: Deploy NuGets
   jobs:
-  - job: ProcessDeployment
-    pool:
-      vmImage: $(VMImage)
-    steps:
-    - task: DownloadPipelineArtifact@1
-      inputs:
-        artifactName: NuGet
-        downloadPath: $(System.DefaultWorkingDirectory)/deploy-scratch
-    - powershell: $(System.DefaultWorkingDirectory)/build/Process-Release.ps1
-      workingDirectory: $(System.DefaultWorkingDirectory)/deploy-scratch
-      displayName: Process Artifacts for Release
   - deployment: MyGet
     displayName: MyGet.org
     environment: MyGet
@@ -113,23 +102,27 @@ stages:
   - deployment: NuGet
     displayName: NuGet.org
     environment: NuGet
-    dependsOn: ProcessDeployment
-    condition: and(succeeded(), eq(variables['DeployToNuGet'], 'true'))
+    condition: and(succeeded(), or(eq(variables['IS_PREVIEW'], true), eq(variables['IS_RELEASE'], true)))
     strategy:
       runOnce:
         deploy:
           steps:
-          - task: jakobehn.jakobehn-vsts-github-tasks.publish-github-release.PublishGitHubRelease@0
-            displayName: 'Publish GitHub Release'
+          - powershell: $(System.DefaultWorkingDirectory)/build/Process-Release.ps1
+            name: processName
+            displayName: Process Artifacts for Release
+            workingDirectory: $env:PIPELINE_WORKSPACE
+
+          - task: GithubRelease@0 
+            displayName: 'Create GitHub Release'
             inputs:
-              applicationName: AzureDevOps
-              token: '$(GitHubToken)'
-              repo: Prism.Container.Extensions
-              owner: dansiegel
-              tagName: 'v$(VersionName)'
-              releaseName: '$(ReleaseDisplayName)'
-              prerelease: $(IsPreview)
-              assetsPattern: '$(Pipeline.Workspace)/**/*.nupkg'
+              githubConnection: 'GitHub - Dan Siegel'
+              title: '$(ReleaseDisplayName)'
+              tag: 'v$(VersionName)'
+              isPreRelease: $(IS_PREVIEW)
+              assets: '$(Pipeline.Workspace)/**/*.nupkg'
+              addChangeLog: true
+              isDraft: true
+
           - task: NuGetCommand@2
             displayName: NuGet Push
             inputs:
