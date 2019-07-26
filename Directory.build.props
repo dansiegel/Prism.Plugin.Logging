@@ -17,7 +17,7 @@
     <NeutralLanguage>en-US</NeutralLanguage>
     <IncludeSymbols>True</IncludeSymbols>
     <IncludeSource>True</IncludeSource>
-    <VersionPrefix>1.4.0</VersionPrefix>
+    <VersionPrefix>7.2.0</VersionPrefix>
   </PropertyGroup>
 
   <!-- CI Helpers -->
