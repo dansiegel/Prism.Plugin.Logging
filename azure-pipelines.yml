@@ -45,12 +45,12 @@ stages:
     steps:
     - task: DotNetCoreInstaller@0
       inputs:
-        version: '3.0.100-preview5-011568'
+        version: '3.0.100-preview7-012821'
 
     - task: NuGetToolInstaller@0
-      displayName: Use NuGet 4.9.4
+      displayName: Use NuGet 5.1.0
       inputs:
-        versionSpec: 4.9.4
+        versionSpec: 5.1.0
 
     - task: NuGetCommand@2
       displayName: 'NuGet restore'
@@ -64,6 +64,7 @@ stages:
         solution: Prism.Plugin.Logging.sln
         platform: '$(BuildPlatform)'
         configuration: '$(BuildConfiguration)'
+        msbuildArguments: '/p:DebugType=portable /p:JavaSdkDirectory="$(JAVA_HOME)"'
 
     - powershell: ./Sign-Packages.ps1
       workingDirectory: build
