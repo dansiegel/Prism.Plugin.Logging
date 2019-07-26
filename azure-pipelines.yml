@@ -111,7 +111,7 @@ stages:
           steps:
           - powershell: |
              try {
-                 $artifactDirectory = $env:searchDirectory
+                 $artifactDirectory = $env:PIPELINE_WORKSPACE
                  Write-Host "Currect working directory $artifactDirectory"
                  $nupkg = Get-ChildItem -Path $artifactDirectory -Filter *.nupkg -Recurse | Select-Object -First 1
 
@@ -146,7 +146,6 @@ stages:
 
             name: processName
             displayName: Process Artifacts for Release
-            workingDirectory: $env:PIPELINE_WORKSPACE
 
           - task: GithubRelease@0 
             displayName: 'Create GitHub Release'
