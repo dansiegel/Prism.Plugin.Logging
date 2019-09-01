@@ -50,6 +50,33 @@ containerRegistry.RegisterInstance<ICrashesService>(logger);
 containerRegistry.RegisterInstance<ISyslogLogger>(logger);
 ```
 
+If you're using the Prism.Container.Extensions you might simply register your logger like:
+
+```cs
+containerRegistry.RegisterManySingleton<SyslogLogger>();
+```
+
+### Aggregate Logger
+
+There are times where you may actually want to have multiple logging providers. For instance you may wish to send logs to App Center and the device console at the same time. The Aggregate Logger by default will log to the console, but gives you the ability to explicitly define any loggers that you may wish to use. Note that when you add the first logger it will clear the default Console Logger and you will need to pass in a Console Logger if you wish to continue using the Console Logger as one of the Aggregate Loggers.
+
+```cs
+protected override void RegisterTypes(IContainerRegistry containerRegistry)
+{
+    containerRegistry.Register<ISyslogOptions, MySyslogOptions>();
+    containerRegistry.RegisterManySingleton<AggregateLogger>();
+}
+
+protected override void OnInitialized()
+{
+    var aggLogger = Container.Resolve<IAggregateLogger>();
+    aggLogger.AddLoggers(
+        Container.Resolve<ConsoleLoggingService>(),
+        Container.Resolve<SyslogLogger>()
+    );
+}
+```
+
 ### App Center & Application Insights
 
 The App Center and Application Insights packages both make some assumptions that while running a Debug build that the logging output should be sent to the Application Output (the console in the IDE). Simply running a Release build will trigger the logger to attempt to send telemetry using the App Center or Application Insights SDK's
