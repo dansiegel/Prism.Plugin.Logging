@@ -1,22 +1,12 @@
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
+using System.Text.Json;
 
 namespace Prism.Logging.Http
 {
-    public class JsonContent : ByteArrayContent
+    internal class JsonContent : ByteArrayContent
     {
-        public JsonContent(JObject message, Encoding encoding = null)
-            : base(GetByteArray(message.ToString(), encoding))
-        {
-            Headers.ContentType = new MediaTypeHeaderValue("application/json")
-            {
-                CharSet = (encoding ?? Encoding.UTF8).WebName
-            };
-        }
-
         public JsonContent(object message, Encoding encoding = null) 
             : base(GetByteArray(message, encoding))
         {
@@ -28,7 +18,7 @@ namespace Prism.Logging.Http
 
         static byte[] GetByteArray(object content, Encoding encoding = null)
         {
-            return GetByteArray(JsonConvert.SerializeObject(content));
+            return GetByteArray(JsonSerializer.Serialize(content));
         }
 
         static byte[] GetByteArray(string content, Encoding encoding = null)

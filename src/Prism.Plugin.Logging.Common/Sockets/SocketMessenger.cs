@@ -14,60 +14,6 @@ namespace Prism.Logging.Sockets
         
         internal const int MaxBufferSize = 65500;
 
-#if NET45
-        public Task<bool> SendMessageAsync(ILogMessage message, string hostOrIp, int port)
-        {
-            return Task.Run(() =>
-            {
-                try
-                {
-                    var endpoint = GetEndPoint(hostOrIp, port);
-
-                    if (endpoint == null)
-                    {
-                        return false;
-                    }
-
-                    using (var socket = new Socket(endpoint.AddressFamily, SocketType.Dgram, ProtocolType.Udp))
-                    {
-                        socket.Connect(endpoint);
-                        if (!socket.Connected)
-                        {
-                            return false;
-                        }
-
-                        var data = message.GetBytes();
-
-                        if (data.Length > socket.SendBufferSize)
-                        {
-                            Console.WriteLine($"Max Buffer Size {socket.SendBufferSize}. Data packets length is currently: {data.Length}");
-                            Console.WriteLine(message);
-
-                            // HACK: To ensure that the data packet fits in the buffer size
-                            data = data.SubArray(socket.SendBufferSize);
-                        }
-
-                        socket.SendTo(data, SocketFlags.None, endpoint);
-                        return true;
-                    }
-
-                }
-                catch (SocketException se)
-                {
-                    Console.WriteLine(se);
-                    Console.WriteLine(message);
-                    return false;
-                }
-#if DEBUG
-                catch (System.Exception e)
-                {
-                    Debug.WriteLine(e);
-                    return false;
-                }
-#endif
-            });
-        }
-#else
         public async Task<bool> SendMessageAsync(ILogMessage message, string hostOrIp, int port)
         {
             try
@@ -117,7 +63,6 @@ namespace Prism.Logging.Sockets
             }
 #endif
         }
-#endif
 
         public bool SendMessage(ILogMessage message, string hostOrIp, int port)
         {
