@@ -26,9 +26,9 @@ Prism's ILoggerFacade provides logging of all internal Prism errors, and a quick
 
 ## Support
 
-If this project helped you reduce time to develop and made your app better, please help support this project.
+If this project helped you reduce time to develop and made your app better, please be sure to Star the project help support Dan.
 
-[![paypal](https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif)](https://www.paypal.me/dansiegel)
+[![GitHub Sponsors](https://github.blog/wp-content/uploads/2019/05/mona-heart-featured.png?fit=600%2C315)](https://xam.dev/sponsor-prism-logging)
 
 ## Providers
 

@@ -45,12 +45,12 @@ stages:
     steps:
     - task: DotNetCoreInstaller@0
       inputs:
-        version: '3.0.100-preview7-012821'
+        version: '3.0.100'
 
     - task: NuGetToolInstaller@0
-      displayName: Use NuGet 5.1.0
+      displayName: Use NuGet 5.3.1
       inputs:
-        versionSpec: 5.1.0
+        versionSpec: 5.3.1
 
     - task: NuGetCommand@2
       displayName: 'NuGet restore'
@@ -147,7 +147,7 @@ stages:
             name: processName
             displayName: Process Artifacts for Release
 
-          - task: GithubRelease@0 
+          - task: GithubRelease@0
             displayName: 'Create GitHub Release'
             inputs:
               githubConnection: 'GitHub - Dan Siegel'
