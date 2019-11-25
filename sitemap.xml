@@ -1,52 +1,52 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
-     <loc>https://prism.plugin.logging.github.io/</loc>
+     <loc>http://logging.prismplugins.com/</loc>
      <lastmod>2019-11-25</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
-     <loc>https://prism.plugin.logging.github.io/abstractions/</loc>
+     <loc>http://logging.prismplugins.com/abstractions/</loc>
      <lastmod>2019-11-25</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
-     <loc>https://prism.plugin.logging.github.io/aggregate-logger/</loc>
+     <loc>http://logging.prismplugins.com/aggregate-logger/</loc>
      <lastmod>2019-11-25</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
-     <loc>https://prism.plugin.logging.github.io/appcenter/</loc>
+     <loc>http://logging.prismplugins.com/appcenter/</loc>
      <lastmod>2019-11-25</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
-     <loc>https://prism.plugin.logging.github.io/appinsights/</loc>
+     <loc>http://logging.prismplugins.com/appinsights/</loc>
      <lastmod>2019-11-25</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
-     <loc>https://prism.plugin.logging.github.io/graylog/</loc>
+     <loc>http://logging.prismplugins.com/graylog/</loc>
      <lastmod>2019-11-25</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
-     <loc>https://prism.plugin.logging.github.io/loggly/</loc>
+     <loc>http://logging.prismplugins.com/loggly/</loc>
      <lastmod>2019-11-25</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
-     <loc>https://prism.plugin.logging.github.io/socket/</loc>
+     <loc>http://logging.prismplugins.com/socket/</loc>
      <lastmod>2019-11-25</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
-     <loc>https://prism.plugin.logging.github.io/syslog/</loc>
+     <loc>http://logging.prismplugins.com/syslog/</loc>
      <lastmod>2019-11-25</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
-     <loc>https://prism.plugin.logging.github.io/samples/</loc>
+     <loc>http://logging.prismplugins.com/samples/</loc>
      <lastmod>2019-11-25</lastmod>
      <changefreq>daily</changefreq>
     </url>
