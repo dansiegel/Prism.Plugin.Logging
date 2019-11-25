@@ -1,0 +1,60 @@
+# Project Information
+site_name: Prism.Plugin.Logging
+site_description: Documentation for the Prism Logging Plugin
+site_author: Dan Siegel
+site_url: https://prism.plugin.logging.github.io
+
+# Repository
+repo_name: dansiegel/Prism.Plugin.Logging
+repo_url: https://github.com/dansiegel/Prism.Plugin.Logging
+edit_uri: ''
+
+# Copyright
+copyright: 'Copyright &copy; 2016 - 2019 Dan Siegel'
+
+# Configuration
+theme:
+  name: 'material'
+  custom_dir: 'theme'
+  logo: assets/prism-logo.png
+  favicon: assets/favicon.ico
+  language: en
+  feature:
+    tabs: false
+  palette:
+    primary: 'white'
+    accent: 'cyan'
+
+# Social
+extra:
+  social:
+    - type: globe
+      link: https://dansiegel.net
+    - type: github
+      link: https://github.com/dansiegel
+    - type: twitch
+      link: https://twitch.tv/dansiegel
+    - type: twitter
+      link: https://twitter.com/DanJSiegel
+    - type: linkedin
+      link: https://linkedin.com/in/DanSiegel
+
+# Extensions
+markdown_extensions:
+  - admonition:
+  - codehilite:
+      linenums: false
+  - toc:
+      permalink: true
+
+nav:
+  - Getting Started: index.md
+  - Abstractions: abstractions.md
+  - Aggregate Logger: aggregate-logger.md
+  - App Center: appcenter/index.md
+  - Application Insights: appinsights/index.md
+  - Graylog: graylog/index.md
+  - Loggly: loggly/index.md
+  - Socket Logger: socket/index.md
+  - Syslog: syslog/index.md
+  - Samples: samples.md

@@ -39,6 +39,9 @@ indent_size = 2
 [*.{yaml,yml}]
 indent_size = 2
 
+# HTML
+[*.html]
+
 #indent switch case contents.
 csharp_indent_case_contents = true
 #indent switch labels
