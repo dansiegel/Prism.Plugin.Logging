@@ -2,7 +2,7 @@
 site_name: Prism.Plugin.Logging
 site_description: Documentation for the Prism Logging Plugin
 site_author: Dan Siegel
-site_url: https://prism.plugin.logging.github.io
+site_url: http://logging.prismplugins.com
 
 # Repository
 repo_name: dansiegel/Prism.Plugin.Logging
@@ -20,7 +20,7 @@ theme:
   favicon: assets/favicon.ico
   language: en
   feature:
-    tabs: false
+    tabs: true
   palette:
     primary: 'white'
     accent: 'cyan'
@@ -48,13 +48,24 @@ markdown_extensions:
       permalink: true
 
 nav:
-  - Getting Started: index.md
-  - Abstractions: abstractions.md
-  - Aggregate Logger: aggregate-logger.md
-  - App Center: appcenter/index.md
-  - Application Insights: appinsights/index.md
-  - Graylog: graylog/index.md
-  - Loggly: loggly/index.md
-  - Socket Logger: socket/index.md
-  - Syslog: syslog/index.md
-  - Samples: samples.md
+  - Prism:
+    - Prism: http://prismlibrary.github.io/docs
+  - Logging:
+    - Getting Started: index.md
+    - Abstractions: abstractions.md
+    - Aggregate Logger: aggregate-logger.md
+    - App Center: appcenter/index.md
+    - Application Insights: appinsights/index.md
+    - Graylog: graylog/index.md
+    - Loggly: loggly/index.md
+    - Socket Logger: socket/index.md
+    - Syslog: syslog/index.md
+    - Samples: samples.md
+  - Popups:
+    - Popups: http://popups.prismplugins.com
+  - Container Extensions:
+    - Container Extensions: http://prismplugins.com
+  - Mobile.BuildTools:
+    - Mobile.BuildTools: http://mobilebuildtools.com
+
+google_analytics: ['UA-153405647-2', 'Prism.Plugin.Logging']
