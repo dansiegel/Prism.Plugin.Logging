@@ -43,15 +43,15 @@ stages:
       demands:
       - MSBuild
     steps:
-    - task: DotNetCoreInstaller@0
+    - task: DotNetCoreInstaller@1
       inputs:
         packageType: 'sdk'
         useGlobalJson: true
 
-    - task: NuGetToolInstaller@0
-      displayName: Use NuGet 5.3.1
+    - task: NuGetToolInstaller@1
+      displayName: Use Latest NuGet
       inputs:
-        versionSpec: 5.3.1
+        checkLatest: true
 
     - task: NuGetCommand@2
       displayName: 'NuGet restore'
@@ -78,14 +78,14 @@ stages:
         SignServiceResourceId: $(SignServiceResourceId)
       condition: and(succeeded(), not(eq(variables['build.reason'], 'PullRequest')), not(eq(variables['SignClientSecret'], '')), not(eq(variables['SignClientUser'], '')))
 
-    - task: PublishPipelineArtifact@0
+    - task: PublishPipelineArtifact@1
       displayName: Publish Package Artifacts
       inputs:
         artifactName: NuGet
         targetPath: '$(Build.ArtifactStagingDirectory)'
       condition: and(succeeded(), eq(variables['system.pullrequest.isfork'], false))
 - stage: deploy
-  displayName: Deploy NuGets
+  displayName: Deploy to CI Feeds
   condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
   jobs:
   - deployment: MyGet
