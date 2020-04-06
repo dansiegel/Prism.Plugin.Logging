@@ -45,7 +45,8 @@ stages:
     steps:
     - task: DotNetCoreInstaller@0
       inputs:
-        version: '3.0.100'
+        packageType: 'sdk'
+        useGlobalJson: true
 
     - task: NuGetToolInstaller@0
       displayName: Use NuGet 5.3.1
