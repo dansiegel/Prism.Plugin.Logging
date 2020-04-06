@@ -43,7 +43,7 @@ stages:
       demands:
       - MSBuild
     steps:
-    - task: DotNetCoreInstaller@1
+    - task: UseDotNet@2
       inputs:
         packageType: 'sdk'
         useGlobalJson: true
