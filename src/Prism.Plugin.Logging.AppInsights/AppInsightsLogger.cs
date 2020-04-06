@@ -5,6 +5,7 @@ using System.Linq;
 using System.Reflection;
 using System.Threading;
 using Microsoft.ApplicationInsights;
+using Microsoft.ApplicationInsights.Extensibility;
 
 namespace Prism.Logging.AppInsights
 {
@@ -67,10 +68,9 @@ namespace Prism.Logging.AppInsights
                 throw new NullReferenceException("A value could not be found for the Instrumentation Key");
             }
 
-            _telemetry = new TelemetryClient
-            {
-                InstrumentationKey = _options.InstrumentationKey
-            };
+            var config = TelemetryConfiguration.CreateDefault();
+            config.InstrumentationKey = _options.InstrumentationKey;
+            _telemetry = new TelemetryClient(config);
             _telemetry.Context.Device.OperatingSystem = GetPlatform();
             _telemetry.Flush();
         }
