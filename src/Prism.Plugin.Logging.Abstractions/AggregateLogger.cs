@@ -49,15 +49,15 @@ namespace Prism.Logging
         }
 
         void ILogger.Log(string message, IDictionary<string, string> properties) =>
-            InvokeOnLogger(l => l.Log(message, properties));
+            InvokeOnLogger(l => l.Log(message, new Dictionary<string, string>(properties)));
 
         void ILoggerFacade.Log(string message, Category category, Priority priority) =>
             InvokeOnLogger(l => l.Log(message, category, priority));
 
         void IAnalyticsService.TrackEvent(string name, IDictionary<string, string> properties) =>
-            InvokeOnLogger(l => l.TrackEvent(name, properties));
+            InvokeOnLogger(l => l.TrackEvent(name, new Dictionary<string, string>(properties)));
 
         void ICrashesService.Report(Exception ex, IDictionary<string, string> properties) =>
-            InvokeOnLogger(l => l.Report(ex, properties));
+            InvokeOnLogger(l => l.Report(ex, new Dictionary<string, string>(properties)));
     }
 }
