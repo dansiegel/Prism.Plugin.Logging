@@ -88,9 +88,9 @@ stages:
   displayName: Deploy to CI Feeds
   condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
   jobs:
-  - deployment: MyGet
-    displayName: MyGet.org
-    environment: MyGet
+  - deployment: SponsorConnect
+    displayName: Sponsor Connect
+    environment: SponsorConnect
     strategy:
       runOnce:
         deploy:
@@ -99,9 +99,9 @@ stages:
             displayName: NuGet Push
             inputs:
               command: push
-              packagesToPush: '$(Pipeline.Workspace)/**/*.nupkg'
+              packagesToPush: '$(Pipeline.Workspace)/**/*.nupkg;$(Pipeline.Workspace)/**/*.snupkg'
               nuGetFeedType: external
-              publishFeedCredentials: 'Prism.Plugins - MyGet'
+              publishFeedCredentials: 'SponsorConnect'
   - deployment: NuGet
     displayName: NuGet.org
     environment: NuGet
@@ -155,7 +155,9 @@ stages:
               title: '$(ReleaseDisplayName)'
               tag: 'v$(VersionName)'
               isPreRelease: $(IS_PREVIEW)
-              assets: '$(Pipeline.Workspace)/**/*.nupkg'
+              assets: |
+                $(Pipeline.Workspace)/**/*.nupkg
+                $(Pipeline.Workspace)/**/*.snupkg
               addChangeLog: true
               isDraft: true
 
@@ -163,6 +165,6 @@ stages:
             displayName: NuGet Push
             inputs:
               command: push
-              packagesToPush: '$(Pipeline.Workspace)/**/*.nupkg;!$(Pipeline.Workspace)/**/*.symbols.nupkg'
+              packagesToPush: '$(Pipeline.Workspace)/**/*.nupkg;$(Pipeline.Workspace)/**/*.snupkg'
               nuGetFeedType: external
               publishFeedCredentials: 'NuGet'
