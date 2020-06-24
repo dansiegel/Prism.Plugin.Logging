@@ -14,15 +14,15 @@ Prism's ILoggerFacade provides logging of all internal Prism errors, and a quick
 
 ## NuGet
 
-| Package | NuGet | MyGet |
+| Package | NuGet | Sponsor Connect |
 |-------|:-----:|:------:|
-| Prism.Plugin.Logging.Abstractions | [![AbstractionsLoggingShield]][AbstractionsLoggingNuGet] | [![AbstractionsLoggingMyGetShield]][AbstractionsLoggingMyGet] |
-| Prism.Plugin.Logging.Common | [![CommonLoggingShield]][CommonLoggingNuGet] | [![CommonLoggingMyGetShield]][CommonLoggingMyGet] |
-| Prism.Plugin.Logging.AppCenter | [![AppCenterLoggingShield]][AppCenterLoggingNuGet] | [![AppCenterLoggingMyGetShield]][AppCenterLoggingMyGet] |
-| Prism.Plugin.Logging.AppInsights | [![AppInightsLoggingShield]][AppInightsLoggingNuGet] | [![AppInightsLoggingMyGetShield]][AppInightsLoggingMyGet] |
-| Prism.Plugin.Logging.Graylog | [![GraylogLoggingShield]][GraylogLoggingNuGet] | [![GraylogLoggingMyGetShield]][GraylogLoggingMyGet] |
-| Prism.Plugin.Logging.Loggly | [![LogglyLoggingShield]][LogglyLoggingNuGet] | [![LogglyLoggingMyGetShield]][LogglyLoggingMyGet] |
-| Prism.Plugin.Logging.Syslog | [![SyslogLoggingShield]][SyslogLoggingNuGet] | [![SyslogLoggingMyGetShield]][SyslogLoggingMyGet] |
+| Prism.Plugin.Logging.Abstractions | [![AbstractionsLoggingShield]][AbstractionsLoggingNuGet] | [![AbstractionsLoggingSponsorConnectShield]][AbstractionsLoggingSponsorConnect] |
+| Prism.Plugin.Logging.Common | [![CommonLoggingShield]][CommonLoggingNuGet] | [![CommonLoggingSponsorConnectShield]][CommonLoggingSponsorConnect] |
+| Prism.Plugin.Logging.AppCenter | [![AppCenterLoggingShield]][AppCenterLoggingNuGet] | [![AppCenterLoggingSponsorConnectShield]][AppCenterLoggingSponsorConnect] |
+| Prism.Plugin.Logging.AppInsights | [![AppInightsLoggingShield]][AppInightsLoggingNuGet] | [![AppInightsLoggingSponsorConnectShield]][AppInightsLoggingSponsorConnect] |
+| Prism.Plugin.Logging.Graylog | [![GraylogLoggingShield]][GraylogLoggingNuGet] | [![GraylogLoggingSponsorConnectShield]][GraylogLoggingSponsorConnect] |
+| Prism.Plugin.Logging.Loggly | [![LogglyLoggingShield]][LogglyLoggingNuGet] | [![LogglyLoggingSponsorConnectShield]][LogglyLoggingSponsorConnect] |
+| Prism.Plugin.Logging.Syslog | [![SyslogLoggingShield]][SyslogLoggingNuGet] | [![SyslogLoggingSponsorConnectShield]][SyslogLoggingSponsorConnect] |
 
 ## Support
 
@@ -209,35 +209,35 @@ public class App : PrismApplication
 
 [AbstractionsLoggingNuGet]: https://www.nuget.org/packages/Prism.Plugin.Logging.Abstractions
 [AbstractionsLoggingShield]: https://img.shields.io/nuget/vpre/Prism.Plugin.Logging.Abstractions.svg
-[AbstractionsLoggingMyGet]: https://www.myget.org/feed/prism/package/nuget/Prism.Plugin.Logging.Abstractions
-[AbstractionsLoggingMyGetShield]: https://img.shields.io/myget/prism-plugins/vpre/Prism.Plugin.Logging.Abstractions.svg
+[AbstractionsLoggingSponsorConnect]: https://sponsorconnect.dev/packages/Prism.Plugin.Logging.Abstractions
+[AbstractionsLoggingSponsorConnectShield]: https://img.shields.io/endpoint?url=https%3A%2F%2Fsponsorconnect.dev%2Fshield%2FPrism.Plugin.Logging.Abstractions%2Fvpre
 
 [CommonLoggingNuGet]: https://www.nuget.org/packages/Prism.Plugin.Logging.Common
 [CommonLoggingShield]: https://img.shields.io/nuget/vpre/Prism.Plugin.Logging.Common.svg
-[CommonLoggingMyGet]: https://www.myget.org/feed/prism/package/nuget/Prism.Plugin.Logging.Common
-[CommonLoggingMyGetShield]: https://img.shields.io/myget/prism-plugins/vpre/Prism.Plugin.Logging.Common.svg
+[CommonLoggingSponsorConnect]: https://sponsorconnect.dev/packages/Prism.Plugin.Logging.Common
+[CommonLoggingSponsorConnectShield]: https://img.shields.io/endpoint?url=https%3A%2F%2Fsponsorconnect.dev%2Fshield%2FPrism.Plugin.Logging.Common%2Fvpre
 
 [AppInightsLoggingNuGet]: https://www.nuget.org/packages/Prism.Plugin.Logging.AppInsights
 [AppInightsLoggingShield]: https://img.shields.io/nuget/vpre/Prism.Plugin.Logging.AppInsights.svg
-[AppInightsLoggingMyGet]: https://www.myget.org/feed/prism/package/nuget/Prism.Plugin.Logging.AppInsights
-[AppInightsLoggingMyGetShield]: https://img.shields.io/myget/prism-plugins/vpre/Prism.Plugin.Logging.AppInsights.svg
+[AppInightsLoggingSponsorConnect]: https://sponsorconnect.dev/packages/Prism.Plugin.Logging.AppInsights
+[AppInightsLoggingSponsorConnectShield]: https://img.shields.io/endpoint?url=https%3A%2F%2Fsponsorconnect.dev%2Fshield%2FPrism.Plugin.Logging.AppInsights%2Fvpre
 
 [AppCenterLoggingNuGet]: https://www.nuget.org/packages/Prism.Plugin.Logging.AppCenter
 [AppCenterLoggingShield]: https://img.shields.io/nuget/vpre/Prism.Plugin.Logging.AppCenter.svg
-[AppCenterLoggingMyGet]: https://www.myget.org/feed/prism/package/nuget/Prism.Plugin.Logging.AppCenter
-[AppCenterLoggingMyGetShield]: https://img.shields.io/myget/prism-plugins/vpre/Prism.Plugin.Logging.AppCenter.svg
+[AppCenterLoggingSponsorConnect]: https://sponsorconnect.dev/packages/Prism.Plugin.Logging.AppCenter
+[AppCenterLoggingSponsorConnectShield]: https://img.shields.io/endpoint?url=https%3A%2F%2Fsponsorconnect.dev%2Fshield%2FPrism.Plugin.Logging.AppCenter%2Fvpre
 
 [GraylogLoggingNuGet]: https://www.nuget.org/packages/Prism.Plugin.Logging.Graylog
 [GraylogLoggingShield]: https://img.shields.io/nuget/vpre/Prism.Plugin.Logging.Graylog.svg
-[GraylogLoggingMyGet]: https://www.myget.org/feed/prism/package/nuget/Prism.Plugin.Logging.Graylog
-[GraylogLoggingMyGetShield]: https://img.shields.io/myget/prism-plugins/vpre/Prism.Plugin.Logging.Graylog.svg
+[GraylogLoggingSponsorConnect]: https://sponsorconnect.dev/packages/Prism.Plugin.Logging.Graylog
+[GraylogLoggingSponsorConnectShield]: https://img.shields.io/endpoint?url=https%3A%2F%2Fsponsorconnect.dev%2Fshield%2FPrism.Plugin.Logging.Graylog%2Fvpre
 
 [LogglyLoggingNuGet]: https://www.nuget.org/packages/Prism.Plugin.Logging.Loggly
 [LogglyLoggingShield]: https://img.shields.io/nuget/vpre/Prism.Plugin.Logging.Loggly.svg
-[LogglyLoggingMyGet]: https://www.myget.org/feed/prism/package/nuget/Prism.Plugin.Logging.Loggly
-[LogglyLoggingMyGetShield]: https://img.shields.io/myget/prism-plugins/vpre/Prism.Plugin.Logging.Loggly.svg
+[LogglyLoggingSponsorConnect]: https://sponsorconnect.dev/packages/Prism.Plugin.Logging.Loggly
+[LogglyLoggingSponsorConnectShield]: https://img.shields.io/endpoint?url=https%3A%2F%2Fsponsorconnect.dev%2Fshield%2FPrism.Plugin.Logging.Loggly%2Fvpre
 
 [SyslogLoggingNuGet]: https://www.nuget.org/packages/Prism.Plugin.Logging.Syslog
 [SyslogLoggingShield]: https://img.shields.io/nuget/vpre/Prism.Plugin.Logging.Syslog.svg
-[SyslogLoggingMyGet]: https://www.myget.org/feed/prism/package/nuget/Prism.Plugin.Logging.Syslog
-[SyslogLoggingMyGetShield]: https://img.shields.io/myget/prism-plugins/vpre/Prism.Plugin.Logging.Syslog.svg
+[SyslogLoggingSponsorConnect]: https://sponsorconnect.dev/packages/Prism.Plugin.Logging.Syslog
+[SyslogLoggingSponsorConnectShield]: https://img.shields.io/endpoint?url=https%3A%2F%2Fsponsorconnect.dev%2Fshield%2FPrism.Plugin.Logging.Syslog%2Fvpre
