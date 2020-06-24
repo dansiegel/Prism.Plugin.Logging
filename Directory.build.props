@@ -14,8 +14,10 @@
     <NoWarn>$(NoWarn);1701;1702;CS1591</NoWarn>
     <NeutralLanguage>en-US</NeutralLanguage>
     <IncludeSymbols>True</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
     <IncludeSource>True</IncludeSource>
     <VersionPrefix>7.2.0</VersionPrefix>
+    <LangVersion>latest</LangVersion>
   </PropertyGroup>
 
   <!-- CI Helpers -->
@@ -32,6 +34,7 @@
     <VersionSuffix>ci</VersionSuffix>
     <VersionSuffix Condition=" $(IS_PREVIEW) ">pre</VersionSuffix>
     <VersionSuffix Condition=" $(IS_RELEASE) "></VersionSuffix>
+    <ContinuousIntegrationBuild>false</ContinuousIntegrationBuild>
   </PropertyGroup>
 
   <PropertyGroup Condition=" $(IsPackable) And $(SignAssembly) == '' ">
@@ -54,15 +57,23 @@
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
   </PropertyGroup>
 
+  <PropertyGroup Condition=" '$(BUILD_ARTIFACTSTAGINGDIRECTORY)' != '' ">
+    <ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
+  </PropertyGroup>
+
   <ItemGroup Condition=" $(IsPackable) And '$(Configuration)' == 'Release' ">
     <PackageReference Condition=" '$(BUILD_ARTIFACTSTAGINGDIRECTORY)' != '' "
                       Include="Microsoft.SourceLink.GitHub"
-                      Version="1.0.0"
+                      Version="1.1.0-beta-20204-02"
                       PrivateAssets="All" />
     <None Include="$(MSBuildThisFileDirectory)prism-logo.png"
           Visible="False"
           Pack="True"
           PackagePath="" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <SourceRoot Include="$(MSBuildThisFileDirectory)/"/>
   </ItemGroup>
 
 </Project>
