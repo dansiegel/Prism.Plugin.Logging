@@ -209,35 +209,35 @@ public class App : PrismApplication
 
 [AbstractionsLoggingNuGet]: https://www.nuget.org/packages/Prism.Plugin.Logging.Abstractions
 [AbstractionsLoggingShield]: https://img.shields.io/nuget/vpre/Prism.Plugin.Logging.Abstractions.svg
-[AbstractionsLoggingSponsorConnect]: https://sponsorconnect.dev/packages/Prism.Plugin.Logging.Abstractions
+[AbstractionsLoggingSponsorConnect]: https://sponsorconnect.dev/nuget/package/Prism.Plugin.Logging.Abstractions
 [AbstractionsLoggingSponsorConnectShield]: https://img.shields.io/endpoint?url=https%3A%2F%2Fsponsorconnect.dev%2Fshield%2FPrism.Plugin.Logging.Abstractions%2Fvpre
 
 [CommonLoggingNuGet]: https://www.nuget.org/packages/Prism.Plugin.Logging.Common
 [CommonLoggingShield]: https://img.shields.io/nuget/vpre/Prism.Plugin.Logging.Common.svg
-[CommonLoggingSponsorConnect]: https://sponsorconnect.dev/packages/Prism.Plugin.Logging.Common
+[CommonLoggingSponsorConnect]: https://sponsorconnect.dev/nuget/package/Prism.Plugin.Logging.Common
 [CommonLoggingSponsorConnectShield]: https://img.shields.io/endpoint?url=https%3A%2F%2Fsponsorconnect.dev%2Fshield%2FPrism.Plugin.Logging.Common%2Fvpre
 
 [AppInightsLoggingNuGet]: https://www.nuget.org/packages/Prism.Plugin.Logging.AppInsights
 [AppInightsLoggingShield]: https://img.shields.io/nuget/vpre/Prism.Plugin.Logging.AppInsights.svg
-[AppInightsLoggingSponsorConnect]: https://sponsorconnect.dev/packages/Prism.Plugin.Logging.AppInsights
+[AppInightsLoggingSponsorConnect]: https://sponsorconnect.dev/nuget/package/Prism.Plugin.Logging.AppInsights
 [AppInightsLoggingSponsorConnectShield]: https://img.shields.io/endpoint?url=https%3A%2F%2Fsponsorconnect.dev%2Fshield%2FPrism.Plugin.Logging.AppInsights%2Fvpre
 
 [AppCenterLoggingNuGet]: https://www.nuget.org/packages/Prism.Plugin.Logging.AppCenter
 [AppCenterLoggingShield]: https://img.shields.io/nuget/vpre/Prism.Plugin.Logging.AppCenter.svg
-[AppCenterLoggingSponsorConnect]: https://sponsorconnect.dev/packages/Prism.Plugin.Logging.AppCenter
+[AppCenterLoggingSponsorConnect]: https://sponsorconnect.dev/nuget/package/Prism.Plugin.Logging.AppCenter
 [AppCenterLoggingSponsorConnectShield]: https://img.shields.io/endpoint?url=https%3A%2F%2Fsponsorconnect.dev%2Fshield%2FPrism.Plugin.Logging.AppCenter%2Fvpre
 
 [GraylogLoggingNuGet]: https://www.nuget.org/packages/Prism.Plugin.Logging.Graylog
 [GraylogLoggingShield]: https://img.shields.io/nuget/vpre/Prism.Plugin.Logging.Graylog.svg
-[GraylogLoggingSponsorConnect]: https://sponsorconnect.dev/packages/Prism.Plugin.Logging.Graylog
+[GraylogLoggingSponsorConnect]: https://sponsorconnect.dev/nuget/package/Prism.Plugin.Logging.Graylog
 [GraylogLoggingSponsorConnectShield]: https://img.shields.io/endpoint?url=https%3A%2F%2Fsponsorconnect.dev%2Fshield%2FPrism.Plugin.Logging.Graylog%2Fvpre
 
 [LogglyLoggingNuGet]: https://www.nuget.org/packages/Prism.Plugin.Logging.Loggly
 [LogglyLoggingShield]: https://img.shields.io/nuget/vpre/Prism.Plugin.Logging.Loggly.svg
-[LogglyLoggingSponsorConnect]: https://sponsorconnect.dev/packages/Prism.Plugin.Logging.Loggly
+[LogglyLoggingSponsorConnect]: https://sponsorconnect.dev/nuget/package/Prism.Plugin.Logging.Loggly
 [LogglyLoggingSponsorConnectShield]: https://img.shields.io/endpoint?url=https%3A%2F%2Fsponsorconnect.dev%2Fshield%2FPrism.Plugin.Logging.Loggly%2Fvpre
 
 [SyslogLoggingNuGet]: https://www.nuget.org/packages/Prism.Plugin.Logging.Syslog
 [SyslogLoggingShield]: https://img.shields.io/nuget/vpre/Prism.Plugin.Logging.Syslog.svg
-[SyslogLoggingSponsorConnect]: https://sponsorconnect.dev/packages/Prism.Plugin.Logging.Syslog
+[SyslogLoggingSponsorConnect]: https://sponsorconnect.dev/nuget/package/Prism.Plugin.Logging.Syslog
 [SyslogLoggingSponsorConnectShield]: https://img.shields.io/endpoint?url=https%3A%2F%2Fsponsorconnect.dev%2Fshield%2FPrism.Plugin.Logging.Syslog%2Fvpre
