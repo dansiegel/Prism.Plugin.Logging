@@ -5,8 +5,8 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Sockets;
-using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 using Prism.Logging.Extensions;
 #if !NETSTANDARD
@@ -17,10 +17,16 @@ namespace Prism.Logging.Sockets
 {
     public class SocketMessenger : ISocketMessenger
     {
+        private static readonly object lockObject = new object();
+        private static readonly JsonSerializerOptions Options = new JsonSerializerOptions
+        {
+            WriteIndented = true
+        };
+
 #if NETSTANDARD
-        private static readonly string LogCacheFile = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "Prism", "Logging", "Cache", "log");
+        internal static readonly string LogCacheFile = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "Prism", "Logging", "Cache", "log");
 #else
-        private static readonly string LogCacheFile = Path.Combine(FileSystem.AppDataDirectory, "Prism", "Logging", "Cache", "log");
+        internal static readonly string LogCacheFile = Path.Combine(FileSystem.AppDataDirectory, "Prism", "Logging", "Cache", "log");
 #endif
         internal const int MaxBufferSize = 65500;
 
@@ -130,13 +136,13 @@ namespace Prism.Logging.Sockets
                     (EndPoint)new DnsEndPoint(hostOrIp, port);
         }
 
-        protected byte[] EncodeMessage(string message) => 
+        protected static byte[] EncodeMessage(string message) => 
             Encoding.UTF8.GetBytes(message);
 
-        protected int GetEncodedSize(string message) => 
+        protected static int GetEncodedSize(string message) => 
             EncodeMessage(message)?.Length ?? 0;
 
-        protected IEnumerable<string> Chunkify(string prefix, string message)
+        internal static IEnumerable<string> Chunkify(string prefix, string message)
         {
             if(GetEncodedSize($"{prefix}{message}") <= MaxBufferSize)
             {
@@ -150,29 +156,63 @@ namespace Prism.Logging.Sockets
             return message.Chunkify(chunkSize);
         }
 
-        private static void SaveCache(Queue<ILogMessage> queue)
+        internal static void SaveCache(Queue<LogMessage> queue)
         {
-            var cacheFile = new FileInfo(LogCacheFile);
-            var formatter = new BinaryFormatter();
-            using var stream = cacheFile.Exists ? cacheFile.OpenWrite() : cacheFile.Create();
-            formatter.Serialize(stream, queue);
-            stream.Close();
-        }
-        private static Queue<ILogMessage> ReadCache()
-        {
-            var cacheFile = new FileInfo(LogCacheFile);
-            var formatter = new BinaryFormatter();
-            using var stream = cacheFile.Exists ? cacheFile.OpenWrite() : cacheFile.Create();
-            var cache = (Queue<ILogMessage>)formatter.Deserialize(stream);
-            stream.Close();
-            return cache;
+            lock(lockObject)
+            {
+                var cacheFile = new FileInfo(LogCacheFile);
+
+                if (!cacheFile.Directory.Exists)
+                    cacheFile.Directory.Create();
+
+                var json = JsonSerializer.Serialize(queue, Options);
+                File.WriteAllText(cacheFile.FullName, json);
+            }
         }
 
-        private static Queue<ILogMessage> GetLogs(ILogMessage currentMessage)
+        internal static Queue<LogMessage> ReadCache()
+        {
+            lock(lockObject)
+            {
+                var cacheFile = new FileInfo(LogCacheFile);
+                if (!cacheFile.Exists)
+                    return new Queue<LogMessage>();
+
+                using var fs = cacheFile.OpenText();
+                string s = null;
+                var builder = new StringBuilder();
+                while ((s = fs.ReadLine()) != null)
+                {
+                    builder.AppendLine(s);
+                }
+
+                fs.Close();
+
+                var json = builder.ToString();
+                var cache = JsonSerializer.Deserialize<Queue<LogMessage>>(json);
+                return cache;
+            }
+        }
+
+        internal static Queue<LogMessage> GetLogs(ILogMessage currentMessage)
         {
             var cacheFile = new FileInfo(LogCacheFile);
-            Queue<ILogMessage> cache = cacheFile.Exists ? ReadCache() : new Queue<ILogMessage>();
-            cache.Enqueue(currentMessage);
+            Queue<LogMessage> cache = cacheFile.Exists ? ReadCache() : new Queue<LogMessage>();
+
+            if(currentMessage != null)
+            {
+                if (!(currentMessage is LogMessage currentLogMessage))
+                {
+                    currentLogMessage = new LogMessage
+                    {
+                        Message = Encoding.Default.GetString(currentMessage.GetBytes()),
+                        MessageType = currentMessage.GetType().Name
+                    };
+                }
+
+                cache.Enqueue(currentLogMessage);
+            }
+
             SaveCache(cache);
             return cache;
         }

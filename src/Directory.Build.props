@@ -1,0 +1,30 @@
+<Project>
+  <Import Project="../Directory.build.props" />
+  <PropertyGroup>
+    <IsPackable>true</IsPackable>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+  </PropertyGroup>
+
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <PackageIcon>prism-logo.png</PackageIcon>
+    <GenerateDocumentationFile>True</GenerateDocumentationFile>
+  </PropertyGroup>
+
+  <PropertyGroup Condition=" $(SignAssembly) == '' ">
+    <!-- Strong Naming -->
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>$(RootSourceDirectory)plugin.snk</AssemblyOriginatorKeyFile>
+    <DelaySign>False</DelaySign>
+  </PropertyGroup>
+
+  <ItemGroup Condition=" '$(Configuration)' == 'Release' ">
+    <PackageReference Condition=" '$(BUILD_ARTIFACTSTAGINGDIRECTORY)' != '' "
+                      Include="Microsoft.SourceLink.GitHub"
+                      Version="1.1.0-beta-20204-02"
+                      PrivateAssets="All" />
+    <None Include="$(RootSourceDirectory)prism-logo.png"
+          Visible="False"
+          Pack="True"
+          PackagePath="" />
+  </ItemGroup>
+</Project>

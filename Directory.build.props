@@ -18,16 +18,13 @@
     <IncludeSource>True</IncludeSource>
     <VersionPrefix>7.2.0</VersionPrefix>
     <LangVersion>latest</LangVersion>
+    <RootSourceDirectory>$(MSBuildThisFileDirectory)</RootSourceDirectory>
   </PropertyGroup>
 
   <!-- CI Helpers -->
   <PropertyGroup>
-    <EscapedCurrentDirectory>$([System.Text.RegularExpressions.Regex]::Escape('$(MSBuildThisFileDirectory)'))</EscapedCurrentDirectory>
-    <RelativeProjectPath>$([System.Text.RegularExpressions.Regex]::Replace('$(MSBuildProjectFullPath)', '$(EscapedCurrentDirectory)', ''))</RelativeProjectPath>
     <PackageOutputPath>$(MSBuildThisFileDirectory)/Artifacts</PackageOutputPath>
     <PackageOutputPath Condition=" $(BUILD_ARTIFACTSTAGINGDIRECTORY) != '' ">$(BUILD_ARTIFACTSTAGINGDIRECTORY)</PackageOutputPath>
-    <IsPackable>$(RelativeProjectPath.StartsWith('src'))</IsPackable>
-    <GeneratePackageOnBuild>$(IsPackable)</GeneratePackageOnBuild>
     <IS_PREVIEW Condition=" $(IS_PREVIEW) == '' ">false</IS_PREVIEW>
     <IS_RELEASE Condition=" $(IS_RELEASE) == '' ">false</IS_RELEASE>
     <VersionPrefix Condition=" $(BUILD_BUILDNUMBER) != '' ">$(VersionPrefix).$(BUILD_BUILDNUMBER)</VersionPrefix>
@@ -37,13 +34,6 @@
     <ContinuousIntegrationBuild>false</ContinuousIntegrationBuild>
   </PropertyGroup>
 
-  <PropertyGroup Condition=" $(IsPackable) And $(SignAssembly) == '' ">
-    <!-- Strong Naming -->
-    <SignAssembly>true</SignAssembly>
-    <AssemblyOriginatorKeyFile>$(MSBuildThisFileDirectory)plugin.snk</AssemblyOriginatorKeyFile>
-    <DelaySign>False</DelaySign>
-  </PropertyGroup>
-
   <PropertyGroup>
     <!-- Nuget source link -->
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
@@ -51,26 +41,9 @@
     <AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb</AllowedOutputExtensionsInPackageBuildOutputFolder>
   </PropertyGroup>
 
-  <PropertyGroup Condition=" $(IsPackable) And '$(Configuration)' == 'Release' ">
-    <PackageIcon>prism-logo.png</PackageIcon>
-    <GenerateDocumentationFile>True</GenerateDocumentationFile>
-    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-  </PropertyGroup>
-
   <PropertyGroup Condition=" '$(BUILD_ARTIFACTSTAGINGDIRECTORY)' != '' ">
     <ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
   </PropertyGroup>
-
-  <ItemGroup Condition=" $(IsPackable) And '$(Configuration)' == 'Release' ">
-    <PackageReference Condition=" '$(BUILD_ARTIFACTSTAGINGDIRECTORY)' != '' "
-                      Include="Microsoft.SourceLink.GitHub"
-                      Version="1.1.0-beta-20204-02"
-                      PrivateAssets="All" />
-    <None Include="$(MSBuildThisFileDirectory)prism-logo.png"
-          Visible="False"
-          Pack="True"
-          PackagePath="" />
-  </ItemGroup>
 
   <ItemGroup>
     <SourceRoot Include="$(MSBuildThisFileDirectory)/"/>
