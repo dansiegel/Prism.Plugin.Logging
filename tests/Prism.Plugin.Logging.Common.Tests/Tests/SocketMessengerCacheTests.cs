@@ -8,7 +8,7 @@ using Xunit;
 namespace Prism.Plugin.Logging.Common.Tests
 {
     [Collection(nameof(FileSystem))]
-    public class SocketMessagerCacheTests
+    public class SocketMessengerCacheTests
     {
         [Fact]
         public void SavesLogMessages()
@@ -62,8 +62,12 @@ namespace Prism.Plugin.Logging.Common.Tests
 
         private static void DeleteCache()
         {
-            if (File.Exists(SocketMessenger.LogCacheFile))
-                File.Delete(SocketMessenger.LogCacheFile);
+            var fi = new FileInfo(SocketMessenger.LogCacheFile);
+            if (fi.Exists)
+                fi.Delete();
+
+            if (!fi.Directory.Exists)
+                fi.Directory.Create();
         }
     }
 }
