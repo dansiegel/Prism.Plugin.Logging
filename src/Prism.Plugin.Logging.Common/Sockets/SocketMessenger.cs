@@ -142,7 +142,7 @@ namespace Prism.Logging.Sockets
         protected static int GetEncodedSize(string message) => 
             EncodeMessage(message)?.Length ?? 0;
 
-        internal static IEnumerable<string> Chunkify(string prefix, string message)
+        internal protected static IEnumerable<string> Chunkify(string prefix, string message)
         {
             if(GetEncodedSize($"{prefix}{message}") <= MaxBufferSize)
             {
