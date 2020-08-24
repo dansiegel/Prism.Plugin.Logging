@@ -37,7 +37,7 @@ namespace Prism.Logging.Syslog
             Encoding.ASCII.GetBytes(ToString());
 
         public override string ToString() =>
-            $"<{Priority}>{DateTimeOffset.Now.ToString("MMM dd HH:mm:ss")} {Dns.GetHostName()} {GetTags()}: {Text}";
+            $"<{Priority}>{DateTimeOffset.Now:MMM dd HH:mm:ss} {Dns.GetHostName()} {GetTags()}: {Text}";
 
         protected virtual string GetTags() =>
             Tags?.Any() ?? false ? $"{AppName} {string.Join(" ", Tags)}" : AppName;

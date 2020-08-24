@@ -78,6 +78,14 @@ stages:
         SignServiceResourceId: $(SignServiceResourceId)
       condition: and(succeeded(), not(eq(variables['build.reason'], 'PullRequest')), not(eq(variables['SignClientSecret'], '')), not(eq(variables['SignClientUser'], '')))
 
+    - task: DotNetCoreCLI@2
+      displayName: Run Tests
+      inputs:
+        command: test
+        nobuild: true
+        projects: tests/**/*.Tests.csproj
+        publishTestResults: true
+
     - task: PublishPipelineArtifact@1
       displayName: Publish Package Artifacts
       inputs:

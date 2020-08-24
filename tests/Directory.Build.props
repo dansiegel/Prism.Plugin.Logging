@@ -1,0 +1,9 @@
+<Project>
+  <Import Project="../Directory.build.props" />
+  <PropertyGroup Condition=" $(SignAssembly) == '' ">
+    <!-- Strong Naming -->
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>$(RootSourceDirectory)plugin.snk</AssemblyOriginatorKeyFile>
+    <DelaySign>False</DelaySign>
+  </PropertyGroup>
+</Project>
