@@ -17,6 +17,10 @@
     <DelaySign>False</DelaySign>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Nerdbank.GitVersioning" Version="3.2.31" PrivateAssets="all" />
+  </ItemGroup>
+
   <ItemGroup Condition=" '$(Configuration)' == 'Release' ">
     <PackageReference Condition=" '$(BUILD_ARTIFACTSTAGINGDIRECTORY)' != '' "
                       Include="Microsoft.SourceLink.GitHub"
