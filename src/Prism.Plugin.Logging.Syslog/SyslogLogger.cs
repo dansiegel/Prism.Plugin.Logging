@@ -32,8 +32,9 @@ namespace Prism.Logging.Syslog
         {
             var syslogMessage = GetSyslogMessage(null, level, facility);
 
+            // TODO: Fix the Chunkify implementation
             // Ensure message is split into manageable chunks
-            foreach(string chunk in Chunkify(syslogMessage, message))
+            //foreach(string chunk in Chunkify(syslogMessage, message))
             {
                 syslogMessage.Text = message;
                 SendMessage(syslogMessage);
