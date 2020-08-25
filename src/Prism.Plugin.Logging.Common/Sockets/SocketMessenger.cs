@@ -131,6 +131,11 @@ namespace Prism.Logging.Sockets
 
         protected virtual EndPoint GetEndPoint(string hostOrIp, int port)
         {
+            if (hostOrIp.Equals("localhost", StringComparison.OrdinalIgnoreCase))
+            {
+                hostOrIp = "127.0.0.1";
+            }
+
             return IPAddress.TryParse(hostOrIp, out IPAddress address) ?
                     (EndPoint)new IPEndPoint(address, port) :
                     (EndPoint)new DnsEndPoint(hostOrIp, port);
