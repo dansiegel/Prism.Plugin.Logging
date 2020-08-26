@@ -31,4 +31,9 @@
           Pack="True"
           PackagePath="" />
   </ItemGroup>
+
+  <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)InternalsVisibleTo.cs"
+             Link="Properties\%(Filename)%(Extension)" />
+  </ItemGroup>
 </Project>

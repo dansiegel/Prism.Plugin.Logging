@@ -1,0 +1,42 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <IsPackable>false</IsPackable>
+    <RootNamespace>Prism.Plugin.Logging</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="xunit.runner.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="xunit.runner.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.7.1" />
+    <PackageReference Include="Moq" Version="4.14.5" />
+    <PackageReference Include="xunit" Version="2.4.1" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="2.4.3">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="coverlet.collector" Version="1.3.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\Prism.Plugin.Logging.Abstractions\Prism.Plugin.Logging.Abstractions.csproj" />
+    <ProjectReference Include="..\..\src\Prism.Plugin.Logging.AppInsights\Prism.Plugin.Logging.AppInsights.csproj" />
+    <ProjectReference Include="..\..\src\Prism.Plugin.Logging.Common\Prism.Plugin.Logging.Common.csproj" />
+    <ProjectReference Include="..\..\src\Prism.Plugin.Logging.Graylog\Prism.Plugin.Logging.Graylog.csproj" />
+    <ProjectReference Include="..\..\src\Prism.Plugin.Logging.Loggly\Prism.Plugin.Logging.Loggly.csproj" />
+    <ProjectReference Include="..\..\src\Prism.Plugin.Logging.Syslog\Prism.Plugin.Logging.Syslog.csproj" />
+  </ItemGroup>
+
+</Project>

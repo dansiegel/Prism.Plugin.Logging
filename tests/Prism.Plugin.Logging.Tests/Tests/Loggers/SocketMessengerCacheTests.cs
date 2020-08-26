@@ -1,14 +1,15 @@
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text.Json;
 using Prism.Logging.Sockets;
-using Prism.Plugin.Logging.Common.Mocks;
+using Prism.Plugin.Logging.Mocks;
 using Xunit;
 
-namespace Prism.Plugin.Logging.Common.Tests
+namespace Prism.Plugin.Logging.Tests.Loggers
 {
     [Collection(nameof(FileSystem))]
-    public class SocketMessengerCacheTests
+    public sealed class SocketMessengerCacheTests : IDisposable
     {
         [Fact]
         public void SavesLogMessages()
@@ -68,6 +69,11 @@ namespace Prism.Plugin.Logging.Common.Tests
 
             if (!fi.Directory.Exists)
                 fi.Directory.Create();
+        }
+
+        public void Dispose()
+        {
+            DeleteCache();
         }
     }
 }
