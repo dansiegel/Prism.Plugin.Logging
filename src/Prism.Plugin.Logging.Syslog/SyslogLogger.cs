@@ -7,7 +7,7 @@ using Prism.Logging.Sockets;
 
 namespace Prism.Logging.Syslog
 {
-    public class SyslogLogger : SocketMessenger, ILogger, ISyslogLogger
+    public class SyslogLogger : SocketMessenger, ISyslogLogger
     {
         public SyslogLogger(ISyslogOptions options)
         {

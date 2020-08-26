@@ -1,6 +1,6 @@
 namespace Prism.Logging.Graylog
 {
-    public interface IGelfLogger
+    public interface IGelfLogger : IAggregableLogger
     {
         void Log(string message, Level level = Level.Debug);
 

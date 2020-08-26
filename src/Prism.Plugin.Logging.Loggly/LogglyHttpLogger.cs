@@ -6,7 +6,7 @@ using Prism.Logging.Http;
 
 namespace Prism.Logging.Loggly
 {
-    public class LogglyHttpLogger : HttpLogger, ILogger
+    public class LogglyHttpLogger : HttpLogger, IAggregableLogger
     {
         protected const string LogglyUriTemplate = "{0}/inputs/{1}/tag/{2}/";
 

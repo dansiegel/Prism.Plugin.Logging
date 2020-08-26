@@ -4,7 +4,7 @@ using Prism.Logging.Http;
 
 namespace Prism.Logging.Graylog
 {
-    public class GelfLogger : HttpLogger, IGelfLogger, ILogger
+    public class GelfLogger : HttpLogger, IGelfLogger
     {
         protected IGelfOptions _options { get; }
 

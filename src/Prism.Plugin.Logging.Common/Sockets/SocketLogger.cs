@@ -6,7 +6,7 @@ using System.Text;
 
 namespace Prism.Logging.Sockets
 {
-    public class SocketLogger : SocketMessenger, ILogger
+    public class SocketLogger : SocketMessenger, IAggregableLogger
     {
         private ISocketLoggerOptions _options { get; }
 

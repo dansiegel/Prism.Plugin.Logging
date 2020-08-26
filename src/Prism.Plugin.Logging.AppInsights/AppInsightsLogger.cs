@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -9,7 +9,7 @@ using Microsoft.ApplicationInsights.Extensibility;
 
 namespace Prism.Logging.AppInsights
 {
-    public class AppInsightsLogger : ILogger
+    public class AppInsightsLogger : IAggregableLogger
     {
         private static Assembly StartupAssembly = null;
 

@@ -1,9 +1,9 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 
 namespace Prism.Logging
 {
-    public class ConsoleLoggingService : ILogger, IAnalyticsService
+    public class ConsoleLoggingService : IAggregableLogger
     {
         public void Log(string message, IDictionary<string, string> properties)
         {
