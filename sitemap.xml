@@ -1,43 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"><url>
      <loc>http://logging.prismplugins.com/</loc>
-     <lastmod>2020-08-25</lastmod>
+     <lastmod>2020-08-26</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>http://logging.prismplugins.com/abstractions/</loc>
-     <lastmod>2020-08-25</lastmod>
+     <lastmod>2020-08-26</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>http://logging.prismplugins.com/aggregate-logger/</loc>
-     <lastmod>2020-08-25</lastmod>
+     <lastmod>2020-08-26</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>http://logging.prismplugins.com/appcenter/</loc>
-     <lastmod>2020-08-25</lastmod>
+     <lastmod>2020-08-26</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>http://logging.prismplugins.com/appinsights/</loc>
-     <lastmod>2020-08-25</lastmod>
+     <lastmod>2020-08-26</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>http://logging.prismplugins.com/graylog/</loc>
-     <lastmod>2020-08-25</lastmod>
+     <lastmod>2020-08-26</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>http://logging.prismplugins.com/loggly/</loc>
-     <lastmod>2020-08-25</lastmod>
+     <lastmod>2020-08-26</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>http://logging.prismplugins.com/socket/</loc>
-     <lastmod>2020-08-25</lastmod>
+     <lastmod>2020-08-26</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>http://logging.prismplugins.com/syslog/</loc>
-     <lastmod>2020-08-25</lastmod>
+     <lastmod>2020-08-26</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>http://logging.prismplugins.com/samples/</loc>
-     <lastmod>2020-08-25</lastmod>
+     <lastmod>2020-08-26</lastmod>
      <changefreq>daily</changefreq>
     </url>
 </urlset>
