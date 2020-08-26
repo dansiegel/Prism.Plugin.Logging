@@ -6,6 +6,11 @@ namespace Prism.Ioc
 {
     public static class SyslogLoggerRegistrationExtensions
     {
+        public static IContainerRegistry RegisterSyslogLogger(this IContainerRegistry container)
+        {
+            return RegisterInternal(container, new SyslogOptions());
+        }
+
         public static IContainerRegistry RegisterSyslogLogger<TOptions>(this IContainerRegistry container)
             where TOptions : ISyslogOptions
         {
@@ -36,12 +41,19 @@ namespace Prism.Ioc
 
         private static IContainerRegistry RegisterInternal(IContainerRegistry container, ISyslogOptions options = null)
         {
-            var instance = ((IContainerProvider)container).Resolve<SyslogLogger>();
-            container.RegisterInstance<ILogger>(instance)
-                .RegisterInstance<ILoggerFacade>(instance)
-                .RegisterInstance<IAnalyticsService>(instance)
-                .RegisterInstance<ICrashesService>(instance);
-            return container;
+            if(options != null)
+                container.RegisterInstance<ISyslogOptions>(options);
+
+            if (container.IsRegistered<IAggregateLogger>())
+                return container.RegisterSingleton<ISyslogLogger, SyslogLogger>()
+                    .Register<IAggregableLogger>(c => c.Resolve<ISyslogLogger>());
+
+            return container.RegisterManySingleton<SyslogLogger>(
+                typeof(ISyslogLogger),
+                typeof(IAnalyticsService),
+                typeof(ICrashesService),
+                typeof(ILogger),
+                typeof(IAggregableLogger));
         }
     }
 }

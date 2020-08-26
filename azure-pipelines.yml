@@ -31,7 +31,6 @@ variables:
 - group: 'Code Signing'
 - group: 'GitHub Release'
 
-
 stages:
 - stage: build
   displayName: Build NuGet Packages
@@ -76,7 +75,7 @@ stages:
         SignClientClientId: $(SignClientClientId)
         SignClientTenantId: $(SignClientTenantId)
         SignServiceResourceId: $(SignServiceResourceId)
-      condition: and(succeeded(), not(eq(variables['build.reason'], 'PullRequest')), not(eq(variables['SignClientSecret'], '')), not(eq(variables['SignClientUser'], '')))
+      condition: and(succeeded(), eq(variables['system.pullrequest.isfork'], false), not(eq(variables['build.reason'], 'PullRequest')), not(eq(variables['SignClientSecret'], '')), not(eq(variables['SignClientUser'], '')))
 
     - task: DotNetCoreCLI@2
       displayName: Run Tests
@@ -91,7 +90,7 @@ stages:
       inputs:
         artifactName: NuGet
         targetPath: '$(Build.ArtifactStagingDirectory)'
-      condition: and(succeeded(), eq(variables['system.pullrequest.isfork'], false))
+
 - stage: deploy
   displayName: Deploy to CI Feeds
   condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
@@ -110,50 +109,19 @@ stages:
               packagesToPush: '$(Pipeline.Workspace)/**/*.nupkg;$(Pipeline.Workspace)/**/*.snupkg'
               nuGetFeedType: external
               publishFeedCredentials: 'SponsorConnect'
+
   - deployment: NuGet
     displayName: NuGet.org
     environment: NuGet
-    condition: and(succeeded(), or(eq(variables['IS_PREVIEW'], true), eq(variables['IS_RELEASE'], true)))
+    condition: and(succeeded(), eq(variables['IS_RELEASE'], true))
     strategy:
       runOnce:
         deploy:
           steps:
-          - powershell: |
-             try {
-                 $artifactDirectory = $env:PIPELINE_WORKSPACE
-                 Write-Host "Currect working directory $artifactDirectory"
-                 $nupkg = Get-ChildItem -Path $artifactDirectory -Filter *.nupkg -Recurse | Select-Object -First 1
+          - checkout: self
+            displayName: Get Build Resources
 
-                 if($null -eq $nupkg) {
-                     Throw "No NuGet Package could be found in the current directory"
-                 }
-
-                 Write-Host "Package Name $($nupkg.Name)"
-                 $nupkg.Name -match '^(.*?)\.((?:\.?[0-9]+){3,}(?:[-a-z]+)?)\.nupkg$'
-
-                 $VersionName = $Matches[2]
-                 $IsPreview = $VersionName -match '-pre$'
-                 $ReleaseDisplayName = $VersionName
-
-                 if($null -eq $env:IS_PREVIEW) {
-                     Write-Output ("##vso[task.setvariable variable=IS_PREVIEW;]$IsPreview")
-                 }
-
-                 if($true -eq $IsPreview) {
-                     $ReleaseDisplayName = "$VersionName - Preview"
-                 }
-
-                 Write-Host "Version Name" $VersionName
-                 Write-Host "Release Display Name $ReleaseDisplayName"
-                 Write-Output ("##vso[task.setvariable variable=VersionName;]$VersionName")
-                 Write-Output ("##vso[task.setvariable variable=ReleaseDisplayName;]$ReleaseDisplayName")
-             }
-             catch {
-                 Write-Error  $_
-                 exit 1
-             }
-
-            name: processName
+          - powershell: build/Process-Artifacts.ps1
             displayName: Process Artifacts for Release
 
           - task: GithubRelease@0

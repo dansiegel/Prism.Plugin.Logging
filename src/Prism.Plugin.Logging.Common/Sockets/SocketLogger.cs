@@ -6,24 +6,13 @@ using System.Text;
 
 namespace Prism.Logging.Sockets
 {
-    public class SocketLogger : SocketMessenger, ILogger
+    public class SocketLogger : SocketMessenger, IAggregableLogger
     {
         private ISocketLoggerOptions _options { get; }
 
         public SocketLogger(ISocketLoggerOptions options)
         {
             _options = options;
-        }
-
-        public void Log(string message, Category category, Priority priority)
-        {
-            var prefix = $"{category} {priority}: ";
-
-            // Ensure message is split into manageable chunks
-            foreach(string chunk in Chunkify(prefix, message))
-            {
-                SendMessage($"{prefix}{message}");
-            }
         }
 
         public override ProtocolType GetProtocolType() =>

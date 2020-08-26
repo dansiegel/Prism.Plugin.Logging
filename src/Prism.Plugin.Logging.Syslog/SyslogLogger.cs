@@ -4,11 +4,10 @@ using System.Linq;
 using System.Net;
 using System.Net.Sockets;
 using Prism.Logging.Sockets;
-using Prism.Logging.Syslog.Extensions;
 
 namespace Prism.Logging.Syslog
 {
-    public class SyslogLogger : SocketMessenger, ILogger, ISyslogLogger
+    public class SyslogLogger : SocketMessenger, ISyslogLogger
     {
         public SyslogLogger(ISyslogOptions options)
         {
@@ -24,9 +23,6 @@ namespace Prism.Logging.Syslog
         protected int Port { get; set; }
 
         private string LocalHostName { get; set; }
-
-        public virtual void Log(string message, Category category, Priority priority) =>
-            Log(message, category.ToLevel());
 
         public virtual void Log(string message, Level level, Facility facility = Facility.Local0)
         {
@@ -82,23 +78,31 @@ namespace Prism.Logging.Syslog
 
         public virtual void Log(string message, IDictionary<string, string> properties)
         {
-            var level = Level.Debug;
-            var facility = Facility.Daemon;
-
             if (properties is null) properties = new Dictionary<string, string>();
 
-            if(properties.ContainsKey(nameof(Category)) && Enum.TryParse(properties[nameof(Category)], out Category category))
+            if(properties.ContainsKey(nameof(Level)) && Enum.TryParse(properties[nameof(Level)], out Level level))
             {
-                level = category.ToLevel();
+                properties.Remove(nameof(Level));
+            }
+            else if(properties.ContainsKey("Category") && Enum.TryParse(properties["Category"], out level))
+            {
+                properties.Remove("Category");
+            }
+            else
+            {
+                level = Level.Debug;
             }
 
-            if(properties.ContainsKey(nameof(Facility)) && Enum.TryParse(properties[nameof(Facility)], out Facility fac))
+            if(properties.ContainsKey(nameof(Facility)) && Enum.TryParse(properties[nameof(Facility)], out Facility facility))
             {
-                facility = fac;
+                properties.Remove(nameof(Facility));
+            }
+            else
+            {
+                facility = Facility.Daemon;
             }
 
-            var props = properties?.Where(x => x.Key != nameof(Category) && x.Key != nameof(Facility))
-                .Select(prop => $"\n    {prop.Key} - {prop.Value}") ?? Array.Empty<string>();
+            var props = properties?.Select(prop => $"\n    {prop.Key} - {prop.Value}") ?? Array.Empty<string>();
 
             var syslog = new SyslogMessage(facility, level, $"{message}\nProperties{string.Join("", props)}")
             {
@@ -107,10 +111,34 @@ namespace Prism.Logging.Syslog
             SendMessage(syslog);
         }
 
-        public virtual void Report(Exception ex, IDictionary<string, string> properties) => 
-            Log(ex.ToString(), properties);
+        public virtual void Report(Exception ex, IDictionary<string, string> properties)
+        {
+            if(properties is null)
+            {
+                properties = new Dictionary<string, string>();
+            }
 
-        public virtual void TrackEvent(string name, IDictionary<string, string> properties) =>
+            if(!properties.ContainsKey("Category") && !properties.ContainsKey(nameof(Level)))
+            {
+                properties.Add(nameof(Level), $"{Level.Error}");
+            }
+
+            Log(ex.ToString(), properties);
+        }
+
+        public virtual void TrackEvent(string name, IDictionary<string, string> properties)
+        {
+            if (properties is null)
+            {
+                properties = new Dictionary<string, string>();
+            }
+
+            if (!properties.ContainsKey("Category") && !properties.ContainsKey(nameof(Level)))
+            {
+                properties.Add(nameof(Level), $"{Level.Information}");
+            }
+
             Log(name, properties);
+        }
     }
 }

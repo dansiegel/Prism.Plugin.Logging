@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using Prism.Logging;
 using Prism.Logging.Graylog;
 
@@ -12,9 +10,7 @@ namespace Prism.Ioc
             where TOptions : IGelfOptions
         {
             containerRegistry.RegisterSingleton<IGelfOptions, TOptions>();
-            return containerRegistry.RegisterSingleton<ILogger, GelfLogger>()
-                .RegisterSingleton<IAnalyticsService, GelfLogger>()
-                .RegisterSingleton<ICrashesService>();
+            return RegisterInternal(containerRegistry);
         }
 
         public static IContainerRegistry RegisterGraylogLogger(this IContainerRegistry container, Action<GelfOptions> configureOptions)
@@ -28,7 +24,7 @@ namespace Prism.Ioc
             return RegisterInternal(container, options);
         }
 
-        public static IContainerRegistry RegisterSocketLogger(this IContainerRegistry container, Uri host) =>
+        public static IContainerRegistry RegisterGraylogLogger(this IContainerRegistry container, Uri host) =>
             RegisterInternal(container, new GelfOptions
             {
                 Host = host
@@ -47,13 +43,15 @@ namespace Prism.Ioc
                 container.RegisterInstance<IGelfOptions>(options);
             }
 
-            var instance = ((IContainerProvider)container).Resolve<GelfLogger>();
-            container.RegisterInstance<ILogger>(instance)
-                .RegisterInstance<ILoggerFacade>(instance)
-                .RegisterInstance<IAnalyticsService>(instance)
-                .RegisterInstance<ICrashesService>(instance);
+            if (container.IsRegistered<IAggregateLogger>())
+                return container.RegisterSingleton<IGelfLogger, GelfLogger>()
+                    .Register<IAggregableLogger>(c => c.Resolve<IGelfLogger>());
 
-            return container;
+            return container.RegisterManySingleton<GelfLogger>(
+                typeof(IAnalyticsService),
+                typeof(ICrashesService),
+                typeof(ILogger),
+                typeof(IAggregableLogger));
         }
     }
 }

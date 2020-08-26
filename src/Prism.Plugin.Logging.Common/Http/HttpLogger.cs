@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 namespace Prism.Logging.Http
 {
-    public class HttpLogger : IDisposable
+    public abstract class HttpLogger : IDisposable
     {
         private HttpClient _client = new HttpClient();
 

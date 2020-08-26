@@ -6,7 +6,7 @@ using Prism.Logging.Http;
 
 namespace Prism.Logging.Loggly
 {
-    public class LogglyHttpLogger : HttpLogger, ILogger
+    public class LogglyHttpLogger : HttpLogger, IAggregableLogger
     {
         protected const string LogglyUriTemplate = "{0}/inputs/{1}/tag/{2}/";
 
@@ -15,15 +15,6 @@ namespace Prism.Logging.Loggly
         public LogglyHttpLogger(ILogglyOptions options)
         {
             _options = options;
-        }
-
-        public virtual void Log(string message, Category category, Priority priority)
-        {
-            Log(message, new Dictionary<string, string>
-            {
-                { "Priority", priority.ToString() },
-                { "Category", category.ToString() }
-            });
         }
 
         protected virtual string LogglyBaseUri =>

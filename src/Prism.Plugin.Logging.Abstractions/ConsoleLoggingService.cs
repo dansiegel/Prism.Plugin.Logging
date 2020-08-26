@@ -3,18 +3,12 @@ using System.Collections.Generic;
 
 namespace Prism.Logging
 {
-    public class ConsoleLoggingService : ILogger, IAnalyticsService
+    public class ConsoleLoggingService : IAggregableLogger
     {
         public void Log(string message, IDictionary<string, string> properties)
         {
             Console.WriteLine("Logged Message");
             LogInternal(message, properties);
-        }
-
-        public void Log(string message, Category category, Priority priority)
-        {
-            Console.WriteLine("Prism Logged Message:");
-            Console.WriteLine($"{category} - {priority}: {message}");
         }
 
         public void Report(Exception ex, IDictionary<string, string> properties)

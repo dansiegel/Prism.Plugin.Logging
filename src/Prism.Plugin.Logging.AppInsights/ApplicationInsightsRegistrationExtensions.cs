@@ -48,13 +48,14 @@ namespace Prism.Ioc
                 container.RegisterInstance<IApplicationInsightsOptions>(options);
             }
 
-            var instance = ((IContainerProvider)container).Resolve<AppInsightsLogger>();
-            container.RegisterInstance<ILogger>(instance)
-                .RegisterInstance<ILoggerFacade>(instance)
-                .RegisterInstance<IAnalyticsService>(instance)
-                .RegisterInstance<ICrashesService>(instance);
+            if (container.IsRegistered<IAggregateLogger>())
+                return container.RegisterSingleton<IAggregableLogger, AppInsightsLogger>();
 
-            return container;
+            return container.RegisterManySingleton<AppInsightsLogger>(
+                typeof(IAnalyticsService),
+                typeof(ICrashesService),
+                typeof(ILogger),
+                typeof(IAggregableLogger));
         }
     }
 }

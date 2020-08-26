@@ -117,6 +117,12 @@ namespace Prism.Logging.Sockets
                 }
                 return true;
             }
+            catch(NotSupportedException nse)
+            {
+                Console.WriteLine(nse);
+                Console.WriteLine(message);
+                return false;
+            }
             catch(SocketException se)
             {
                 Console.WriteLine(se);

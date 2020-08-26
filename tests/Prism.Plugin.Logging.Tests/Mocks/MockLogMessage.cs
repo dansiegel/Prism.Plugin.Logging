@@ -1,7 +1,7 @@
 ﻿using System.Text;
 using Prism.Logging.Sockets;
 
-namespace Prism.Plugin.Logging.Common.Mocks
+namespace Prism.Plugin.Logging.Mocks
 {
     public class MockLogMessage : ILogMessage
     {

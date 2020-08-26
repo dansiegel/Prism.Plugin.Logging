@@ -14,31 +14,24 @@
     <NoWarn>$(NoWarn);1701;1702;CS1591</NoWarn>
     <NeutralLanguage>en-US</NeutralLanguage>
     <IncludeSymbols>True</IncludeSymbols>
-    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
     <IncludeSource>True</IncludeSource>
-    <VersionPrefix>7.2.0</VersionPrefix>
     <LangVersion>latest</LangVersion>
     <RootSourceDirectory>$(MSBuildThisFileDirectory)</RootSourceDirectory>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <!-- Nuget source link -->
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
+    <EmbedUntrackedSources>true</EmbedUntrackedSources>
+    <AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb</AllowedOutputExtensionsInPackageBuildOutputFolder>
   </PropertyGroup>
 
   <!-- CI Helpers -->
   <PropertyGroup>
     <PackageOutputPath>$(MSBuildThisFileDirectory)/Artifacts</PackageOutputPath>
     <PackageOutputPath Condition=" $(BUILD_ARTIFACTSTAGINGDIRECTORY) != '' ">$(BUILD_ARTIFACTSTAGINGDIRECTORY)</PackageOutputPath>
-    <IS_PREVIEW Condition=" $(IS_PREVIEW) == '' ">false</IS_PREVIEW>
-    <IS_RELEASE Condition=" $(IS_RELEASE) == '' ">false</IS_RELEASE>
-    <VersionPrefix Condition=" $(BUILD_BUILDNUMBER) != '' ">$(VersionPrefix).$(BUILD_BUILDNUMBER)</VersionPrefix>
-    <VersionSuffix>ci</VersionSuffix>
-    <VersionSuffix Condition=" $(IS_PREVIEW) ">pre</VersionSuffix>
-    <VersionSuffix Condition=" $(IS_RELEASE) "></VersionSuffix>
     <ContinuousIntegrationBuild>false</ContinuousIntegrationBuild>
-  </PropertyGroup>
-
-  <PropertyGroup>
-    <!-- Nuget source link -->
-    <PublishRepositoryUrl>true</PublishRepositoryUrl>
-    <EmbedUntrackedSources>true</EmbedUntrackedSources>
-    <AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb</AllowedOutputExtensionsInPackageBuildOutputFolder>
   </PropertyGroup>
 
   <PropertyGroup Condition=" '$(BUILD_ARTIFACTSTAGINGDIRECTORY)' != '' ">
@@ -46,7 +39,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <SourceRoot Include="$(MSBuildThisFileDirectory)/"/>
+    <SourceRoot Include="$(MSBuildThisFileDirectory)"/>
   </ItemGroup>
 
 </Project>

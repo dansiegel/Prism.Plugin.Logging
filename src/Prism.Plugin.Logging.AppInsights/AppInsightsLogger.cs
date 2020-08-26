@@ -9,7 +9,7 @@ using Microsoft.ApplicationInsights.Extensibility;
 
 namespace Prism.Logging.AppInsights
 {
-    public class AppInsightsLogger : ILogger
+    public class AppInsightsLogger : IAggregableLogger
     {
         private static Assembly StartupAssembly = null;
 
@@ -165,16 +165,6 @@ namespace Prism.Logging.AppInsights
             }
 
             _telemetry.TrackEvent(message, properties);
-        }
-
-        public virtual void Log(string message, Category category, Priority priority)
-        {
-            var properties = new Dictionary<string, string>
-            {
-                { "category", $"{category}" },
-                { "priority", $"{priority}" }
-            };
-            Log(message, properties);
         }
 
         public virtual void Report(Exception ex, IDictionary<string, string> properties)
