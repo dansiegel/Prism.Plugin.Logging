@@ -63,7 +63,7 @@ namespace Prism.Ioc
         }
 
         private static IContainerRegistry RegisterInternal<T>(IContainerRegistry container, ILogglyOptions options = null)
-            where T : ILogger
+            where T : IAggregableLogger
         {
             if(options != null)
             {
@@ -76,12 +76,15 @@ namespace Prism.Ioc
                 container.RegisterInstance<ILogglyOptions>(options);
             }
 
-            var instance = ((IContainerProvider)container).Resolve<T>();
-            container.RegisterInstance<ILogger>(instance)
-                .RegisterInstance<ILoggerFacade>(instance)
-                .RegisterInstance<IAnalyticsService>(instance)
-                .RegisterInstance<ICrashesService>(instance);
-            return container;
+            // TODO: Register ISyslogLogger when registering LogglySyslogLogger
+            if (container.IsRegistered<IAggregateLogger>())
+                return container.RegisterSingleton<IAggregableLogger, T>();
+
+            return container.RegisterManySingleton<T>(
+                typeof(IAnalyticsService),
+                typeof(ICrashesService),
+                typeof(ILogger),
+                typeof(IAggregableLogger));
         }
     }
 }

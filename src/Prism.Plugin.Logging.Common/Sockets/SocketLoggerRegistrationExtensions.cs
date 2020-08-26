@@ -11,9 +11,7 @@ namespace Prism.Ioc
             where TOptions : ISocketLoggerOptions
         {
             containerRegistry.RegisterSingleton<ISocketLoggerOptions, TOptions>();
-            return containerRegistry.RegisterSingleton<ILogger, SocketLogger>()
-                .RegisterSingleton<IAnalyticsService, SocketLogger>()
-                .RegisterSingleton<ICrashesService>();
+            return RegisterInternal(containerRegistry);
         }
 
         public static IContainerRegistry RegisterSocketLogger(this IContainerRegistry container, Action<SocketLoggerOptions> configureOptions)
@@ -48,13 +46,14 @@ namespace Prism.Ioc
                 container.RegisterInstance<ISocketLoggerOptions>(options);
             }
 
-            var instance = ((IContainerProvider)container).Resolve<SocketLogger>();
-            container.RegisterInstance<ILogger>(instance)
-                .RegisterInstance<ILoggerFacade>(instance)
-                .RegisterInstance<IAnalyticsService>(instance)
-                .RegisterInstance<ICrashesService>(instance);
+            if (container.IsRegistered<IAggregateLogger>())
+                return container.RegisterSingleton<IAggregableLogger, SocketLogger>();
 
-            return container;
+            return container.RegisterManySingleton<SocketLogger>(
+                typeof(IAnalyticsService),
+                typeof(ICrashesService),
+                typeof(ILogger),
+                typeof(IAggregableLogger));
         }
     }
 }

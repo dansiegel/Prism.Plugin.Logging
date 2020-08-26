@@ -14,7 +14,7 @@ namespace Prism.Logging
 
     public static class IAggregateLoggerExtensions
     {
-        public static void AddLoggers(IAggregateLogger logger, IEnumerable<ILogger> loggers) =>
+        public static void AddLoggers(this IAggregateLogger logger, IEnumerable<ILogger> loggers) =>
             logger.AddLoggers(loggers.ToArray());
     }
 }
