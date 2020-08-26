@@ -15,7 +15,7 @@ namespace Prism.Logging.Extensions
 
         public static double ToUnixTimestamp(this DateTimeOffset d)
         {
-            var duration = d.ToUniversalTime() - new DateTime(1970, 1, 1, 0, 0, 0);
+            var duration = d.ToUniversalTime() - new DateTimeOffset(1970, 1, 1, 0, 0, 0, TimeSpan.FromSeconds(0));
 
             return duration.TotalSeconds;
         }
