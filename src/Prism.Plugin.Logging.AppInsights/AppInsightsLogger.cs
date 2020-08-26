@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -165,16 +165,6 @@ namespace Prism.Logging.AppInsights
             }
 
             _telemetry.TrackEvent(message, properties);
-        }
-
-        public virtual void Log(string message, Category category, Priority priority)
-        {
-            var properties = new Dictionary<string, string>
-            {
-                { "category", $"{category}" },
-                { "priority", $"{priority}" }
-            };
-            Log(message, properties);
         }
 
         public virtual void Report(Exception ex, IDictionary<string, string> properties)

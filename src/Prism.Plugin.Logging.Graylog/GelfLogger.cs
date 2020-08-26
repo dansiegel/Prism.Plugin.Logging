@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using Prism.Logging.Graylog.Extensions;
 using Prism.Logging.Http;
 
 namespace Prism.Logging.Graylog
@@ -23,12 +22,6 @@ namespace Prism.Logging.Graylog
         public void Log(GelfMessage message) =>
             PostMessageAsync(message, new Uri(_options.Host, "gelf")).ContinueWith(t => { });
 
-        public void Log(string message, Category category, Priority priority)
-        {
-            var gelf = CreateMessage(fullMessage: message, category: category, priority: priority);
-            Log(gelf);
-        }
-
         public virtual void Log(string message, IDictionary<string, string> properties)
         {
             var gelf = CreateMessage(fullMessage: message, properties: properties);
@@ -44,27 +37,22 @@ namespace Prism.Logging.Graylog
         public virtual void TrackEvent(string name, IDictionary<string, string> properties) =>
             Log(name, properties);
 
-        protected virtual GelfMessage CreateMessage(string shortMessage = null, string fullMessage = null, Category? category = null, Priority? priority = null, Level level = Level.Debug, IDictionary<string, string> properties = null)
+        protected virtual GelfMessage CreateMessage(string shortMessage = null, string fullMessage = null, Level level = Level.Debug, IDictionary<string, string> properties = null)
         {
             if(properties is null)
             {
                 properties = new Dictionary<string, string>();
             }
 
-            if(priority.HasValue)
+            if (properties.ContainsKey(nameof(Level)) && Enum.TryParse(properties[nameof(Level)], out Level lvl))
             {
-                properties.Add(nameof(Priority), $"{priority.Value}");
+                level = lvl;
+                properties.Remove(nameof(Level));
             }
-
-            if(properties.ContainsKey(nameof(Category)) && Enum.TryParse(properties[nameof(Category)], out Category cat))
+            else if (properties.ContainsKey("Category") && Enum.TryParse(properties["Category"], out lvl))
             {
-                category = cat;
-                properties.Remove(nameof(Category));
-            }
-
-            if(category.HasValue)
-            {
-                level = category.Value.ToLevel();
+                level = lvl;
+                properties.Remove("Category");
             }
 
             return new GelfMessage(properties)

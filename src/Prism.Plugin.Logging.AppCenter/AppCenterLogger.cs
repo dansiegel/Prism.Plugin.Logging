@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -67,15 +67,6 @@ namespace Prism.Logging.AppCenter
             }
 
             Analytics.TrackEvent(message, properties);
-        }
-
-        public virtual void Log(string message, Category category, Priority priority)
-        {
-            Log(message, new Dictionary<string, string>
-            {
-                { nameof(Category), $"{category}" },
-                { nameof(Priority), $"{priority}" }
-            });
         }
 
         public virtual void Report(Exception ex, IDictionary<string, string> properties)

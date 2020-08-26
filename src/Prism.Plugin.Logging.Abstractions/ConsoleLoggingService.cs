@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 
 namespace Prism.Logging
@@ -9,12 +9,6 @@ namespace Prism.Logging
         {
             Console.WriteLine("Logged Message");
             LogInternal(message, properties);
-        }
-
-        public void Log(string message, Category category, Priority priority)
-        {
-            Console.WriteLine("Prism Logged Message:");
-            Console.WriteLine($"{category} - {priority}: {message}");
         }
 
         public void Report(Exception ex, IDictionary<string, string> properties)

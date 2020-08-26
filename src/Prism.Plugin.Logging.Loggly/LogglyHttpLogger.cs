@@ -17,15 +17,6 @@ namespace Prism.Logging.Loggly
             _options = options;
         }
 
-        public virtual void Log(string message, Category category, Priority priority)
-        {
-            Log(message, new Dictionary<string, string>
-            {
-                { "Priority", priority.ToString() },
-                { "Category", category.ToString() }
-            });
-        }
-
         protected virtual string LogglyBaseUri =>
             "https://logs-01.loggly.com";
 

@@ -15,17 +15,6 @@ namespace Prism.Logging.Sockets
             _options = options;
         }
 
-        public void Log(string message, Category category, Priority priority)
-        {
-            var prefix = $"{category} {priority}: ";
-
-            // Ensure message is split into manageable chunks
-            foreach(string chunk in Chunkify(prefix, message))
-            {
-                SendMessage($"{prefix}{message}");
-            }
-        }
-
         public override ProtocolType GetProtocolType() =>
             _options.ProtocolType;
 

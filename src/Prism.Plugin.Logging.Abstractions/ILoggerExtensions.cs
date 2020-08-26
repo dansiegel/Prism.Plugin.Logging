@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace Prism.Logging
 {
     public static class ILoggerExtensions
     {
+        private const string Category = nameof(Category);
+
         public static void Debug(this ILogger logger, string message, IDictionary<string, string> properties = null)
         {
             if (properties is null)
@@ -13,7 +14,7 @@ namespace Prism.Logging
                 properties = new Dictionary<string, string>();
             }
 
-            properties[nameof(Category)] = $"{Category.Debug}";
+            properties[Category] = nameof(Debug);
 
             logger.Log(message, properties);
         }
@@ -28,7 +29,7 @@ namespace Prism.Logging
                 properties = new Dictionary<string, string>();
             }
 
-            properties[nameof(Category)] = $"{Category.Info}";
+            properties[Category] = nameof(Info);
 
             logger.Log(message, properties);
         }
@@ -37,7 +38,10 @@ namespace Prism.Logging
             Info(logger, message, GetProperties(properties));
 
         public static void Log(this ILogger logger, string message) =>
-            logger.Log(message, null);
+            logger.Log(message, new Dictionary<string, string>());
+
+        public static void Log(this ILogger logger, string message, params (string key, string value)[] properties) =>
+            logger.Log(message, GetProperties(properties));
 
         public static void Log(this ILogger logger, Exception ex, IDictionary<string, string> properties)
         {
@@ -54,20 +58,6 @@ namespace Prism.Logging
 
         public static void Log(this ILogger logger, Exception ex, params (string key, string value)[] properties) =>
             Log(logger, ex, GetProperties(properties));
-
-        public static void Log(this ILogger logger, Exception ex, Category category, IDictionary<string, string> properties)
-        {
-            if (properties == null)
-            {
-                properties = new Dictionary<string, string>();
-            }
-
-            properties.Add(nameof(Category), $"{category}");
-            logger.Log(ex, properties);
-        }
-
-        public static void Log(this ILogger logger, Exception ex, Category category, params (string key, string value)[] properties) =>
-            Log(logger, ex, category, GetProperties(properties));
 
         public static void Report(this ICrashesService logger, Exception ex) =>
             logger.Report(ex, new Dictionary<string, string>());
@@ -88,7 +78,7 @@ namespace Prism.Logging
                 properties = new Dictionary<string, string>();
             }
 
-            properties[nameof(Category)] = $"{Category.Warn}";
+            properties[Category] = nameof(Warn);
 
             logger.Log(message, properties);
         }

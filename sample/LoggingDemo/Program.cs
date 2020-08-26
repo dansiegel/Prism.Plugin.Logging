@@ -24,13 +24,13 @@ namespace LoggingDemo
                 {
                     break;
                 }
-                logger.Log(message, Category.Debug, Priority.None);
+                logger.Log(message, new Dictionary<string, string> { { "Category", "Demo" } });
             }
 
             Console.WriteLine("Thanks for logging");
         }
 
-        private static ILoggerFacade GetLogger()
+        private static ILogger GetLogger()
         {
             switch(ConsoleUtility.Option("Which Logger would you like to use?", Generic, LogglySyslog, LogglyHttp, "Quit"))
             {

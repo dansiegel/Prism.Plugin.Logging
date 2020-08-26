@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using Prism.Logging;
+﻿using System.Collections.Generic;
 
 namespace Prism.Logging
 {
-    public interface ILogger : ILoggerFacade, IAnalyticsService, ICrashesService
+    public interface ILogger : IAnalyticsService, ICrashesService
     {
         void Log(string message, IDictionary<string, string> properties);
     }
