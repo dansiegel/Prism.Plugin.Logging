@@ -5,7 +5,7 @@ namespace SampleApp.ViewModels
 {
     public class SyslogConfigPageViewModel : ConfigViewModelBase<ISyslogConfig>
     {
-        public SyslogConfigPageViewModel(ISyslogConfig config, IEventAggregator eventAggregator) 
+        public SyslogConfigPageViewModel(ISyslogConfig config, IEventAggregator eventAggregator)
             : base(config, eventAggregator)
         {
             LoggerType = Events.LoggerType.Syslog;

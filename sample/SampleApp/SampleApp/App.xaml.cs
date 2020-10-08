@@ -61,7 +61,7 @@ namespace SampleApp
         {
             Container.Resolve<ILogger>().TrackEvent("Stopping Logger...");
             var container = Container.GetContainer();
-            switch(loggerType)
+            switch (loggerType)
             {
                 case LoggerType.AppCenter:
                     AppCenter.Start(Container.Resolve<IAppCenterConfig>().Secret, typeof(Analytics), typeof(Crashes));

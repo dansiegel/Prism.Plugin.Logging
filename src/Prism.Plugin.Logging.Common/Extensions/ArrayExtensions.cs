@@ -6,7 +6,7 @@ namespace Prism.Logging.Extensions
     {
         public static T[] SubArray<T>(this T[] array, int length)
         {
-            if(length > array.Length)
+            if (length > array.Length)
                 length -= length - array.Length;
 
             T[] result = new T[length];

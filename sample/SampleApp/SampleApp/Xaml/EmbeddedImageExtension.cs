@@ -21,7 +21,7 @@ namespace SampleApp.Xaml
             return ImageSource.FromStream(() => assembly.GetManifestResourceStream(name));
         }
 
-        object IMarkupExtension.ProvideValue(IServiceProvider serviceProvider) => 
+        object IMarkupExtension.ProvideValue(IServiceProvider serviceProvider) =>
             ProvideValue(serviceProvider);
     }
 }

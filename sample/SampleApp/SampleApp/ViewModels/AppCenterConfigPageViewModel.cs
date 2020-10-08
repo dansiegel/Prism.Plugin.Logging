@@ -9,7 +9,7 @@ namespace SampleApp.ViewModels
 {
     public class AppCenterConfigPageViewModel : ConfigViewModelBase<IAppCenterConfig>
     {
-        public AppCenterConfigPageViewModel(IAppCenterConfig config, IEventAggregator eventAggregator) 
+        public AppCenterConfigPageViewModel(IAppCenterConfig config, IEventAggregator eventAggregator)
             : base(config, eventAggregator)
         {
             LoggerType = Events.LoggerType.AppCenter;

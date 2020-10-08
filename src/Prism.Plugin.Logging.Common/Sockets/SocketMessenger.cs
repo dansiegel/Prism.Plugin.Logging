@@ -36,14 +36,14 @@ namespace Prism.Logging.Sockets
             {
                 return await SendMessageInternalAsync(message, hostOrIp, port);
             }
-            catch(SocketException se)
+            catch (SocketException se)
             {
                 Console.WriteLine(se);
                 Console.WriteLine(message);
                 return false;
             }
 #if DEBUG
-            catch(System.Exception e)
+            catch (System.Exception e)
             {
                 Debug.WriteLine(e);
                 return false;
@@ -57,7 +57,7 @@ namespace Prism.Logging.Sockets
 
             if (endpoint == null)
             {
-                
+
                 return false;
             }
 
@@ -69,7 +69,7 @@ namespace Prism.Logging.Sockets
                 return false;
             }
 
-            while(logs.Any())
+            while (logs.Any())
             {
                 var log = logs.Dequeue();
                 var data = log.GetBytes();
@@ -101,7 +101,7 @@ namespace Prism.Logging.Sockets
                 if (!socket.Connected)
                     return false;
 
-                while(logs.Any())
+                while (logs.Any())
                 {
                     var log = logs.Dequeue();
                     var data = log.GetBytes();
@@ -117,13 +117,13 @@ namespace Prism.Logging.Sockets
                 }
                 return true;
             }
-            catch(NotSupportedException nse)
+            catch (NotSupportedException nse)
             {
                 Console.WriteLine(nse);
                 Console.WriteLine(message);
                 return false;
             }
-            catch(SocketException se)
+            catch (SocketException se)
             {
                 Console.WriteLine(se);
                 Console.WriteLine(message);
@@ -147,29 +147,29 @@ namespace Prism.Logging.Sockets
                     (EndPoint)new DnsEndPoint(hostOrIp, port);
         }
 
-        protected static byte[] EncodeMessage(string message) => 
+        protected static byte[] EncodeMessage(string message) =>
             Encoding.UTF8.GetBytes(message);
 
-        protected static int GetEncodedSize(string message) => 
+        protected static int GetEncodedSize(string message) =>
             EncodeMessage(message)?.Length ?? 0;
 
         internal protected static IEnumerable<string> Chunkify(string prefix, string message)
         {
-            if(GetEncodedSize($"{prefix}{message}") <= MaxBufferSize)
+            if (GetEncodedSize($"{prefix}{message}") <= MaxBufferSize)
             {
-                return new string[] { $"{prefix}{message}"};
+                return new string[] { $"{prefix}{message}" };
             }
 
             var prefixSize = GetEncodedSize(prefix);
             var messageSize = GetEncodedSize(message);
-            int chunkSize = (int)(messageSize/((double)MaxBufferSize - prefixSize));
+            int chunkSize = (int)(messageSize / ((double)MaxBufferSize - prefixSize));
 
             return message.Chunkify(chunkSize);
         }
 
         internal static void SaveCache(Queue<LogMessage> queue)
         {
-            lock(lockObject)
+            lock (lockObject)
             {
                 var cacheFile = new FileInfo(LogCacheFile);
 
@@ -183,7 +183,7 @@ namespace Prism.Logging.Sockets
 
         internal static Queue<LogMessage> ReadCache()
         {
-            lock(lockObject)
+            lock (lockObject)
             {
                 var cacheFile = new FileInfo(LogCacheFile);
                 if (!cacheFile.Exists)
@@ -210,7 +210,7 @@ namespace Prism.Logging.Sockets
             var cacheFile = new FileInfo(LogCacheFile);
             Queue<LogMessage> cache = cacheFile.Exists ? ReadCache() : new Queue<LogMessage>();
 
-            if(currentMessage != null)
+            if (currentMessage != null)
             {
                 if (!(currentMessage is LogMessage currentLogMessage))
                 {

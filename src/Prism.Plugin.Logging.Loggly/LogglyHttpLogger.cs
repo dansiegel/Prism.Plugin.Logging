@@ -32,7 +32,7 @@ namespace Prism.Logging.Loggly
         protected virtual string Tags(string category)
         {
             var tags = DefaultTags();
-            if(!string.IsNullOrWhiteSpace(category))
+            if (!string.IsNullOrWhiteSpace(category))
             {
                 tags.Add(category);
             }
@@ -47,7 +47,7 @@ namespace Prism.Logging.Loggly
 
         public virtual void Log(string message, IDictionary<string, string> properties)
         {
-            if(properties is null)
+            if (properties is null)
             {
                 properties = new Dictionary<string, string>();
             }
@@ -86,7 +86,7 @@ namespace Prism.Logging.Loggly
                 return category;
             }
 
-            if(properties.Keys.Contains("category"))
+            if (properties.Keys.Contains("category"))
             {
                 category = properties["category"];
                 properties.Remove("category");
@@ -97,7 +97,7 @@ namespace Prism.Logging.Loggly
 
         public virtual void TrackEvent(string name, IDictionary<string, string> properties)
         {
-            if(!properties.Keys.Any(x => x.Equals("Category", StringComparison.InvariantCultureIgnoreCase)))
+            if (!properties.Keys.Any(x => x.Equals("Category", StringComparison.InvariantCultureIgnoreCase)))
             {
                 properties.Add("Category", "TrackedEvent");
             }

@@ -61,7 +61,7 @@ namespace SampleApp.Collections
         {
             var result = _collection.Remove(key);
 
-            if(result)
+            if (result)
             {
                 CollectionChanged(this, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Remove));
                 PropertyChanged(this, new PropertyChangedEventArgs(nameof(Count)));

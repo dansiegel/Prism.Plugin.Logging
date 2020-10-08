@@ -27,7 +27,7 @@ namespace Prism.Logging
         {
             Console.WriteLine(message);
 
-            foreach(var prop in properties ?? new Dictionary<string, string>())
+            foreach (var prop in properties ?? new Dictionary<string, string>())
             {
                 Console.WriteLine($"    {prop.Key}: {prop.Value}");
             }

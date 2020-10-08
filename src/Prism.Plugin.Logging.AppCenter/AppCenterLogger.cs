@@ -13,14 +13,14 @@ namespace Prism.Logging.AppCenter
     {
         private static Assembly StartupAssembly = null;
 
-        public static void Init(object assemblyType) => 
+        public static void Init(object assemblyType) =>
             StartupAssembly = assemblyType.GetType().Assembly;
 
         public AppCenterLogger()
         {
             IsDebug = IsDebugBuild();
 
-            if(!IsDebug)
+            if (!IsDebug)
             {
                 AnalyticsEnabled();
                 CrashesEnabled();
@@ -35,7 +35,7 @@ namespace Prism.Logging.AppCenter
             try
             {
                 var entryAssembly = Assembly.GetEntryAssembly();
-                if(entryAssembly == null)
+                if (entryAssembly == null)
                 {
                     entryAssembly = StartupAssembly;
                 }
@@ -60,7 +60,7 @@ namespace Prism.Logging.AppCenter
 
         public virtual void Log(string message, IDictionary<string, string> properties)
         {
-            if(IsDebug || !analyticsEnabled)
+            if (IsDebug || !analyticsEnabled)
             {
                 DebugLog(message, properties);
                 return;
@@ -92,7 +92,7 @@ namespace Prism.Logging.AppCenter
         private void DebugLog(string message, IDictionary<string, string> properties)
         {
             Trace.WriteLine(message);
-            if(properties != null)
+            if (properties != null)
             {
                 foreach (var prop in properties ?? new Dictionary<string, string>())
                 {

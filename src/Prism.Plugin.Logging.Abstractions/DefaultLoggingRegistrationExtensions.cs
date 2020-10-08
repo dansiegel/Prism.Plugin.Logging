@@ -7,12 +7,13 @@ namespace Prism.Ioc
     {
         public static IContainerRegistry UseAggregateLogger(this IContainerRegistry container)
         {
-            return container.RegisterSingleton<AggregateLogger>(c => {
-                    var logger = new AggregateLogger();
-                    var aggregate = (IAggregateLogger)logger;
-                    aggregate.AddLoggers(c.Resolve<IEnumerable<IAggregableLogger>>());
-                    return logger;
-                })
+            return container.RegisterSingleton<AggregateLogger>(c =>
+            {
+                var logger = new AggregateLogger();
+                var aggregate = (IAggregateLogger)logger;
+                aggregate.AddLoggers(c.Resolve<IEnumerable<IAggregableLogger>>());
+                return logger;
+            })
                 .Register<IAggregateLogger>(c => c.Resolve<AggregateLogger>())
                 .Register<ILogger>(c => c.Resolve<AggregateLogger>())
                 .Register<IAnalyticsService>(c => c.Resolve<AggregateLogger>())

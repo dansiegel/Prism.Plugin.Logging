@@ -6,7 +6,7 @@ namespace Prism.Logging.Loggly
     {
         protected ILogglyOptions _options;
 
-        public LogglySyslogLogger(ILogglyOptions options) 
+        public LogglySyslogLogger(ILogglyOptions options)
             : base(LogglySyslogOptions.Create(options))
         {
             _options = options;

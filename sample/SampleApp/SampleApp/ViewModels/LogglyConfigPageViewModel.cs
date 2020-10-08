@@ -10,7 +10,7 @@ namespace SampleApp.ViewModels
 {
     public class LogglyConfigPageViewModel : ConfigViewModelBase<ILogglyConfig>
     {
-        public LogglyConfigPageViewModel(ILogglyConfig config, IEventAggregator eventAggregator) 
+        public LogglyConfigPageViewModel(ILogglyConfig config, IEventAggregator eventAggregator)
             : base(config, eventAggregator)
         {
             LoggerType = LoggerType.LogglyHttp;

@@ -16,7 +16,7 @@ namespace Prism.Logging.Syslog
             Text = text;
             Timestamp = DateTimeOffset.Now;
         }
-        
+
         public DateTimeOffset Timestamp { get; set; }
 
         public int MessageId { get; set; }
@@ -31,7 +31,7 @@ namespace Prism.Logging.Syslog
 
         public IEnumerable<string> Tags { get; set; }
 
-        protected int Priority => (((int) Facility)*8) + ((int) Level);
+        protected int Priority => (((int)Facility) * 8) + ((int)Level);
 
         public byte[] GetBytes() =>
             Encoding.ASCII.GetBytes(ToString());

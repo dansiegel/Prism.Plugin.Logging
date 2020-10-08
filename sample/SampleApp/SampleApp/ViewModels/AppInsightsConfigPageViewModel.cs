@@ -5,7 +5,7 @@ namespace SampleApp.ViewModels
 {
     public class AppInsightsConfigPageViewModel : ConfigViewModelBase<IAppInsightsConfig>
     {
-        public AppInsightsConfigPageViewModel(IAppInsightsConfig config, IEventAggregator eventAggregator) 
+        public AppInsightsConfigPageViewModel(IAppInsightsConfig config, IEventAggregator eventAggregator)
             : base(config, eventAggregator)
         {
             LoggerType = Events.LoggerType.AppInsights;

@@ -9,12 +9,12 @@ using Xamarin.Forms.Xaml;
 
 namespace SampleApp.Views
 {
-	[XamlCompilation(XamlCompilationOptions.Compile)]
-	public partial class LogglyConfigPage : ContentPage
-	{
-		public LogglyConfigPage ()
-		{
-			InitializeComponent ();
-		}
-	}
+    [XamlCompilation(XamlCompilationOptions.Compile)]
+    public partial class LogglyConfigPage : ContentPage
+    {
+        public LogglyConfigPage()
+        {
+            InitializeComponent();
+        }
+    }
 }
