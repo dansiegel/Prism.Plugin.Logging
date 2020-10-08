@@ -9,12 +9,12 @@ using Xamarin.Forms.Xaml;
 
 namespace SampleApp.Views
 {
-	[XamlCompilation(XamlCompilationOptions.Compile)]
-	public partial class AppInsightsConfigPage : ContentPage
-	{
-		public AppInsightsConfigPage ()
-		{
-			InitializeComponent ();
-		}
-	}
+    [XamlCompilation(XamlCompilationOptions.Compile)]
+    public partial class AppInsightsConfigPage : ContentPage
+    {
+        public AppInsightsConfigPage()
+        {
+            InitializeComponent();
+        }
+    }
 }

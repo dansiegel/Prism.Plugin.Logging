@@ -16,11 +16,11 @@ namespace LoggingDemo
         static void Main(string[] args)
         {
             var logger = GetLogger();
-            while(Continue)
+            while (Continue)
             {
                 Console.Clear();
                 string message = ConsoleUtility.Question("Enter a test message, or type 'quit' to exit:");
-                if(message.Equals("quit", StringComparison.OrdinalIgnoreCase))
+                if (message.Equals("quit", StringComparison.OrdinalIgnoreCase))
                 {
                     break;
                 }
@@ -32,7 +32,7 @@ namespace LoggingDemo
 
         private static ILogger GetLogger()
         {
-            switch(ConsoleUtility.Option("Which Logger would you like to use?", Generic, LogglySyslog, LogglyHttp, "Quit"))
+            switch (ConsoleUtility.Option("Which Logger would you like to use?", Generic, LogglySyslog, LogglyHttp, "Quit"))
             {
                 case Generic:
                     var genOptions = new Options

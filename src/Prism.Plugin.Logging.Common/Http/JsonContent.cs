@@ -7,7 +7,7 @@ namespace Prism.Logging.Http
 {
     internal class JsonContent : ByteArrayContent
     {
-        public JsonContent(object message, Encoding encoding = null) 
+        public JsonContent(object message, Encoding encoding = null)
             : base(GetByteArray(message, encoding))
         {
             Headers.ContentType = new MediaTypeHeaderValue("application/json")

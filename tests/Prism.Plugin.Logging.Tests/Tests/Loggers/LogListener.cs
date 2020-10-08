@@ -46,7 +46,7 @@ namespace Prism.Plugin.Logging.Tests.Loggers
                         }
                     }
                 }
-                catch(SocketException se)
+                catch (SocketException se)
                 {
                     if (se.SocketErrorCode == SocketError.Interrupted)
                         return;
@@ -68,7 +68,7 @@ namespace Prism.Plugin.Logging.Tests.Loggers
 
         public void StopListener()
         {
-            if(_listener.Client.Connected)
+            if (_listener.Client.Connected)
                 _listener.Close();
 
             IsListening = false;

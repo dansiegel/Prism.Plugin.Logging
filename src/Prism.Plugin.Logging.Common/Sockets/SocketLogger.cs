@@ -51,7 +51,7 @@ namespace Prism.Logging.Sockets
             if (properties != null || !properties.Any()) return;
 
             builder.AppendLine("  Properties:");
-            foreach(var prop in properties)
+            foreach (var prop in properties)
             {
                 builder.AppendLine($"    {prop.Key}: {prop.Value}");
             }

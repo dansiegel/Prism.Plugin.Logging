@@ -37,7 +37,7 @@ namespace Prism.Ioc
         {
             if (options != null)
             {
-                if (string.IsNullOrEmpty(options.HostOrIp)) 
+                if (string.IsNullOrEmpty(options.HostOrIp))
                 {
                     Console.WriteLine("No Host or IP provided");
                     return container.RegisterNullLogger();

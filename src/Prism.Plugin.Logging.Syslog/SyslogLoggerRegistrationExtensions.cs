@@ -41,7 +41,7 @@ namespace Prism.Ioc
 
         private static IContainerRegistry RegisterInternal(IContainerRegistry container, ISyslogOptions options = null)
         {
-            if(options != null)
+            if (options != null)
                 container.RegisterInstance<ISyslogOptions>(options);
 
             if (container.IsRegistered<IAggregateLogger>())

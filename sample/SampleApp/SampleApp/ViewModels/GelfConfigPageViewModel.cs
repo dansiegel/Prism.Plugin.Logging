@@ -8,7 +8,7 @@ namespace SampleApp.ViewModels
 {
     public class GelfConfigPageViewModel : ConfigViewModelBase<IGelfConfig>
     {
-        public GelfConfigPageViewModel(IGelfConfig config, IEventAggregator eventAggregator) 
+        public GelfConfigPageViewModel(IGelfConfig config, IEventAggregator eventAggregator)
             : base(config, eventAggregator)
         {
             LoggerType = Events.LoggerType.Graylog;

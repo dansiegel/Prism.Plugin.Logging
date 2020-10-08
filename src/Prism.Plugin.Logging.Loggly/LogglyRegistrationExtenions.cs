@@ -65,7 +65,7 @@ namespace Prism.Ioc
         private static IContainerRegistry RegisterInternal<T>(IContainerRegistry container, ILogglyOptions options = null)
             where T : IAggregableLogger
         {
-            if(options != null)
+            if (options != null)
             {
                 if (string.IsNullOrEmpty(options.Token))
                 {

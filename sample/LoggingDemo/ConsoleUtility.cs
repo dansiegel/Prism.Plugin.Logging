@@ -9,16 +9,16 @@ namespace LoggingDemo
 
         public static string Option(string question, params string[] options)
         {
-            if(options == null || options.Length == 0) return UNKNOWN;
+            if (options == null || options.Length == 0) return UNKNOWN;
 
             WriteLine(question);
-            for(int i = 1; i <= options.Length; i++)
+            for (int i = 1; i <= options.Length; i++)
             {
-                WriteLine($"{i}) {options[i-1]}");
+                WriteLine($"{i}) {options[i - 1]}");
             }
             WriteLine();
             WriteLine("Select the number of the option you wish to choose...");
-            if(int.TryParse(ReadLine(), out int result) && result <= options.Length)
+            if (int.TryParse(ReadLine(), out int result) && result <= options.Length)
             {
                 return options[result - 1];
             }

@@ -23,9 +23,9 @@ namespace Prism.Logging.Graylog
 
         public GelfMessage(IDictionary<string, string> properties)
         {
-            if(properties != null)
+            if (properties != null)
             {
-                foreach(var prop in properties)
+                foreach (var prop in properties)
                 {
                     Add(prop.Key, prop.Value);
                 }
@@ -94,10 +94,10 @@ namespace Prism.Logging.Graylog
             set => StoreValue(VersionKey, value);
         }
 
-        public byte[] GetBytes() => 
+        public byte[] GetBytes() =>
             Encoding.ASCII.GetBytes(ToString());
 
-        private string PullStringValue(string key) => 
+        private string PullStringValue(string key) =>
             ContainsKey(key) ? this[key].ToString() : string.Empty;
 
         private void StoreValue(string key, object value)

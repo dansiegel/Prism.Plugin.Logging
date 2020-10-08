@@ -89,7 +89,7 @@ namespace Prism.Logging
         private static IDictionary<string, string> GetProperties((string key, string message)[] properties)
         {
             var dict = new Dictionary<string, string>();
-            foreach(var (key, message) in properties)
+            foreach (var (key, message) in properties)
             {
                 dict.Add(key, message);
             }

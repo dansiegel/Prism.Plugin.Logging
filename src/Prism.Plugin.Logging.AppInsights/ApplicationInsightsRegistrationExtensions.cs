@@ -28,7 +28,7 @@ namespace Prism.Ioc
             return RegisterInternal(container, options);
         }
 
-        public static IContainerRegistry RegisterAppInsightsLogger(this IContainerRegistry container, string instrumentationKey, IDictionary<string, string> userTraits = null) => 
+        public static IContainerRegistry RegisterAppInsightsLogger(this IContainerRegistry container, string instrumentationKey, IDictionary<string, string> userTraits = null) =>
             RegisterInternal(container, new ApplicationInsightsOptions
             {
                 InstrumentationKey = instrumentationKey,

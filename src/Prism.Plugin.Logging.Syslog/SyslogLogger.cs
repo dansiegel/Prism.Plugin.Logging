@@ -45,14 +45,14 @@ namespace Prism.Logging.Syslog
 
         protected virtual string GetLocalIP()
         {
-            if(string.IsNullOrEmpty(LocalHostName))
+            if (string.IsNullOrEmpty(LocalHostName))
             {
                 var addressTask = Dns.GetHostAddressesAsync(Dns.GetHostName());
                 addressTask.Wait();
 
-                foreach(var ip in addressTask.Result)
+                foreach (var ip in addressTask.Result)
                 {
-                    if(ip.AddressFamily == AddressFamily.InterNetwork)
+                    if (ip.AddressFamily == AddressFamily.InterNetwork)
                     {
                         LocalHostName = ip.ToString();
                     }
@@ -64,7 +64,7 @@ namespace Prism.Logging.Syslog
 
         private string ValueOrDefault(string value, string defaultValue)
         {
-            if(string.IsNullOrEmpty(value))
+            if (string.IsNullOrEmpty(value))
                 return defaultValue;
 
             return value;
@@ -73,18 +73,18 @@ namespace Prism.Logging.Syslog
         protected IEnumerable<string> Chunkify(SyslogMessage baseMessage, string text) =>
             Chunkify(baseMessage.ToString(), text);
 
-        protected bool SendMessage(SyslogMessage message) => 
+        protected bool SendMessage(SyslogMessage message) =>
             SendMessage(message, HostNameOrIp, Port);
 
         public virtual void Log(string message, IDictionary<string, string> properties)
         {
             if (properties is null) properties = new Dictionary<string, string>();
 
-            if(properties.ContainsKey(nameof(Level)) && Enum.TryParse(properties[nameof(Level)], out Level level))
+            if (properties.ContainsKey(nameof(Level)) && Enum.TryParse(properties[nameof(Level)], out Level level))
             {
                 properties.Remove(nameof(Level));
             }
-            else if(properties.ContainsKey("Category") && Enum.TryParse(properties["Category"], out level))
+            else if (properties.ContainsKey("Category") && Enum.TryParse(properties["Category"], out level))
             {
                 properties.Remove("Category");
             }
@@ -93,7 +93,7 @@ namespace Prism.Logging.Syslog
                 level = Level.Debug;
             }
 
-            if(properties.ContainsKey(nameof(Facility)) && Enum.TryParse(properties[nameof(Facility)], out Facility facility))
+            if (properties.ContainsKey(nameof(Facility)) && Enum.TryParse(properties[nameof(Facility)], out Facility facility))
             {
                 properties.Remove(nameof(Facility));
             }
@@ -113,12 +113,12 @@ namespace Prism.Logging.Syslog
 
         public virtual void Report(Exception ex, IDictionary<string, string> properties)
         {
-            if(properties is null)
+            if (properties is null)
             {
                 properties = new Dictionary<string, string>();
             }
 
-            if(!properties.ContainsKey("Category") && !properties.ContainsKey(nameof(Level)))
+            if (!properties.ContainsKey("Category") && !properties.ContainsKey(nameof(Level)))
             {
                 properties.Add(nameof(Level), $"{Level.Error}");
             }

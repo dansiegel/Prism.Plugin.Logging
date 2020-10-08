@@ -18,7 +18,7 @@ namespace Prism.Plugin.Logging.Tests.Registration
 
             mockContainer.Verify(c => c.RegisterInstance(typeof(ISocketLoggerOptions), It.IsAny<SocketLoggerOptions>()));
 
-            mockContainer.Verify(c => c.RegisterManySingleton(typeof(SocketLogger), 
+            mockContainer.Verify(c => c.RegisterManySingleton(typeof(SocketLogger),
                 typeof(IAnalyticsService),
                 typeof(ICrashesService),
                 typeof(ILogger),

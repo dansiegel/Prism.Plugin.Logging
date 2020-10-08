@@ -24,12 +24,12 @@ namespace Prism.Logging.AppInsights
 
         public AppInsightsLogger(IApplicationInsightsOptions options)
         {
-            if(!IsDebugBuild())
+            if (!IsDebugBuild())
             {
                 _options = options;
                 Startup();
             }
-            
+
         }
 
         private bool IsDebugBuild()
@@ -44,7 +44,7 @@ namespace Prism.Logging.AppInsights
 
                 return IsDebugAssembly(entryAssembly);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 Trace.WriteLine(ex);
                 return false;
@@ -89,10 +89,10 @@ namespace Prism.Logging.AppInsights
 
                 _telemetry.Context.GlobalProperties["language"] = Thread.CurrentThread.CurrentCulture.Name;
                 _telemetry.Context.GlobalProperties["user"] = user;
-                
-                if(_options.UserTraits != null)
+
+                if (_options.UserTraits != null)
                 {
-                    foreach(var trait in _options.UserTraits)
+                    foreach (var trait in _options.UserTraits)
                     {
                         _telemetry.Context.GlobalProperties[trait.Key] = trait.Value;
                     }
@@ -158,7 +158,7 @@ namespace Prism.Logging.AppInsights
 
         public virtual void Log(string message, IDictionary<string, string> properties)
         {
-            if(_telemetry == null)
+            if (_telemetry == null)
             {
                 DebugLog(message, properties);
                 return;
@@ -178,7 +178,7 @@ namespace Prism.Logging.AppInsights
             _telemetry.TrackException(ex, properties);
         }
 
-        public virtual void TrackEvent(string name, IDictionary<string, string> properties) => 
+        public virtual void TrackEvent(string name, IDictionary<string, string> properties) =>
             Log(name, properties);
     }
 }

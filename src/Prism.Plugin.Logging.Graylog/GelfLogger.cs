@@ -39,7 +39,7 @@ namespace Prism.Logging.Graylog
 
         protected virtual GelfMessage CreateMessage(string shortMessage = null, string fullMessage = null, Level level = Level.Debug, IDictionary<string, string> properties = null)
         {
-            if(properties is null)
+            if (properties is null)
             {
                 properties = new Dictionary<string, string>();
             }

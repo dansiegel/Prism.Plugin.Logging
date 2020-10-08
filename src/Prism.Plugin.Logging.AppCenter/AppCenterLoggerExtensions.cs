@@ -19,7 +19,7 @@ namespace Prism.Ioc
         /// <returns>The <see cref="IContainerRegistry"/>.</returns>
         public static IContainerRegistry RegisterAppCenterLogger(this IContainerRegistry container, string appSecret = null, params Type[] appCenterServices)
         {
-            if(!AppCenter.Configured)
+            if (!AppCenter.Configured)
             {
                 var services = new List<Type>
                 {
@@ -27,7 +27,7 @@ namespace Prism.Ioc
                     typeof(Crashes)
                 };
 
-                foreach(var service in appCenterServices)
+                foreach (var service in appCenterServices)
                 {
                     if (!services.Contains(service))
                         services.Add(service);
