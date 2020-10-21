@@ -11,12 +11,10 @@ try {
     $nupkg.Name -match '^(.*?)\.((?:\.?[0-9]+){3,}(?:[-a-z]+)?)\.nupkg$'
 
     $VersionName = $Matches[2]
-    $IsPreview = $VersionName -match '-pre$'
+    $IsPreview = $VersionName -match '-beta$'
     $ReleaseDisplayName = $VersionName
 
-    if($null -eq $env:IS_PREVIEW) {
-        Write-Output ("##vso[task.setvariable variable=IS_PREVIEW;]$IsPreview")
-    }
+    Write-Output ("##vso[task.setvariable variable=IS_PREVIEW;]$IsPreview")
 
     if($true -eq $IsPreview) {
         $ReleaseDisplayName = "$VersionName - Preview"

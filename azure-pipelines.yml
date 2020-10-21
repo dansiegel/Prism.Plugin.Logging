@@ -93,7 +93,7 @@ stages:
 
 - stage: deploy
   displayName: Deploy to CI Feeds
-  condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
+  condition: and(succeeded(), or(eq(variables['Build.SourceBranch'], 'refs/heads/master'), eq(variables['Build.SourceBranch'], 'refs/heads/rel')))
   jobs:
   - deployment: SponsorConnect
     displayName: Sponsor Connect
@@ -113,7 +113,7 @@ stages:
   - deployment: NuGet
     displayName: NuGet.org
     environment: NuGet
-    condition: and(succeeded(), eq(variables['IS_RELEASE'], true))
+    condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/rel'))
     strategy:
       runOnce:
         deploy:
@@ -121,7 +121,7 @@ stages:
           - checkout: self
             displayName: Get Build Resources
 
-          - powershell: build/Process-Artifacts.ps1
+          - powershell: build/Process-Release.ps1
             displayName: Process Artifacts for Release
 
           - task: GithubRelease@0
