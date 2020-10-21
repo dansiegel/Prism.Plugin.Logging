@@ -110,10 +110,13 @@ stages:
               nuGetFeedType: external
               publishFeedCredentials: 'SponsorConnect'
 
+- stage: deployProd
+  displayName: 'Deploy to NuGet.org'
+  condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/rel'))
+  jobs:
   - deployment: NuGet
     displayName: NuGet.org
     environment: NuGet
-    condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/rel'))
     strategy:
       runOnce:
         deploy:
