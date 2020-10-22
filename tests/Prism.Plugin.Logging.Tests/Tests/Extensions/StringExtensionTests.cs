@@ -1,6 +1,6 @@
-﻿using Xunit;
+﻿using System.Linq;
 using Prism.Logging.Extensions;
-using System.Linq;
+using Xunit;
 
 namespace Prism.Plugin.Logging.Tests.Extensions
 {

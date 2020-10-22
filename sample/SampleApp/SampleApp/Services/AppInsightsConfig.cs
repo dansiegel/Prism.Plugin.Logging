@@ -1,7 +1,7 @@
-﻿using Prism.Logging.AppInsights;
+﻿using System.Collections.Generic;
+using Prism.Logging.AppInsights;
 using Prism.Mvvm;
 using SampleApp.Collections;
-using System.Collections.Generic;
 
 namespace SampleApp.Services
 {
