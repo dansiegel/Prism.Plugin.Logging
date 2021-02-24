@@ -83,7 +83,7 @@ namespace Prism.Logging.Sockets
                     data = data.SubArray(socket.SendBufferSize);
                 }
 
-                await socket.SendToAsync(data.ToArraySegment(), SocketFlags.None, endpoint);
+                await socket.SendAsync(data.ToArraySegment(), SocketFlags.None);
                 SaveCache(logs);
             }
 
@@ -112,7 +112,7 @@ namespace Prism.Logging.Sockets
                         data = data.SubArray(socket.SendBufferSize);
                     }
 
-                    socket.SendTo(data, endpoint);
+                    socket.Send(data);
                     SaveCache(logs);
                 }
                 return true;
