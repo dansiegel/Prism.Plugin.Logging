@@ -10,17 +10,20 @@ repo_url: https://github.com/dansiegel/Prism.Plugin.Logging
 edit_uri: ''
 
 # Copyright
-copyright: 'Copyright &copy; 2016 - 2019 Dan Siegel'
+copyright: 'Copyright &copy; 2016 - 2021 Dan Siegel'
 
 # Configuration
 theme:
   name: 'material'
   custom_dir: 'theme'
+  icon:
+    repo: fontawesome/brands/github
   logo: assets/prism-logo.png
   favicon: assets/favicon.ico
   language: en
-  feature:
-    tabs: true
+  features:
+    - navigation.tabs
+    - navigation.tabs.sticky
   palette:
     primary: 'white'
     accent: 'cyan'
@@ -68,4 +71,6 @@ nav:
   - Mobile.BuildTools:
     - Mobile.BuildTools: http://mobilebuildtools.com
 
-google_analytics: ['UA-153405647-2', 'Prism.Plugin.Logging']
+google_analytics:
+  - UA-153405647-2
+  - auto
