@@ -19,7 +19,7 @@ pr:
     - .editorconfig
     - .gitignore
 
-name: $(Build.BuildId)
+name: 8.1.$(Build.BuildId)
 
 variables:
 - name: VMImage
