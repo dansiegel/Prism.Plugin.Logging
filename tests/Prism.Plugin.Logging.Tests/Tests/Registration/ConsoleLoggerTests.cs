@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Microsoft.Extensions.DependencyInjection;
 using Moq;
 using Prism.Ioc;
 using Prism.Logging;
@@ -20,6 +21,37 @@ namespace Prism.Plugin.Logging.Tests.Registration
                 typeof(ICrashesService),
                 typeof(ILogger),
                 typeof(IAggregableLogger)));
+        }
+
+        [Fact]
+        public void ServiceCollectionAddsConsoleLogger()
+        {
+            var services = new ServiceCollection();
+            services.AddConsoleLogger();
+
+            Assert.Contains(services, s =>
+                s.Lifetime == ServiceLifetime.Singleton &&
+                s.ImplementationType == typeof(ConsoleLoggingService));
+
+            Assert.Contains(services, s =>
+                s.Lifetime == ServiceLifetime.Singleton &&
+                s.ServiceType == typeof(IAnalyticsService) &&
+                s.ImplementationFactory != null);
+
+            Assert.Contains(services, s =>
+                s.Lifetime == ServiceLifetime.Singleton &&
+                s.ServiceType == typeof(ICrashesService) &&
+                s.ImplementationFactory != null);
+
+            Assert.Contains(services, s =>
+                s.Lifetime == ServiceLifetime.Singleton &&
+                s.ServiceType == typeof(ILogger) &&
+                s.ImplementationFactory != null);
+
+            Assert.Contains(services, s =>
+                s.Lifetime == ServiceLifetime.Singleton &&
+                s.ServiceType == typeof(IAggregableLogger) &&
+                s.ImplementationFactory != null);
         }
 
         [Fact]

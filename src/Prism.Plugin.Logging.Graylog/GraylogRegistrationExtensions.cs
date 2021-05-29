@@ -7,7 +7,7 @@ namespace Prism.Ioc
     public static class GraylogRegistrationExtensions
     {
         public static IContainerRegistry RegisterGraylogLogger<TOptions>(this IContainerRegistry containerRegistry)
-            where TOptions : IGelfOptions
+            where TOptions : class, IGelfOptions
         {
             containerRegistry.RegisterSingleton<IGelfOptions, TOptions>();
             return RegisterInternal(containerRegistry);

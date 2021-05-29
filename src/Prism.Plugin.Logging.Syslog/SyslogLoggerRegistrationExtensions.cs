@@ -12,7 +12,7 @@ namespace Prism.Ioc
         }
 
         public static IContainerRegistry RegisterSyslogLogger<TOptions>(this IContainerRegistry container)
-            where TOptions : ISyslogOptions
+            where TOptions : class, ISyslogOptions
         {
             container.RegisterSingleton<ISyslogOptions, TOptions>();
             return RegisterInternal(container);
