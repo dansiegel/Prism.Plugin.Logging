@@ -7,7 +7,7 @@ namespace Prism.Ioc
     public static class LogglyRegistrationExtenions
     {
         public static IContainerRegistry RegisterLogglyHttpLogger<TOptions>(this IContainerRegistry container)
-            where TOptions : ILogglyOptions
+            where TOptions : class, ILogglyOptions
         {
             container.RegisterSingleton<ILogglyOptions, TOptions>();
             return RegisterInternal<LogglyHttpLogger>(container);
@@ -35,7 +35,7 @@ namespace Prism.Ioc
         }
 
         public static IContainerRegistry RegisterLogglySyslogLogger<TOptions>(this IContainerRegistry container)
-            where TOptions : ILogglyOptions
+            where TOptions : class, ILogglyOptions
         {
             container.RegisterSingleton<ILogglyOptions, TOptions>();
             return RegisterInternal<LogglySyslogLogger>(container);
@@ -63,7 +63,7 @@ namespace Prism.Ioc
         }
 
         private static IContainerRegistry RegisterInternal<T>(IContainerRegistry container, ILogglyOptions options = null)
-            where T : IAggregableLogger
+            where T : class, IAggregableLogger
         {
             if (options != null)
             {

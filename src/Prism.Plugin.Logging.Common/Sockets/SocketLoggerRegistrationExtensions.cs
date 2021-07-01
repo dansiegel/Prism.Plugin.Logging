@@ -7,11 +7,11 @@ namespace Prism.Ioc
 {
     public static class SocketLoggerRegistrationExtensions
     {
-        public static IContainerRegistry RegisterSocketLogger<TOptions>(this IContainerRegistry containerRegistry)
-            where TOptions : ISocketLoggerOptions
+        public static IContainerRegistry RegisterSocketLogger<TOptions>(this IContainerRegistry container)
+            where TOptions : class, ISocketLoggerOptions
         {
-            containerRegistry.RegisterSingleton<ISocketLoggerOptions, TOptions>();
-            return RegisterInternal(containerRegistry);
+            container.RegisterSingleton<ISocketLoggerOptions, TOptions>();
+            return RegisterInternal(container);
         }
 
         public static IContainerRegistry RegisterSocketLogger(this IContainerRegistry container, Action<SocketLoggerOptions> configureOptions)
