@@ -38,8 +38,7 @@ namespace Prism.Logging.Syslog
         }
 
         protected virtual SyslogMessage GetSyslogMessage(string message, Level level, Facility facility) =>
-            new SyslogMessage(facility, level, message)
-            {
+            new SyslogMessage(facility, level, message) {
                 AppName = AppNameOrTag
             };
 
@@ -104,8 +103,7 @@ namespace Prism.Logging.Syslog
 
             var props = properties?.Select(prop => $"\n    {prop.Key} - {prop.Value}") ?? Array.Empty<string>();
 
-            var syslog = new SyslogMessage(facility, level, $"{message}\nProperties{string.Join("", props)}")
-            {
+            var syslog = new SyslogMessage(facility, level, $"{message}\nProperties{string.Join("", props)}") {
                 AppName = AppNameOrTag
             };
             SendMessage(syslog);

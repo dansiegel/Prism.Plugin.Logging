@@ -55,8 +55,7 @@ namespace Prism.Logging.Graylog
                 properties.Remove("Category");
             }
 
-            return new GelfMessage(properties)
-            {
+            return new GelfMessage(properties) {
                 Host = Environment.MachineName,
                 Level = (long)level,
                 ShortMessage = shortMessage,

@@ -17,7 +17,7 @@ namespace Prism.Logging.Internals
             where T : class
         {
             services.AddSingleton<T>();
-            foreach(var type in serviceTypes)
+            foreach (var type in serviceTypes)
             {
                 services.AddSingleton(type, sp => sp.GetRequiredService<T>());
             }

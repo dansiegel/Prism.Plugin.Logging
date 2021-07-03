@@ -1,6 +1,6 @@
-﻿using Prism.Logging.Graylog;
+﻿using System;
+using Prism.Logging.Graylog;
 using Prism.Mvvm;
-using System;
 
 namespace SampleApp.Services
 {

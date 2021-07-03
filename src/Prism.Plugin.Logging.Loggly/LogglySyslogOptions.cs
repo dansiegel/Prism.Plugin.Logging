@@ -12,8 +12,7 @@ namespace Prism.Logging.Loggly
         public string AppNameOrTag { get; private set; }
 
         public static ISyslogOptions Create(ILogglyOptions options) =>
-            new LogglySyslogOptions()
-            {
+            new LogglySyslogOptions() {
                 AppNameOrTag = options.AppName
             };
     }

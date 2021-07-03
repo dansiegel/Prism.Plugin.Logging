@@ -1,7 +1,7 @@
-﻿using Prism.Logging.Loggly;
-using Prism.Mvvm;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using Prism.Logging.Loggly;
+using Prism.Mvvm;
 
 namespace SampleApp.Services
 {

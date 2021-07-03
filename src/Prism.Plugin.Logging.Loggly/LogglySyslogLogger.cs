@@ -13,8 +13,7 @@ namespace Prism.Logging.Loggly
         }
 
         protected override SyslogMessage GetSyslogMessage(string message, Level level, Facility facility) =>
-            new LogglySyslogMessage(facility, level, message)
-            {
+            new LogglySyslogMessage(facility, level, message) {
                 AppName = _options.AppName,
                 Token = _options.Token
             };

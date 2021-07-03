@@ -121,8 +121,7 @@ namespace Prism.Plugin.Logging.Tests.Loggers
 
         private ISyslogLogger CreateLogger(int port, string hostOrIp = null)
         {
-            var options = new SyslogOptions
-            {
+            var options = new SyslogOptions {
                 AppNameOrTag = "UnitTests",
                 HostNameOrIp = hostOrIp ?? IPAddress.Loopback.ToString(),
                 Port = port

@@ -18,8 +18,7 @@ namespace Prism.Logging.Sockets
     public class SocketMessenger : ISocketMessenger
     {
         private static readonly object lockObject = new object();
-        private static readonly JsonSerializerOptions Options = new JsonSerializerOptions
-        {
+        private static readonly JsonSerializerOptions Options = new JsonSerializerOptions {
             WriteIndented = true
         };
 
@@ -214,8 +213,7 @@ namespace Prism.Logging.Sockets
             {
                 if (!(currentMessage is LogMessage currentLogMessage))
                 {
-                    currentLogMessage = new LogMessage
-                    {
+                    currentLogMessage = new LogMessage {
                         Message = Encoding.Default.GetString(currentMessage.GetBytes()),
                         MessageType = currentMessage.GetType().Name
                     };

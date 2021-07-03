@@ -1,12 +1,12 @@
-﻿using Prism.Commands;
-using Prism.Logging;
-using Prism.Mvvm;
-using SampleApp.Collections;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using DryIoc;
-using Prism.Navigation;
+using Prism.Commands;
 using Prism.Events;
+using Prism.Logging;
+using Prism.Mvvm;
+using Prism.Navigation;
+using SampleApp.Collections;
 using SampleApp.Events;
 
 namespace SampleApp.ViewModels

@@ -26,8 +26,7 @@ namespace Prism.Ioc
 
         public static IContainerRegistry RegisterLogglyHttpLogger(this IContainerRegistry container, string token, string appName, params string[] tags)
         {
-            return RegisterInternal<LogglyHttpLogger>(container, new LogglyOptions
-            {
+            return RegisterInternal<LogglyHttpLogger>(container, new LogglyOptions {
                 AppName = appName,
                 Token = token,
                 Tags = tags
@@ -54,8 +53,7 @@ namespace Prism.Ioc
 
         public static IContainerRegistry RegisterLogglySyslogLogger(this IContainerRegistry container, string token, string appName, params string[] tags)
         {
-            return RegisterInternal<LogglySyslogLogger>(container, new LogglyOptions
-            {
+            return RegisterInternal<LogglySyslogLogger>(container, new LogglyOptions {
                 AppName = appName,
                 Token = token,
                 Tags = tags

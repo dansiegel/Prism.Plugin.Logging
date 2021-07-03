@@ -19,8 +19,7 @@ namespace Prism.Ioc
             if (configureOptions is null)
                 throw new ArgumentNullException("You must provide a delegate function to configure the Application Insights Options for the AppInsightsLogger");
 
-            var options = new ApplicationInsightsOptions
-            {
+            var options = new ApplicationInsightsOptions {
                 UserTraits = new Dictionary<string, string>()
             };
             configureOptions(options);
@@ -29,8 +28,7 @@ namespace Prism.Ioc
         }
 
         public static IContainerRegistry RegisterAppInsightsLogger(this IContainerRegistry container, string instrumentationKey, IDictionary<string, string> userTraits = null) =>
-            RegisterInternal(container, new ApplicationInsightsOptions
-            {
+            RegisterInternal(container, new ApplicationInsightsOptions {
                 InstrumentationKey = instrumentationKey,
                 UserTraits = userTraits
             });
