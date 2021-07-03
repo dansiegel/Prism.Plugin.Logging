@@ -16,8 +16,7 @@ namespace Prism.Plugin.Logging.Tests.Loggers
         {
             DeleteCache();
             var queue = new Queue<LogMessage>();
-            queue.Enqueue(new LogMessage
-            {
+            queue.Enqueue(new LogMessage {
                 Message = "Hello World",
                 MessageType = "UnitTest"
             });

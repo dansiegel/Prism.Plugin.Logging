@@ -26,8 +26,7 @@ namespace Prism.Ioc
         }
 
         public static IContainerRegistry RegisterSocketLogger(this IContainerRegistry container, string hostOrIp, int port = 4040, ProtocolType protocolType = ProtocolType.Udp) =>
-            RegisterInternal(container, new SocketLoggerOptions
-            {
+            RegisterInternal(container, new SocketLoggerOptions {
                 HostOrIp = hostOrIp,
                 Port = port,
                 ProtocolType = protocolType

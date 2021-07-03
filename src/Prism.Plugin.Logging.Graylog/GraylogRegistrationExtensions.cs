@@ -25,8 +25,7 @@ namespace Prism.Ioc
         }
 
         public static IContainerRegistry RegisterGraylogLogger(this IContainerRegistry container, Uri host) =>
-            RegisterInternal(container, new GelfOptions
-            {
+            RegisterInternal(container, new GelfOptions {
                 Host = host
             });
 

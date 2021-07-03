@@ -1,10 +1,10 @@
-﻿using Prism.Events;
-using SampleApp.Services;
-using SampleApp.Events;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Text;
 using Prism.Commands;
+using Prism.Events;
+using SampleApp.Events;
+using SampleApp.Services;
 
 namespace SampleApp.ViewModels
 {

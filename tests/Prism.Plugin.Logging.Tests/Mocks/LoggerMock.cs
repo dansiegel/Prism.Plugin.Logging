@@ -10,8 +10,7 @@ namespace Prism.Plugin.Logging.Mocks
 
         public void Log(string message, IDictionary<string, string> properties)
         {
-            Sent = new LogMessageMock
-            {
+            Sent = new LogMessageMock {
                 Message = message,
                 Properties = properties
             };
@@ -19,8 +18,7 @@ namespace Prism.Plugin.Logging.Mocks
 
         public void Report(Exception ex, IDictionary<string, string> properties)
         {
-            Sent = new LogMessageMock
-            {
+            Sent = new LogMessageMock {
                 Exception = ex,
                 Properties = properties
             };
@@ -28,8 +26,7 @@ namespace Prism.Plugin.Logging.Mocks
 
         public void TrackEvent(string name, IDictionary<string, string> properties)
         {
-            Sent = new LogMessageMock
-            {
+            Sent = new LogMessageMock {
                 Message = name,
                 Properties = properties
             };
