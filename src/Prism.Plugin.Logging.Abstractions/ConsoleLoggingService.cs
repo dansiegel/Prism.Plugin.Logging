@@ -7,7 +7,7 @@ namespace Prism.Logging
     {
         public void Log(string message, IDictionary<string, string> properties)
         {
-            Console.WriteLine("Logged Message");
+            Console.WriteLine("Logged Message:");
             LogInternal(message, properties);
         }
 
