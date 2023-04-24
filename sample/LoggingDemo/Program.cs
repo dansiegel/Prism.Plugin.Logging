@@ -35,8 +35,7 @@ namespace LoggingDemo
             switch (ConsoleUtility.Option("Which Logger would you like to use?", Generic, LogglySyslog, LogglyHttp, "Quit"))
             {
                 case Generic:
-                    var genOptions = new Options
-                    {
+                    var genOptions = new Options {
                         HostNameOrIp = ConsoleUtility.Question("What is the Host Name or IP of your Syslog Server?"),
                         Port = ConsoleUtility.Question<int>("What is the port your Syslog Server is listening on?"),
                         AppNameOrTag = "LoggingDemo"
@@ -59,8 +58,7 @@ namespace LoggingDemo
         }
 
         private static ILogglyOptions GetLogglyOptions() =>
-            new LogglyOptions
-            {
+            new LogglyOptions {
                 AppName = "LoggingDemo",
                 Token = ConsoleUtility.Question("What is your Loggly Token?")
             };

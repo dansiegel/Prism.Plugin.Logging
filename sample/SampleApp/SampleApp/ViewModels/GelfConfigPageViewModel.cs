@@ -1,8 +1,8 @@
-﻿using Prism.Events;
-using SampleApp.Services;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Prism.Events;
+using SampleApp.Services;
 
 namespace SampleApp.ViewModels
 {

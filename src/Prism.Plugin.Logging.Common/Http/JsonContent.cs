@@ -10,8 +10,7 @@ namespace Prism.Logging.Http
         public JsonContent(object message, Encoding encoding = null)
             : base(GetByteArray(message, encoding))
         {
-            Headers.ContentType = new MediaTypeHeaderValue("application/json")
-            {
+            Headers.ContentType = new MediaTypeHeaderValue("application/json") {
                 CharSet = (encoding ?? Encoding.UTF8).WebName
             };
         }

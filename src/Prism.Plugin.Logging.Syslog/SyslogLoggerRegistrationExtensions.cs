@@ -31,8 +31,7 @@ namespace Prism.Ioc
 
         public static IContainerRegistry RegisterSyslogLogger(this IContainerRegistry container, string hostOrIp, int port = 514, string appName = "PrismApp")
         {
-            return RegisterInternal(container, new SyslogOptions
-            {
+            return RegisterInternal(container, new SyslogOptions {
                 AppNameOrTag = appName,
                 HostNameOrIp = hostOrIp,
                 Port = port
